@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../css/shouye/gongzuotai/workPark.css">
+		<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+		<script src="../../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../../js/shouye/gongzuotai/workPark.js"></script>
+		<title>工作台</title>
+	</head>
+	<body>
+		<div id="container">
+			<!--左上角待办事项列表-->
+			<div id="ThingsWillDo">
+				<!--待办顶部tab切换卡-->
+				<div id="ThingsWillDoTab">
+				    <span class="thingsDoTab1">订单待办<i>(5)</i></span>
+				    <span class="thingsDoTab2">服务待办<i>(5)</i></span>
+				    <span class="thingsDoTab3">委托待办<i>(5)</i></span>
+				    <span class="thingsDoTab4">定制待办<i>(5)</i></span>
+				    <span class="thingsDoTab5">升级待办<i>(5)</i></span>
+			    </div>
+			    <!--待办事项模块模态框-->
+			    <div id="ThingsWillDoMengcheng">
+			    	<i id="ThingsWillDoLoadingImg"></i>
+			    </div>
+			    <div id="TableContainer">
+			    	<!--订单待办表格-->
+				    <table id="TabOneInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5;">倒计时</th>
+								<th style="line-height: 18px;background:#f0f2f5;">订单号</th>
+								<th style="line-height: 18px;background:#f0f2f5;">下单</th>
+								<th style="line-height: 18px;background:#f0f2f5;">账户</th>
+								<th style="line-height: 18px;background:#f0f2f5;">称呼</th>
+								<th style="line-height: 18px;background:#f0f2f5;">服务费</th>
+								<th style="line-height: 18px;background:#f0f2f5;">支付状态</th>
+								<th style="line-height: 18px;background:#f0f2f5;">处理状态</th>
+								<th style="line-height: 18px;background:#f0f2f5;">客服</th>
+								<th style="line-height: 18px;background:#f0f2f5;">顾问</th>
+								<th style="line-height: 18px;background:#f0f2f5;">操作</th>
+							</tr>
+						</thead>
+						<tbody id="DingdanTableBody">
+	                        <!--<tr>
+	                        	<td style="border-left: 1px solid black;">001</td>
+	                        	<td class="a1">30:00</td>
+	                        	<td>476426426426</td>
+	                        	<td>2017-09-09</td>
+	                        	<td>13611786972</td>
+	                        	<td>谢先生</td>
+	                        	<td>500</td>
+	                        	<td>已付款</td>
+	                        	<td>待处理</td>
+	                        	<td>米小宝</td>
+	                        	<td>无</td>
+	                        	<td></td>
+	                        </tr>-->   
+						</tbody>
+				    </table>
+
+				    <!--服务代办表格-->
+				    <table id="TabTwoInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务倒计时</th>
+								<th style="line-height: 18px;background:#f0f2f5">下单</th>
+								<th style="line-height: 18px;background:#f0f2f5">企业名</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务联系人</th>
+								<th style="line-height: 18px;background:#f0f2f5">手机号码</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务名称</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务时长</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务进度</th>
+								<th style="line-height: 18px;background:#f0f2f5">状态</th>
+								<th style="line-height: 18px;background:#f0f2f5">操作</th>
+							</tr>
+						</thead>
+						<tbody id="FuwuTableBody">
+	                        <!--<tr>
+	                        	<td style="border-left: 1px solid black;">001</td>
+	                        	<td class="b1">30:00</td>
+	                        	<td>2017-09-09</td>
+	                        	<td>南京共捷信息</td>
+	                        	<td>李先生</td>
+	                        	<td>13611788888</td>
+	                        	<td>零申报季付</td>
+	                        	<td>201710-201712</td>
+	                        	<td>已支付</td>
+	                        	<td>进行中</td>
+	                        	<td></td>
+	                        </tr>-->
+						</tbody>
+				    </table>
+				    
+				    <!--委托代办表格-->
+				    <table id="TabThreeInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务倒计时</th>
+								<th style="line-height: 18px;background:#f0f2f5">委托时间</th>
+								<th style="line-height: 18px;background:#f0f2f5">称呼</th>
+								<th style="line-height: 18px;background:#f0f2f5">用户账号</th>
+								<th style="line-height: 18px;background:#f0f2f5">委托类型</th>
+								<th style="line-height: 18px;background:#f0f2f5">委托状态</th>
+								<th style="line-height: 18px;background:#f0f2f5">客服姓名</th>
+								<th style="line-height: 18px;background:#f0f2f5">操作</th>
+							</tr>
+						</thead>
+						<tbody id="WeituoTableBody">
+	                        
+						</tbody>
+				    </table>
+				    
+				    <!--定制代办表格-->
+				    <table id="TabFourInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务倒计时</th>
+								<th style="line-height: 18px;background:#f0f2f5">委托时间</th>
+								<th style="line-height: 18px;background:#f0f2f5">称呼</th>
+								<th style="line-height: 18px;background:#f0f2f5">用户账号</th>
+								<th style="line-height: 18px;background:#f0f2f5">企业类型</th>
+								<th style="line-height: 18px;background:#f0f2f5">注册区域</th>
+								<th style="line-height: 18px;background:#f0f2f5">注册地址</th>
+								<th style="line-height: 18px;background:#f0f2f5">加急注册</th>
+								<th style="line-height: 18px;background:#f0f2f5">办理许可证</th>
+								<th style="line-height: 18px;background:#f0f2f5">定制状态</th>
+								<th style="line-height: 18px;background:#f0f2f5">操作</th>
+							</tr>
+						</thead>
+						<tbody id="DingzhiTableBody">
+	                        
+						</tbody>
+				    </table>
+				    
+				    <!--升级代办表格-->
+				    <table id="TabFiveInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务倒计时</th>
+								<th style="line-height: 18px;background:#f0f2f5">委托时间</th>
+								<th style="line-height: 18px;background:#f0f2f5">称呼</th>
+								<th style="line-height: 18px;background:#f0f2f5">用户账号</th>
+								<th style="line-height: 18px;background:#f0f2f5">企业名称</th>
+								<th style="line-height: 18px;background:#f0f2f5">当前服务</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务区域</th>
+								<th style="line-height: 18px;background:#f0f2f5">服务起止月份</th>
+								<th style="line-height: 18px;background:#f0f2f5">升级服务</th>
+								<th style="line-height: 18px;background:#f0f2f5">升级月份</th>
+								<th style="line-height: 18px;background:#f0f2f5">升级状态</th>
+								<th style="line-height: 18px;background:#f0f2f5">操作</th>
+							</tr>
+						</thead>
+						<tbody id="ShengjiTableBody">
+	                        
+						</tbody>
+				    </table>
+				</div>
+				<div id="TabOneSeletPage">
+					<div id="prePage1">上一页</div>
+					<span id="curAndtotalPage1"></span>
+					<div id="nextPage1">下一页</div>
+					<span id="GoidPageSp1">跳转到：</span>
+					<input type="text" id="GoidPageInp1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp2">页</span>
+					<input type="button" id="GoidPageGo1" value="Go" />
+					<div id="clickmore1">更多</div>
+				</div>
+				<div id="TabTwoSeletPage">
+					<div id="prePage2">上一页</div>
+					<span id="curAndtotalPage2"></span>
+					<div id="nextPage2">下一页</div>
+					<span id="GoidPageSp11">跳转到：</span>
+					<input type="text" id="GoidPageInp2" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp22">页</span>
+					<input type="button" id="GoidPageGo2" value="Go" />
+					<div id="clickmore2">更多</div>
+				</div>
+				<div id="TabThreeSeletPage">
+					<div id="prePage3">上一页</div>
+					<span id="curAndtotalPage3"></span>
+					<div id="nextPage3">下一页</div>
+					<span id="GoidPageSp111">跳转到：</span>
+					<input type="text" id="GoidPageInp3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp222">页</span>
+					<input type="button" id="GoidPageGo3" value="Go" />
+					<div id="clickmore3">更多</div>
+				</div>
+				<div id="TabFourSeletPage">
+					<div id="prePage4">上一页</div>
+					<span id="curAndtotalPage4"></span>
+					<div id="nextPage4">下一页</div>
+					<span id="GoidPageSp1111">跳转到：</span>
+					<input type="text" id="GoidPageInp4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp2222">页</span>
+					<input type="button" id="GoidPageGo4" value="Go" />
+					<div id="clickmore4">更多</div>
+				</div>
+				<div id="TabFiveSeletPage">
+					<div id="prePage5">上一页</div>
+					<span id="curAndtotalPage5"></span>
+					<div id="nextPage5">下一页</div>
+					<span id="GoidPageSp11111">跳转到：</span>
+					<input type="text" id="GoidPageInp5" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp22222">页</span>
+					<input type="button" id="GoidPageGo5" value="Go" />
+					<div id="clickmore5">更多</div>
+				</div>
+			</div>
+			<!--右上角查询事项列表-->
+			<div id="ThingsSearch">
+				<!--查询顶部tab切换卡-->
+				<div id="ThingsSearchTab">
+				    <span class="thingsSearchTab1">订单查询</span>
+				    <span class="thingsSearchTab2">服务查询</span>
+				    <span class="thingsSearchTab3">企业查询</span>
+				    <span class="thingsSearchTab4">用户查询</span>
+				    <span class="thingsSearchTab5">物流查询</span>
+			    </div>
+			    <!--右上角查询模块模态框-->
+			    <div id="searchMengcheng">
+			    	<i id="SearchLoadingImg"></i>
+			    </div>
+			    <!--订单查询-->
+				<div id="DingdanSearchContant">
+					<!--订单查询输入框搜索小图标-->
+					<i id="DingdansearchImg" class="fa fa-search"></i>
+					<i id="dingdansearchDel" class="fa fa-close"></i>
+					<input id="dingdansearchInput" type="text" placeholder="请输入订单号Enter" />
+					<span id="DingdanSearchNoData"><i>查询无数据!</i></span>	
+				</div>
+				<!--服务查询-->
+				<div id="FuwuSearchContant">
+					<!--服务查询输入框搜索小图标-->
+					<i id="FuwusearchImg" class="fa fa-search"></i>
+					<i id="fuwusearchDel" class="fa fa-close"></i>
+					<input id="fuwusearchInput" type="text" placeholder="请输入服务号Enter" />
+					<span id="fuwuSearchNoData"><i>查询无此服务!</i></span>	
+				</div>
+				
+				<!--企业查询-->
+				<div id="QiyeSearchContant">
+					<!--企业查询输入框搜索小图标-->
+					<i id="qiyesearchImg" class="fa fa-search"></i>
+					<i id="qiyeusearchDel" class="fa fa-close"></i>
+					<input id="qiyesearchInput" type="text" placeholder="请输入企业名称Enter" />
+					<span id="qiyeSearchNoData"><i>查询无此企业!</i></span>
+					<!--共找到几条企业数据-->
+					<span id="QiyetotalNumber"></span>
+					<!--企业查询内容-->
+					<div id="QiyeNameSearchContent">
+						<!--<p class="qiyelist">
+							<span class="qiyelistName">上海账米网络科技有限公司</span>
+							<span class="qiyelistNum">91310105MA1FW2UP8A</span>
+							<span class="checkqiyejibenmsg">基本信息查看</span>
+							<span class="checkqiyeshuiwumsg">税务信息查看</span>
+							<span class="checkqiyedanganmsg">档案信息查看</span>
+						</p>-->
+					</div>
+				</div>
+				
+				<!--用户查询-->
+				<div id="UserSearchContant">
+					<!--用户查询输入框搜索小图标-->
+					<i id="UsersearchImg" class="fa fa-search"></i>
+					<i id="usersearchDel" class="fa fa-close"></i>
+					<input id="usersearchInput" type="text" placeholder="请输入用户账号信息Enter" />
+					<span id="userSearchNoData"><i>查询无此用户信息!</i></span>	
+					<!--用户信息查询表格-->
+					<div id="UserSearchTableContainer">
+						<table id="UserSearchTable"  border="0" cellspacing="0" cellpadding="0">
+					    	<thead style="background:#f0f2f5">
+								<tr>
+									<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">联系人</th>
+									<th style="line-height: 18px;background:#f0f2f5">账号</th>
+									<th style="line-height: 18px;background:#f0f2f5">企业全称</th>
+									<th style="line-height: 18px;background:#f0f2f5">角色</th>
+									<th style="line-height: 18px;background:#f0f2f5">操作</th>
+								</tr>
+							</thead>
+							<tbody id="UserSearchTableBody">
+		                        <!--<tr>
+		                        	<td style="border-left: 1px solid black;">张三</td>
+		                        	<td>13711786234</td>
+		                        	<td>上海账米网络</td>
+		                        	<td>老板</td>
+		                        	<td style="color: red; cursor: pointer;">查看</td>
+		                        </tr>-->
+							</tbody>
+					    </table>
+					</div>
+				</div>
+				
+				<!--物流查询-->
+				<div id="WuliuSearchContant">
+					<!--物流查询输入框搜索小图标-->
+					<i id="wuliusearchImg" class="fa fa-search"></i>
+					<i id="wuliusearchDel" class="fa fa-close"></i>
+					<input id="wuliusearchInput" type="text" placeholder="请输入物流单号Enter" />
+					<span id="WuliuSearchNoData"><i>查询无此物流信息!</i></span>
+				</div>
+				
+				<!--物流信息弹出窗-->
+				<div id="WuliuMsgAlert">
+					<div class="wuliumsglist">
+						<span class="wuliumsglistTop">物流详情<i style="margin-left: 2%;cursor: pointer;" id="WuliuMsgAlertDel" class="fa fa-times-circle"></i></span>
+						<ul class="wuliumsglistUl">
+							<!--<li>
+								<span class="wuliumsglistTime">2017-12-05 10:54:00</span>
+								<span class="wuliumsglistStatu">顺丰速运 已收取快件</span>
+							</li>
+							<li>
+								<span class="wuliumsglistTime">2017-12-05 16:25:41</span>
+								<span class="wuliumsglistStatu">已签收,感谢使用顺丰,期待再次为您服务</span>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			<!--左下角知识库-->
+			<div id="KnowledgeBase">
+				<!--左下角知识库查询模块模态框-->
+			    <div id="latestMengcheng">
+			    	<i id="LatestLoadingImg"></i>
+			    </div>
+				<!--知识库顶部标题-->
+				<div id="KnowledgeBaseTop">
+				    <span class="KnowledgeBaseTitle">知识库</span>
+			    </div>
+			    <!--知识库底部内容-->
+			    <div id="KnowledgeBaseContant">
+			    	<div id="latestWordContainer">
+				    	<span class="latest">最新:</span>
+				    	<!--<span class="latestWord">购买发票</span>
+				    	<span class="latestWord">报税</span>
+				    	<span class="latestWord">米小宝</span>
+				    	<span class="latestWord">报税</span>
+				    	<span class="latestWord">米小宝</span>-->
+			    	</div>
+			    	<!--知识库搜索框-->
+			    	<div id="KnowledgeBaseSearchContainer">
+			    		<i id="KnowledgeBaseSearchImg" class="fa fa-search"></i>
+					    <i id="KnowledgeBaseSearchDel" class="fa fa-close"></i>
+			    		<input id="KnowledgeBaseSearchIpt" placeholder="请输入关键词">
+			    	</div>
+			    	<!--搜索按钮-->
+			    	<span id="KnowledgeBaseButton"><strong>搜索</strong></span>
+			    	<!--知识分类-->
+			    	<span class="KnowledgeDepart" style="clear:both">知识分类</span>
+			    	<!--左侧第一个选择下拉框-->
+					<select id="KnowledgeXiaLaOne">
+						<!--<option value ="">一级菜单</option>-->
+					</select>
+					<!--左侧第二个选择下拉框-->
+					<select id="KnowledgeXiaLaTwo">
+						<!--<option value ="">二级菜单</option>-->
+					</select>
+					<!--左侧第三个选择下拉框-->
+					<select id="KnowledgeXiaLaThree">
+						<!--<option value ="">三级菜单</option>-->
+					</select>
+					<!--是否选用下拉框参数复选框-->
+					<input type="checkbox" id="Checkboxxiala">
+			    </div>
+				<!--知识库搜索列表-->
+				<div id="ZhishikuList">
+					<div id="ZhishikuListTop">知识库搜索列表<i id="ZhishikuListDel" class="fa fa-close"></i></div>
+					<div id="ZhishikuListBottom">
+						<ul id="ZhishikuListUl">
+						    <!--<li class="ZhishikuListLi">
+						    	<span class="ZhishikuListTitle">这是第二篇文章这是第二篇文章</span>
+						    	<span class="ZhishikuListTagList1">米小宝</span>
+						    	<span class="ZhishikuListTagList2">闪亮</span>
+						    	<span class="ZhishikuListTagList3">登场</span>
+						    	<span class="ZhishikuListAuthor">名字1</span>
+						    	<span class="ZhishikuListReaderNum">阅读量:468</span>
+						    	<span class="ZhishikuListSee" id="">查看</span>
+						    </li>-->
+					    </ul>
+					</div>	
+				</div>
+				<!--知识库搜索列表内容详情-->
+				<div id="ZhishikuListContent">
+					<div id="ZhishikuListContentTop">
+						<i id="ZhishikuListContentDel" class="fa fa-close"></i>
+						<span id="ZhishikuListContentTitle"><strong></strong></span>
+						<span id="ZhishikuListContentLeibie"></span>
+						<span id="ZhishikuListContentAuthor"></span>
+						<span id="ZhishikuListContentTime"></span>
+						<span id="ZhishikuListReadCount"></span>
+						<span id="ZhishikuListContentTagList1"></span>
+						<span id="ZhishikuListContentTagList2"></span>
+						<span id="ZhishikuListContentTagList3"></span>
+					</div>
+					<div id="ZhishikuListContentBottom">
+
+					</div>
+				</div>
+			</div>
+			<!--右下角最新政策、账米资讯-->
+			<div id="PolicyAndMsg">
+				<!--右下角最新政策、账米资讯模块模态框-->
+			    <div id="PolicyAndMsgMengcheng">
+			    	<i id="PolicyAndMsgLoadingImg"></i>
+			    </div>
+				<!--最新政策、账米资讯模块Tab-->
+				<div id="PolicyAndMsgTop">
+				    <span class="PolicyAndMsgTitleL"></span>
+				    <span class="PolicyAndMsgTitleR"></span>
+			    </div>
+				<!--最新政策、账米资讯底部模块-->
+				<div id="PolicyAndMsgBottomOne">
+				    
+			    </div>
+			    <div id="PolicyAndMsgBottomTwo">
+				    
+			    </div>
+			</div>
+		</div>
+	</body>
+</html>

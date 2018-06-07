@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>客户信息管理</title>
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="../../js/bootstrapSelect/bootstrap-select.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ControlUserInformation/ControlUserInformation.css"/>
+		
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/tableExport.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--bootstrap-select-->
+		<script src="../../js/bootstrapSelect/bootstrap-select.min.js"></script>
+		<script src="../../js/bootstrapSelect/defaults-zh_CN.min.js"></script>
+		
+		<script src="../../js/ControlUserInformation/ControlUserInformation.js"></script>
+	</head>
+	<body>
+		<div class="OutContant">
+			<!--标注-->
+			<span class="MindThings">对公司产品购买客户、注册客户、产品预约客户、产品路演预约客户以及活动预约客户进行的管理。<i class="redmind">(注：现在选中第一个复选框不会将所有页的数据都选中)</i></span>
+			
+			<!--下拉选择-->
+			<div class="col-sm-5 selectCont" style="margin:0; padding:0; float:left; margin-top:10px; width: 100%;">
+		        <!--
+		        	1、show-tick  会在你选择的每个选项后面 打一个 对号
+					2、form-control 就是bootstrap的样式 没什么用						
+					3、属性 multiple 多选					
+					4、属性 data-live-search="true"  搜索框 					
+					5、属性 data-actions-box="true" 全选，取消全选  	
+		        -->
+		        <div class="col-sm-5" style="float:left;width:220px;">
+		            <select id="select" name="select" class="selectpicker1 show-tick form-control" data-live-search="true">
+						
+		            </select>
+		        </div>
+		        <!--<div class="col-sm-5" style="float:left;width:220px;">
+		            <select id="select2" name="select" class="selectpicker2 show-tick form-control" data-live-search="true">
+						<option value="2-1">按基金管理人筛选(全部)</option>
+						<option value="2-2">个人版-积极型</option>
+						<option value="2-3">个人版-激进型</option>
+						<option value="2-4">个人版-稳健型</option>
+		            </select>
+		        </div>-->
+		        <div class="col-sm-5" style="float:left;width:220px;">
+		            <select id="select3" name="select" class="selectpicker2 show-tick form-control" data-live-search="true">
+						<option value="3-1">按风险类型筛选(全部)</option>
+						<option value="3-2">个人版-积极型</option>
+						<option value="3-3">个人版-激进型</option>
+						<option value="3-4">个人版-稳健型</option>
+						<option value="3-5">个人版-谨慎型</option>
+						<option value="3-6">机构版-激进型</option>
+		            </select>
+		        </div>
+		        <!--<input class="modelExport" type="button" value="导出全部" />-->
+		        <a class="modelExportAll" href="http://127.0.0.1/api/personnelInformation/listPage?status=1&limit=10000">导出全部</a>
+		        <!--<a class="modelExportPart" href="http://192.168.17.51:8080/personnelInformation/listPage?status=1&personnelId="+selectionIds>导出选中</a>-->
+			</div>                       
+			
+			<!--表格部分-->
+            <div id="reportTableDiv">
+				<table id="reportTable">
+				</table>
+			</div>
+			
+			
+			<!--客户详情信息弹窗-->
+			<div class="customerDetailWrapper">
+				<span class="detailTitle"><strong>客户信息管理-客户信息详情</strong><i class="fa fa-times close"></i></span>
+				<div class="detailWrapper">
+					<div class="detailOne">
+						<div class="sonTitle">
+						    <span class="sonTitleRR"><strong>一、基本信息</strong></span>
+						</div>
+						<div class="ulContent">
+							<ul class="detailUl">
+								<li>
+									<span class="spl">姓名：</span>
+									<span class="spr sprName"></span>
+									<span class="userlevel"></span>
+								</li>
+								<li>
+									<span class="spl">性别：</span>
+									<span class="spr sprSex"></span>
+								</li>
+								<li>
+									<span class="spl">年龄：</span>
+									<span class="spr sprAge"></span>
+								</li>
+								<li>
+									<span class="spl">国籍：</span>
+									<span class="spr sprGj"></span>
+								</li>
+								<li>
+									<span class="spl">职业：</span>
+									<span class="spr sprZY"></span>
+								</li>
+								<!--<li>
+									<span class="spl">证件类型：</span>
+									<span class="spr">身份证</span>
+								</li>-->
+								<li>
+									<span class="spl">证件号码：</span>
+									<span class="spr sprCardId"></span>
+								</li>
+								<li>
+									<span class="spl">联系地址：</span>
+									<span class="spr sprAdress"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="detailTwo">
+						<div class="sonTitle">
+							<span class="sonTitleRR"><strong>二、问卷信息</strong></span>
+						</div>		
+						<div class="ulContent">
+							<ul class="seletAnswer">
+								<!--<li>1.您的主要收入来源是?（A）</li>
+								<li class="ansItem">A 工资、劳务报酬</li>
+								<li class="ansItem">B 生产经营所得</li>
+								<li class="ansItem">C 利息、股息、转让等金融性资产收入</li>
+								<li class="ansItem">D 出租、出售房地产等非金融性资产收入</li>
+								<li class="ansItem">E 无固定收入</li>-->
+							</ul>
+						</div>	
+					</div>
+					<div class="detailThree">
+						<div class="sonTitle">
+						    <span class="sonTitleRR"><strong>三、图像信息</strong></span>
+						</div>
+						<div class="ulContent">
+							<ul class="userImageUl">
+								<li>
+									<span>身份证正面：</span>
+						            <img class="cardJust" src="" title="身份证正面" /> 
+								</li>
+								<li>
+									<span>身份证背面：</span>
+						            <img class="cardBack" src="" title="身份证背面" /> 
+								</li>
+								<li>
+									<span>手持身份证照：</span>
+						            <img class="cardHold" src="" title="手持身份证照" /> 
+								</li>
+								<li>
+									<span>手持资产证明：</span>
+						            <img class="assets" src="" title="手持资产证明" /> 
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

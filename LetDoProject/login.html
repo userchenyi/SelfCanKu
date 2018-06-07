@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="./css/font-awesome.min.css">
+		<script src="js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="utils/cookieTools.js"></script>
+		<script src="js/login.js"></script>	
+		<title>管理系统开发版登录l</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="modelTitle">管理系统开发版登录</h1>
+			<div class="outwrapper" style="position: relative;">
+				<!--加载动画-->
+				<div class="loadwraper">
+					<i class="LoadingImg"></i>
+				</div>
+				<div class="logCont">
+					<span class="contTitle">用户登录</span>
+					<div class="inputGroup_1">
+						<i class="fa fa-user svgn"></i>
+						<input type="text" maxlength="20" class="userName" placeholder="请输入用户名" />
+						<span class="nameNull"></span>
+					</div>
+					<input type="text" style="visibility: hidden;"/>
+					<div class="inputGroup_2">
+						<i class="fa fa-lock svgn"></i>
+						<input type="password" maxlength="16" class="userPsd" placeholder="请输入密码" />
+						<span class="psdNull"></span>
+					</div>
+					<div class="remberGroup">
+						<label>
+							<input type="checkbox" class="remberToggle" />
+							Remember Me
+						</label>
+					</div>
+					<button type="submit" class="logbtn">登录</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

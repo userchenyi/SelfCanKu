@@ -1,0 +1,1430 @@
+/* 初始化标签在所有浏览器中的margin、padding值 */
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+table,
+th,
+td,
+input,
+select,
+textarea,
+button,
+img {
+	padding: 0;
+	margin: 0;
+}
+
+
+/*a链接*/
+
+
+/*input框*/
+
+body input {
+	outline: none;
+}
+
+
+/*placeholder字体颜色*/
+
+#container input::-moz-placeholder {
+	color: #afb7c8;
+}
+
+#container input::-webkit-input-placeholder {
+	color: #afb7c8;
+}
+
+
+/*表格文字居中显示*/
+
+#container table th,
+td {
+	text-align: center;
+}
+
+
+/* 缩写，图片等无边框 */
+
+fieldset,
+img,
+abbr,
+acronym {
+	border: 0 none;
+}
+
+
+/* 重置fieldset（表单分组）、图片的边框为0*/
+
+html,
+body {
+	background: #FFFFFF;
+	font-family: "宋体", "微软雅黑";
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	position: relative;
+}
+
+i {
+	font-style: normal;
+}
+/*input框*/
+body input {
+	outline: none
+}
+
+/*placeholder字体颜色*/
+
+#container input::-moz-placeholder {
+	color: #afb7c8;
+}
+
+#container input::-webkit-input-placeholder {
+	color: #afb7c8;
+}
+
+#container input::-ms-input-placeholder {
+	color: #afb7c8;
+}
+
+/*外层包裹容器*/
+body .main {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #EDEDED;
+	border: 1px solid gainsboro;
+	box-sizing: border-box;
+}
+/*蒙层加载动画*/
+.main #searchMengcheng{
+	z-index: 350;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.3);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+    display: none;
+}
+#searchMengcheng i{
+	position: absolute;
+	font-size: 48px;
+	top: 46%;
+	left: 50%;
+	transform: translate(-50%);
+}
+/*左边模块*/
+.main .main_left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	box-sizing: border-box;
+	border-right: 1px solid #adb0be;
+}
+/*-----------------------------------定制信息-----------------------------------*/
+.main_left .makeNew{
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	width: 98%;
+	height: 49%;
+	box-sizing: border-box;
+	border-bottom: 1px solid #adb0be;
+}
+/*一、定制信息*/
+.makeNew .makeNewTitle{
+	float: left;
+	font-size: 13px;
+	font-family: "黑体";
+	color: #333333;
+}
+/*时间字段*/
+.makeNew .makeTimeWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.3%;
+}
+.makeNew .makeTimeShowDiv{
+	float: left;
+	font-size: 12px;
+	width: 22%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1%;
+	margin-left: 1%;
+	background: #CFCFCF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*账号字段*/
+.makeNew .makeZhanghaoWord{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.3%;
+	margin-left: 2%;
+}
+.makeNew .makeZhanghaoInp{
+	float: left;
+	font-size: 12px;
+	width: 24%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1%;
+	margin-left: 0.5%;
+	background: #CFCFCF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*拨号*/
+.makeNew .makeNumner{
+	float: left;
+	font-size: 12px;
+	width: 7%;
+	height: 20px;
+	font-family: "微软雅黑";
+	color: blue;
+	margin-top: 1%;
+	margin-left: 1%;
+	box-sizing: border-box;
+}
+/*称呼*/
+.makeNew .makeNameWord{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.3%;
+	margin-left: 2%;
+}
+.makeNew .makeNameInp{
+	float: left;
+	font-size: 12px;
+	width: 18%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1%;
+	margin-left: 0.5%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+.makeNew .makeName{
+	float: left;
+	font-size: 12px;
+	width: 7%;
+	height: 20px;
+	font-family: "微软雅黑";
+	color: blue;
+	margin-top: 1%;
+	margin-left: 1%;
+	box-sizing: border-box;
+}
+/*企业类型*/
+.makeNew .makeQiyeTypeWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.4%;
+}
+.makeNew .makeType1,.makeType2,.makeType3,.makeType4{
+	float: left;
+	width: 12%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makeType1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*加急注册*/
+.makeNew .makeIsUrgentWord{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.4%;
+	margin-left: 4%;
+}
+.makeNew .makeIsUrgentInp1,.makeIsUrgentInp2{
+	float: left;
+	width: 12%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makeIsUrgentInp1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*注册地址*/
+.makeNew .makeRegistArea{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.5%;
+}
+.makeNew .makeRegistAreaInp1,.makeRegistAreaInp2{
+	float: left;
+	width: 18%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makeRegistAreaInp1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*自有地址输入框*/
+.makeNew .makeSelfArea{
+	float: left;
+	font-size: 12px;
+	width: 40%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.3%;
+	margin-left: 6%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*办理许可*/
+.makeNew .makeMakeXukeWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.5%;
+}
+.makeNew .makeMakeXukeInp1,.makeMakeXukeInp2{
+	float: left;
+	width: 18%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makeMakeXukeInp1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*人员资质*/
+.makeNew .makePeopleZhiziWord{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: red;
+	margin-top: 1.5%;
+	margin-left: 4%;
+}
+.makeNew .makePeopleZhiziInp1,.makePeopleZhiziInp2{
+	float: left;
+	width: 6%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid red;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makePeopleZhiziInp1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*许可场地*/
+.makeNew .makeXukeAreaWord{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: red;
+	margin-top: 1.5%;
+	margin-left: 1%;
+}
+.makeNew .makeXukeAreaInp1,.makeXukeAreaInp2{
+	float: left;
+	width: 6%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid red;
+	margin-top: 1%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeNew .makeXukeAreaInp1{
+	margin-left: 1%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*许可种类*/
+.makeNew .makeXukeTypeWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: red;
+	margin-top: 1.5%;
+}
+.makeNew .makeXukeTypeInp{
+	float: left;
+	font-size: 12px;
+	width: 40%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.3%;
+	margin-left: 1%;
+	background: #FFFFFF;
+	border: 1px solid red;
+	box-sizing: border-box;
+}
+/*注册区域*/
+.makeNew .makeRegistPlaceWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.5%;
+}
+/*注册区域下拉*/
+.makeNew #makeRegistPlaceSelect1,#makeRegistPlaceSelect2,#makeRegistPlaceSelect3{
+	float: left;
+	font-size: 12px;
+	width: 23%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.3%;
+	margin-left: 4%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	outline: none;
+}
+.makeNew #makeRegistPlaceSelect1{
+	margin-left: 1%;
+}
+/*备注*/
+.makeNew .makeMarkWord{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.5%;
+}
+.makeNew .makeMarkText{
+	float: left;
+	font-size: 12px;
+	width: 86%;
+	height: 16%;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.3%;
+	margin-left: 5.5%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	overflow: auto;
+	outline: none;
+	padding: 2%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+/*保存*/
+.makeNew .makeSave{
+	float: left;
+	width: 12%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 45%;
+	margin-top: 1%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+/*---------------------------------------定制确认--------------------------------------*/
+.main_left .makeSure{
+	position: absolute;
+	left: 1%;
+	top: 51%;
+	width: 98%;
+	height: 49%;
+	box-sizing: border-box;
+	border-bottom: 1px solid #adb0be;
+}
+/*一、定制确认*/
+.makeSure .makeSureTitle{
+	float: left;
+	font-size: 13px;
+	font-family: "黑体";
+	color: #333333;
+}
+/*选择行业名字段*/
+.makeSure .makeSureHangyeNameWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.3%;
+	margin-left: 4%;
+}
+.makeSure .makeSureHangyeNameInp{
+	float: left;
+	font-size: 12px;
+	width: 40%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1%;
+	margin-left: 3%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*选择行业名字段下面三个select标签*/
+.makeSure .makeSureHangyeSelect1,.makeSureHangyeSelect2,.makeSureHangyeSelect3{
+	float: left;
+	font-size: 12px;
+	width: 23%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.6%;
+	margin-left: 3%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	outline: none;
+}
+.makeSure .makeSureHangyeSelect1{
+	clear: both;
+	margin-left: 18.1%;
+}
+/*产品区域*/
+.makeSure .makeSureProductsAreaWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 1.8%;
+	margin-left: 4%;
+}
+.makeSure .makeSureProductsArea1,.makeSureProductsArea2,.makeSureProductsArea3{
+	float: left;
+	font-size: 12px;
+	width: 23%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.6%;
+	margin-left: 3%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	outline: none;
+}
+.makeSure .makeSureProductsArea1{
+	margin-left: 5.2%;
+}
+/*股东*/
+.makeSure .makeSureShareholdersWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.1%;
+	margin-left: 4%;
+}
+.makeSure .makeSureShareholdersInp1,.makeSureShareholdersInp2{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeSure .makeSureShareholdersInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*类型*/
+.makeSure .makeSureTypeWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.makeSure .makeSureTypeInp1,.makeSureTypeInp2,.makeSureTypeInp3{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeSure .makeSureTypeInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*偏好*/
+.makeSure .makeSureLikingWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.makeSure .makeSureLikingInp1,.makeSureLikingInp2,.makeSureLikingInp3{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.makeSure .makeSureLikingInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*搜索注册产品*/
+.makeSure .searchRegistProducts{
+	clear: both;
+	float: left;
+	width: 20%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 14%;
+	margin-top: 3%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.makeSure .creatNewPlans{
+	float: left;
+	width: 30%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 3%;
+	margin-top: 3%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.makeSure .failDeal{
+	float: left;
+	width: 18%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 3%;
+	margin-top: 3%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+/*------------------定制确认里面的新增方案弹窗------------------*/
+.main_left .CreatNewPlanAlert{
+	position: absolute;
+	z-index: 28;
+	width: 80%;
+	height: 60%;
+	top: 26%;
+	left: 10%;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: none;
+}
+/*新增方案头部*/
+.CreatNewPlanAlert .CreatNewPlanAlertTop{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10%;
+	display: flex;
+	align-items: center;/* 垂直居中 */
+	overflow: auto;
+	text-align: left;
+	padding-left: 2%;
+	font-size: 14px;
+	font-family: "黑体";
+	color: black;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.CreatNewPlanAlertTop i{
+	position: absolute;
+	right: 2%;
+	top: 28%;
+	color: #999999;
+	cursor: pointer;
+}
+/*新增方案底部*/
+.CreatNewPlanAlert .CreatNewPlanAlertBottom{
+	position: absolute;
+	top: 10%;
+	left: 0;
+	width: 100%;
+	height: 90%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+/*新增方案弹窗里面股东*/
+.CreatNewPlanAlertBottom .AlertShareholdersWd{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.1%;
+	margin-left: 4%;
+}
+.CreatNewPlanAlertBottom .AlertShareholdersInp1,.AlertShareholdersInp2{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.CreatNewPlanAlertBottom .AlertShareholdersInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*新增方案弹窗里面类型*/
+.CreatNewPlanAlertBottom .AlertTypeWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.CreatNewPlanAlertBottom .AlertTypeInp1,.AlertTypeInp2,.AlertTypeInp3{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.CreatNewPlanAlertBottom .AlertTypeInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*新增方案弹窗里面偏好*/
+.CreatNewPlanAlertBottom .AlertLikingWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.CreatNewPlanAlertBottom .AlertLikingInp1,.AlertLikingInp2,.AlertLikingInp3{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 1.3%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.CreatNewPlanAlertBottom .AlertLikingInp1{
+	margin-left: 9.6%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*新增方案弹窗里面行业名*/
+.CreatNewPlanAlertBottom .AlertHangyeNameWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.CreatNewPlanAlertBottom .AlertHangyeNameInp{
+	float: left;
+	font-size: 12px;
+	width: 28%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.8%;
+	margin-left: 4%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*新增方案弹窗里面服务时长*/
+.CreatNewPlanAlertBottom .AlertServerTimeWd{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 5%;
+}
+.CreatNewPlanAlertBottom .AlertServerTimeInp{
+	float: left;
+	font-size: 12px;
+	width: 28%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.8%;
+	margin-left: 4%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*新增方案弹窗里面服务费*/
+.CreatNewPlanAlertBottom .AlertServerMoneyWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+.CreatNewPlanAlertBottom .AlertServerMoneyInp{
+	float: left;
+	font-size: 12px;
+	width: 28%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.8%;
+	margin-left: 4%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*新增方案弹窗里面工本费*/
+.CreatNewPlanAlertBottom .AlertBastMoneyWd{
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 5%;
+}
+.CreatNewPlanAlertBottom .AlertBastMoneyInp{
+	float: left;
+	font-size: 12px;
+	width: 28%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.8%;
+	margin-left: 4%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+}
+/*新增方案弹窗里面注册区域*/
+.CreatNewPlanAlertBottom .AlertRegistAreaWd{
+	clear: both;
+	float: left;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: #666666;
+	margin-top: 2.3%;
+	margin-left: 4%;
+}
+/*新增方案弹窗里面注册区域下拉*/
+.CreatNewPlanAlertBottom .AlertRegistAreaSelect1,.AlertRegistAreaSelect2,.AlertRegistAreaSelect3{
+	float: left;
+	font-size: 12px;
+	width: 23%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: black;
+	margin-top: 1.8%;
+	margin-left: 2%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	outline: none;
+}
+.CreatNewPlanAlertBottom  .AlertRegistAreaSelect1{
+	margin-left: 3%;
+}
+/*新增方案弹窗里面返回、提交*/
+.CreatNewPlanAlertBottom .AlertCreatNewGoBack{
+	clear: both;
+	float: left;
+	width: 18%;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	color: black;
+	font-size: 14px;
+	font-family: "黑体";
+	margin-left: 28%;
+	margin-top: 12%;
+	/*border: 1px solid #adb0be;*/
+	border-radius: 6px;
+	cursor: pointer;
+	background: #EBEBEB;
+}
+.CreatNewPlanAlertBottom .AlertCreatNewSubmit{
+	float: left;
+	width: 18%;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	color: black;
+	font-size: 14px;
+	font-family: "黑体";
+	margin-left: 4%;
+	margin-top: 12%;
+	border-radius: 6px;
+	cursor: pointer;
+	background: #EBEBEB;
+}
+/*-----------------------定制确认里面的成交失败原因弹窗-----------------------*/
+.main_left .FailDealCauseAlert{
+	position: absolute;
+	z-index: 28;
+	width: 64%;
+	height: 32%;
+	top: 53%;
+	left: 18%;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: none;
+}
+/*成交失败原因头部*/
+.FailDealCauseAlert .FailDealCauseAlertTop{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 18%;
+	display: flex;
+	align-items: center;/* 垂直居中 */
+	overflow: auto;
+	text-align: left;
+	padding-left: 2%;
+	font-size: 14px;
+	font-family: "黑体";
+	color: black;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.FailDealCauseAlertTop i{
+	position: absolute;
+	right: 2%;
+	top: 28%;
+	color: #999999;
+	cursor: pointer;
+}
+/*成交失败原因底部*/
+.FailDealCauseAlert .FailDealCauseAlertBottom{
+	position: absolute;
+	top: 18%;
+	left: 0;
+	width: 100%;
+	height: 82%;
+	background: #FFFFFF;
+	border: 1px solid #adb0be;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.FailDealCauseAlertBottom .FailDealCauseInp1,.FailDealCauseInp2,.FailDealCauseInp3{
+	float: left;
+	width: 21%;
+	height: 22px;
+	border: none;
+	background: #EBEBEB;
+	border: 1px solid #adb0be;
+	margin-top: 8%;
+	box-sizing: border-box;
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color: black;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+.FailDealCauseAlertBottom .FailDealCauseInp1{
+	margin-left: 18%;
+	background: #FFFFFF;
+	border-bottom: none;
+}
+/*成交失败原因返回、提交*/
+.FailDealCauseAlertBottom .AlertFailDealCauseGoBack{
+	clear: both;
+	float: left;
+	width: 18%;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	color: black;
+	font-size: 14px;
+	font-family: "黑体";
+	margin-left: 30%;
+	margin-top: 10%;
+	/*border: 1px solid #adb0be;*/
+	border-radius: 6px;
+	cursor: pointer;
+	background: #EBEBEB;
+}
+.FailDealCauseAlertBottom .AlertFailDealCauseSubmit{
+	float: left;
+	width: 18%;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	color: black;
+	font-size: 14px;
+	font-family: "黑体";
+	margin-left: 4%;
+	margin-top: 10%;
+	border-radius: 6px;
+	cursor: pointer;
+	background: #EBEBEB;
+}
+/*定制确认里面的下拉列表*/
+.makeSure .autocomplete{
+	position: absolute;
+	top: 17%;
+	left: 18%;
+	width: 40%;
+	max-height: 66%;
+	font-size:12px ;
+	border: 1px solid #9ACCFB;
+    background-color: white;
+    text-align: left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    overflow: auto;
+}
+.autocomplete li{
+	list-style: none;
+	padding: 0 2% 0 2%;
+}
+.clickable {
+    cursor: default;
+}
+.highlight {
+    background-color: #9ACCFB;
+}
+
+/*-------------------------右边模块-------------------------*/
+.main .main_right{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+	box-sizing: border-box;
+	border-left: 1px solid #adb0be;
+}
+/*三、添加产品/服务*/
+.main_right .addProduct{
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	width: 98%;
+	height: 49%;
+	box-sizing: border-box;
+	border-bottom: 1px solid #adb0be;
+}
+.addProduct .addProductTitle{
+	float: left;
+	font-size: 13px;
+	font-family: "黑体";
+	color: #333333;
+}
+.addProduct .addProductTableCont{
+	clear: both;
+	float: left;
+	width: 100%;
+	height: 73%;
+	margin-top: 2.2%;
+    overflow: auto;
+}
+/*表格部分*/
+.addProductTableCont .addProductTable{
+	float: left;
+	width: 100%;
+	max-height: 100%;
+	background: #FFFFFF;
+	box-sizing: border-box;
+}
+.addProductTable th {
+	border-top: 1px solid black;
+	background: #efefef;
+	font-size: 12px;
+}
+
+.addProductTable th,
+tr td {
+	white-space: nowrap;
+	color: #666666;
+	height: 28px;
+	line-height: 28px;
+	background: #ffffff;
+	padding: 0 5px 0 5px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 12px;
+	box-sizing: border-box;
+}
+/*确认增加*/
+.addProduct .addProductYes{
+	float: left;
+	width: 16%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 42%;
+	margin-top: 1.6%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+/*四、产品列表*/
+.main_right .ProductList{
+	position: absolute;
+	left: 1%;
+	top: 51%;
+	width: 98%;
+	height: 49%;
+	box-sizing: border-box;
+	border-bottom: 1px solid #adb0be;
+}
+.ProductList .ProductListTitle{
+	float: left;
+	font-size: 13px;
+	font-family: "黑体";
+	color: #333333;
+}
+.ProductList .ProductListTableCont{
+	clear: both;
+	float: left;
+	width: 100%;
+	height: 73%;
+	margin-top: 2.2%;
+    overflow: auto;
+}
+/*表格部分*/
+.ProductListTableCont .ProductListTable{
+	float: left;
+	width: 100%;
+	max-height: 100%;
+	background: #FFFFFF;
+	box-sizing: border-box;
+}
+.ProductListTable th {
+	border-top: 1px solid black;
+	background: #efefef;
+	font-size: 12px;
+}
+
+.ProductListTable th,
+tr td {
+	white-space: nowrap;
+	color: #666666;
+	height: 28px;
+	line-height: 28px;
+	background: #ffffff;
+	padding: 0 5px 0 5px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 12px;
+	box-sizing: border-box;
+}
+/*返回、生成订单、定制已完成*/
+.ProductList .ProductListBack{
+	float: left;
+	width: 18%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 20%;
+	margin-top: 1.6%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.ProductList .ProductListBetrue{
+	float: left;
+	width: 18%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 4%;
+	margin-top: 1.6%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.ProductList .ProductListCompled{
+	float: left;
+	width: 18%;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: black;
+	background: #66B2FF;
+	font-size: 13px;
+	font-family: "微软雅黑";
+	margin-left: 4%;
+	margin-top: 1.6%;
+	cursor: pointer;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+
+
+

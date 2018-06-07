@@ -1,0 +1,521 @@
+/* 初始化标签在所有浏览器中的margin、padding值 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+table,
+th,
+td,
+input,
+select,
+textarea,
+button,
+img {
+	padding: 0;
+	margin: 0;
+}
+
+/*a链接*/
+
+a {
+	text-decoration: none;
+}
+
+/*input框*/
+body input {
+	outline: none
+}
+
+/*placeholder字体颜色*/
+
+#container input::-moz-placeholder {
+	color: #afb7c8;
+}
+
+#container input::-webkit-input-placeholder {
+	color: #afb7c8;
+}
+
+#container input::-ms-input-placeholder {
+	color: #afb7c8;
+}
+
+
+/*表格文字居中显示*/
+
+#container table th,
+td {
+	text-align: center;
+}
+/* 缩写，图片等无边框 */
+fieldset,
+img,
+abbr,
+acronym {
+	border: 0 none;
+}
+
+/* 重置fieldset（表单分组）、图片的边框为0*/
+
+html,
+body {
+	background: #FFFFFF;
+	font-family: "宋体", "微软雅黑";
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/*蒙层加载动画*/
+#container #searchMengcheng{
+	z-index: 150;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.3);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+    display: none;
+}
+#searchMengcheng i{
+	position: absolute;
+	font-size: 48px;
+	top: 46%;
+	left: 50%;
+	transform: translate(-50%);
+}
+/*外层包裹容器*/
+body #container{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+/*顶部操作模块*/
+#container #TopMakeBar{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 15%;
+	background: #EDEDED;
+	border-top: 2px solid gainsboro;
+	border-bottom: 2px solid gainsboro;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+/*账号输入框*/
+#TopMakeBar #AccountInp{
+	float: left;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 12%;
+    height: 24px;
+	line-height: 24px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: #666666;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+}
+#TopMakeBar select{
+	float: left;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 9%;
+    height: 26px;
+	line-height: 26px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: #666666;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+    outline: none;
+}
+
+/*客服人员输入框*/
+#TopMakeBar #ServerPeopleInp{
+	float: left;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 14%;
+    height: 24px;
+	line-height: 24px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: #666666;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+}
+/*查询按钮*/
+#TopMakeBar #TopSearch{
+	float: left;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 8%;
+    height: 24px;
+	line-height: 24px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: blue;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+	background-color: rgb(227,227,227);
+	border-radius: 6px;
+	cursor: pointer;
+}
+/*新增按钮*/
+#TopMakeBar #CreatNew{
+	float: left;
+    margin-left: 2%;
+    margin-top: 0.8%;
+    width: 8%;
+    height: 24px;
+	line-height: 24px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: blue;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+	background-color: rgb(227,227,227);
+	border-radius: 6px;
+	clear: both;
+	cursor: pointer;
+}
+/*全部、最近时间选择*/
+#TopMakeBar #timeSp1,#timeSp3,#timeSp4,#timeSp5,#timeSp6{
+	float: left;
+	margin-left: 1.4%;
+    margin-top: 1.1%;
+	font-size: 14px;
+	color: #111111;
+	font-family: "微软雅黑";
+	cursor: pointer;
+}
+/*Ul下面的li*/
+#timeSeletUl li{
+	list-style: none;
+}
+#TopMakeBar #timeSp1{
+	margin-left: 6%;
+}
+#TopMakeBar #timeSp2{
+	float: left;
+	margin-left: 1.4%;
+    margin-top: 1.1%;
+	font-size: 14px;
+	color: gray;
+	font-family: "微软雅黑";
+}
+#TopMakeBar #timeSp7{
+	float: left;
+	margin-left: 6.8%;
+    margin-top: 1.1%;
+	font-size: 14px;
+	color: gray;
+	font-family: "微软雅黑";
+}
+#TopMakeBar #timeSp8{
+	float: left;
+	margin-left: 1%;
+    margin-top: 1%;
+	width: 22%;
+	height: 22px;
+	line-height: 22px;
+	font-size: 14px;
+	text-align: center;
+	background: white;
+	color: #999999;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-right: none;
+}
+#TopMakeBar #TimemarkImg{
+	float: left;
+	margin-top: 1%;
+	height: 22px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #999999;
+	background: white;
+	padding-right: 4px;
+	border: 1px solid #DCDCDC;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-left: none;
+}
+.timeSeleted{
+	color: blue !important;
+}
+/*#timeSp8 i{
+	float: right;
+	margin-right: 1%;
+	font-size: 14px;
+	height: 100%;
+	line-height: 18px;
+}
+#TopMakeBar #timeSp9{
+	float: left;
+	margin-left: 1%;
+    margin-top: 1.1%;
+	font-size: 14px;
+	color: gray;
+	font-family: "微软雅黑";
+}
+#TopMakeBar #timeSp10{
+	float: left;
+	margin-left: 1.2%;
+    margin-top: 1%;
+	font-size: 14px;
+	width: 14%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background: white;
+	color: #999999;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+#timeSp10 i{
+	float: right;
+	margin-right: 1%;
+	font-size: 14px;
+	line-height: 18px;
+}*/
+/*底部外层容器*/
+#container #BottomTable{
+	position: absolute;
+	left: 0;
+	top: 15%;
+	width: 100%;
+	height: 85%;
+	background: #FFFFFF;
+	border: 1px solid gainsboro;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	/*overflow: auto;*/
+}
+/*底部表格*/
+#BottomTable #BottomTableContainer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90%;
+	box-sizing: border-box;
+	overflow: auto;
+}
+#BottomTable #BottomTableInformation{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	
+}
+
+#BottomTableInformation th {
+	border-top: 1px solid black;
+	background: #efefef;
+	font-size: 12px;
+}
+
+#BottomTableInformation th,
+#BottomTableInformation tr,#BottomTableInformation td {
+	white-space: nowrap;
+	color: #666666;
+	height: 28px;
+	line-height: 28px;
+	background: #ffffff;
+	padding: 0 5px 0 5px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 12px;
+	box-sizing: border-box;
+}
+#BottomTableInformation .Admissible,#BottomTableInformation i{
+	margin-left: 3px;
+	cursor: pointer;
+	color: blue;
+}
+/*全选input*/
+#BottomTableInformation .TdAllSelect{
+	float: left;
+	display: inline-block;
+	margin-top:8%;
+}
+#BottomTableInformation .TdAllSelectWord{
+	float: left;
+	margin-left: 2%;
+	margin-top: 3%;
+}
+#BottomTableInformation .TdPartSelect{
+	float: left;
+	display: inline-block;
+	margin-top: 5%;
+	margin-left: 34%;
+}
+/*底部分页框*/
+#BottomTable #TabSeletPage{
+	position: absolute;
+	top: 90%;
+	left: 0;
+	width: 100%;
+	height: 10%;
+	box-sizing: border-box;
+	background: beige;
+	display: flex;
+	align-items: center;/* 垂直居中 */
+	overflow: auto;
+}
+/*每页显示多少条选择框*/
+#TabSeletPage #OnePageShowSp1{
+	float: left;
+	margin-left: 20%;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+#TabSeletPage #PageSizeSelect{
+	float: left;
+    margin-left: 6px;
+    width: 6%;
+    height: 22px;
+	line-height: 22px;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	color: #666666;
+	font-family: "微软雅黑";
+	border: 1px solid #DCDCDC;
+    outline: none;
+}
+#TabSeletPage #OnePageShowSp2{
+	float: left;
+	margin-left: 12px;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+/*上一页*/
+#TabSeletPage #prePage{
+	float: left;
+	width: 45px;
+	height: 25px;
+	margin-left: 50px;
+	background: burlywood;
+	text-align: center;
+	line-height: 25px;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 10px;
+	font-family: "微软雅黑";
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+}
+/*当前页和总页*/
+#TabSeletPage #curAndtotalPage{
+	float: left;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	margin-left: 10px;
+}
+/*下一页*/
+#TabSeletPage #nextPage{
+	float: left;
+	width: 45px;
+	height: 25px;
+	margin-left: 10px;
+	background: burlywood;
+	text-align: center;
+	line-height: 25px;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 10px;
+	font-family: "微软雅黑";
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+}
+/*跳转指定页*/
+#TabSeletPage #GoidPageSp1{
+	float: left;
+	margin-left: 30px;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+#TabSeletPage #GoidPageInp{
+	float: left;
+	margin-left: 6px;
+	width: 60px;
+	height: 16px;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	text-align: center;
+}
+#TabSeletPage #GoidPageSp2{
+	float: left;
+	margin-left: 10px;
+	color: #666666;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+/*Go*/
+#TabSeletPage #GoidPageGo{
+	float: left;
+	margin-left: 15px;
+	cursor: pointer;
+	width: 40px;
+	height: 25px;
+	line-height: 25px;
+	font-family: "黑体";
+	font-size: 18px;
+	border: none;
+	color: white;
+	background: burlywood;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+}

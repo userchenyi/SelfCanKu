@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../js/laydate/theme/default/laydate.css">
+		<link rel="stylesheet" href="../../../css/yewuguanli/dingzhiguanli/CustomManagement.css">
+		<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+		<script src="../../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../../js/laydate/laydate.js"></script>
+		<script src="../../../js/yewuguanli/dingzhiguanli/CustomManagement.js"></script>
+		<title>定制管理</title>
+	</head>
+	<body>
+		<div id="container">
+			<!--加载动画、蒙层-->
+			<div id="searchMengcheng">
+		    	<i id="SearchLoadingImg"></i>
+		    </div>
+			<div id="TopMakeBar">
+				<!--账户手写input框-->
+				<input type="text" id="AccountInp" placeholder="账户">
+			    <!--企业类型选择下拉框-->
+			    <select id="QiyeTypeSelect">
+					<option value ="0">企业类型</option>
+					<option value ="1">内资企业</option>
+					<option value="2">外资独资</option>
+					<option value="3">中外合资</option>
+					<option value="4">外商代表处</option>
+				</select>
+			    <!--注册地址选择下拉框-->
+			    <select id="AreaSelect">
+					<option value ="0">注册地址</option>
+					<option value ="1">账米提供</option>
+					<option value="2">自有地址</option>
+				</select>
+			    <!--是否加急注册选择下拉框-->
+			    <select id="UrgentRegistSelect">
+					<option value ="0">加急注册</option>
+					<option value ="1">需要</option>
+					<option value="2">不需要</option>
+				</select>
+				<!--办理许可证选择下拉框-->
+			    <select id="LicenceSelect">
+					<option value ="0">办理许可证</option>
+					<option value ="1">需要</option>
+					<option value="2">不需要</option>
+				</select>
+				<!--定制状态选择下拉框-->
+			    <select id="CustomStatusSelect">
+					<option value ="-1">定制状态</option>
+					<option value ="0">未受理</option>
+					<option value="1">处理中</option>
+					<option value ="2">已完成</option>
+					<option value="3">已取消</option>
+				</select>
+				<!--客服人员手写input框-->
+				<input type="text" id="ServerPeopleInp" placeholder="客服姓名">
+				<!--查询按钮-->
+				<div id="TopSearch">查询</div>
+				<!--新增按钮-->
+				<div id="CreatNew">新增定制</div>
+				<!--全部、最近时间选择-->
+				<span id="timeSp1" class="timeSeleted">全部</span>
+				<span id="timeSp2">最近：</span>
+				<ul id="timeSeletUl">
+					<li id="timeSp3">当日</li>
+					<li id="timeSp4">当月</li>
+					<li id="timeSp5">半年</li>
+					<li id="timeSp6">一年</li>
+				<ul>
+				<!--自定义时间选择-->
+				<span id="timeSp7">自定义：</span>
+				<div id="timeSp8"></div>
+				<i id="TimemarkImg" class="fa fa-calendar-check-o"></i>
+				<!--<span id="timeSp9">至</span>
+				<div type="text" id="timeSp10"><i id="Timemark2" class="fa fa-calendar-check-o"></i></div>-->
+			</div>
+			<div id="BottomTable">
+				<!--定制代办表格-->
+				<div id="BottomTableContainer">
+				    <table id="BottomTableInformation"  border="0" cellspacing="0" cellpadding="0">
+				    	<thead style="background:#f0f2f5">
+							<tr>
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;"><input class="TdAllSelect" type="checkbox"><span class="TdAllSelectWord">全选</span></th>
+								<th style="line-height: 18px;background:#f0f2f5">委托时间</th>
+								<th style="line-height: 18px;background:#f0f2f5">用户账号</th>
+								<th style="line-height: 18px;background:#f0f2f5">称呼</th>
+								<th style="line-height: 18px;background:#f0f2f5">企业类型</th>
+								<th style="line-height: 18px;background:#f0f2f5">注册区域</th>
+								<th style="line-height: 18px;background:#f0f2f5">注册地址</th>
+								<th style="line-height: 18px;background:#f0f2f5">加急注册</th>
+								<th style="line-height: 18px;background:#f0f2f5">许可证办理</th>
+								<th style="line-height: 18px;background:#f0f2f5">许可人员资质</th>
+								<th style="line-height: 18px;background:#f0f2f5">许可办公场所</th>
+								<th style="line-height: 18px;background:#f0f2f5">失败原因</th>
+								<th style="line-height: 18px;background:#f0f2f5">定制状态</th>
+								<th style="line-height: 18px;background:#f0f2f5">客服人员</th>
+								<th style="line-height: 18px;background:#f0f2f5">操作</th>
+							</tr>
+						</thead>
+						<tbody id="BottomTableInformationBody">
+	                        <!--<tr>
+	                        	<td style="border-left: 1px solid black;"><input class="TdPartSelect" type="checkbox"></td>
+	                        	<td>2017-12-21 11:12</td>
+	                        	<td>136****6248</td>
+	                        	<td>谢先生</td>
+	                        	<td>内资企业</td>
+	                        	<td>上海市奉贤区</td<tr>
+	                        	<td>账米提供</td>
+	                        	<td>需要</td>
+	                        	<td>需要</td>
+	                        	<td>具备</td>
+	                        	<td>具备</td>
+	                        	<td>客户原因</td>
+	                        	<td>未受理</td>
+	                        	<td>米小宝</td>
+	                        	<td>
+	                        		<span class="Admissible">受理</span>
+	                        		<span><i class="fa fa-phone"></i></span>
+	                        	</td>
+	                        </tr>-->
+						</tbody>
+				    </table>
+				</div>
+			    <!--底部分页操作栏-->
+			    <div id="TabSeletPage">
+			    	<span id="OnePageShowSp1">每页显示：</span>
+			    	<select id="PageSizeSelect">
+						<option value ="1">1</option>
+						<option value ="25">25</option>
+						<option value="50">50</option>
+					</select>
+			    	<span id="OnePageShowSp2">条记录</span>
+					<div id="prePage">上一页</div>
+					<span id="curAndtotalPage"></span>
+					<div id="nextPage">下一页</div>
+					<span id="GoidPageSp1">跳转到：</span>
+					<input type="text" id="GoidPageInp" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+					<span id="GoidPageSp2">页</span>
+					<input type="button" id="GoidPageGo" value="Go" />
+				</div>
+			</div>
+			
+	
+		</div>
+	</body>
+</html>

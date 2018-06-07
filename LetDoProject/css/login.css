@@ -1,0 +1,187 @@
+/* 初始化标签在所有浏览器中的margin、padding值 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button,img{
+	padding: 0; margin: 0;
+}
+/*a链接*/
+#LeftList a{
+	text-decoration: none;
+}
+#RightTop a.hidefocus{outline:none}
+#RightTop a:focus{outline:none;}
+#RightTop a{blr:expression(this.onFocus=this.blur());}
+/*input框*/
+#container input{outline:none}
+/*placeholder字体颜色*/
+#container input::-moz-placeholder{
+	color: #afb7c8;
+}
+#container input::-webkit-input-placeholder{
+	color: #afb7c8;
+}
+#container input::-ms-input-placeholder{
+	color: #afb7c8;
+}
+/*解决input框填入数值后背景自动变黄问题*/
+input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+/*表格文字居中显示*/
+#container table th,td{
+	text-align: center;
+}
+
+html,body{
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background: url(../img/bgyun.jpg) no-repeat;
+	background-size: cover;
+	font-family:"微软雅黑","宋体";
+}
+.container{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+/*标题*/
+.modelTitle{
+	float: left;
+	width: 100%;
+	line-height: 36px;
+	font-size: 28px;
+	color: #fff;
+	text-align: center;
+	margin-top: 12%;
+}
+.outwrapper{
+	float: left;
+	width: 478px;
+	height: 352px;
+	margin-top: 2%;
+	margin-left: 50%;
+	transform: translate(-50%);
+	background: rgba(0,0,0,0.6);
+	border-radius: 8px;
+	padding: 50px;
+	box-sizing: border-box;
+	position: relative;
+}
+/*加载动画元素*/
+.loadwraper{
+	z-index: 20;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 478px;
+	height: 352px;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: none;
+}
+.loadwraper i {
+	position: absolute;
+	font-size: 30px;
+	color: #fff;
+	top: 46%;
+	left: 50%;
+	transform: translate(-50%);
+}
+.logCont{
+	float: left;
+	width: 100%;
+	height: 100%;
+	/*z-index: 10;
+	float: left;
+	width: 478px;
+	height: 352px;
+	margin-top: 2%;
+	margin-left: 50%;
+	transform: translate(-50%);
+	background: rgba(0,0,0,0.6);
+	border-radius: 8px;
+	padding: 50px;
+	box-sizing: border-box;*/
+}
+/*用户登录标题*/
+.contTitle{
+	float: left;
+	width: 100%;
+	height: 22px;
+	text-align: center;
+	line-height: 22px;
+	font-size: 16px;
+	color: #fff;
+}
+/*用户名输入框*/
+.inputGroup_1,.inputGroup_2{
+	position: relative;
+	margin-top: 20px;
+	float: left;
+	width: 100%;
+	height: 46px;	
+	margin-bottom: 15px;
+}
+/*密码输入框*/
+.inputGroup_2{
+	margin-top: 0;
+	margin-bottom: 6px;
+}
+.userName,.userPsd{
+	width: 100%;
+    border: 1px solid #3872f6;
+    border-radius: 3px;
+    line-height: 43px;
+    padding: 2px 5px 2px 36px;
+    background: none;
+    box-sizing: border-box;
+    color: #fff;
+}
+/*提示信息   不能为空*/
+.nameNull,.psdNull{
+	position: absolute;
+	top: 36%;
+	right: 2%;
+	color: red;
+	font-size: 12px;
+	display: none;
+}
+/*字体图标*/
+.svgn{
+	position: absolute;
+	left: 3%;
+	top: 28.4%;
+	color: #3872f6;
+	font-size: 22px !important;
+}
+/*登录按钮*/
+.logbtn{
+	float: left;
+    width: 100%;
+    display: block;
+    background: #3872f6;
+    color: #fff;
+    font-size: 15px;
+    line-height: 50px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+/*记住登录信息模块*/
+.remberGroup{
+    float: left;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.remberGroup label{
+	display: flex;
+	align-items: center;
+	height: 20px;
+	line-height: 20px;
+    cursor: pointer;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 400;
+}
+input[type=checkbox]{
+	margin: 2px 8px 0 1px;
+}

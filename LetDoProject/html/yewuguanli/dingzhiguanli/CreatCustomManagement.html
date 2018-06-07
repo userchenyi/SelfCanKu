@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../../../css/yewuguanli/dingzhiguanli/CreatCustomManagement.css">
+		<link rel="stylesheet" href="../../../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+		<script src="../../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../../js/yewuguanli/dingzhiguanli/CreatCustomManagement.js"></script>
+		<title>定制操作</title>
+	</head>
+
+	<body>
+		<div class="main">
+			<!--蒙层加载-->
+			<div id="searchMengcheng"><i id="SearchLoadingImg"></i></div>
+			<!--左边模块-->
+			<div class="main_left">
+				<!--定制信息-->
+				<div class="makeNew">
+					<span class="makeNewTitle">一、定制信息</span>
+					<span class="makeTimeWord">时间</span>
+					<span class="makeTimeShowDiv"></span>
+					<span class="makeZhanghaoWord">账号</span>
+					<input class="makeZhanghaoInp" type="text" readonly="readonly">
+					<input class="makeNumner" type="button" value="拨号">
+					<span class="makeNameWord">称呼</span>
+					<input class="makeNameInp" type="text" placeholder="请输入称呼">
+					<input class="makeName" type="button" value="更改">
+					<span class="makeQiyeTypeWord">企业类型</span>
+					<input type="button" value="内资企业" class="makeType1">
+					<input type="button" value="外商独资" class="makeType2">
+					<input type="button" value="中外合资" class="makeType3">
+					<input type="button" value="代表处" class="makeType4">
+					<span class="makeIsUrgentWord">加急注册</span>
+					<input type="button" value="需要" class="makeIsUrgentInp1">
+					<input type="button" value="不需要" class="makeIsUrgentInp2">
+					<span class="makeRegistArea">注册地址</span>
+					<input type="button" value="账米提供" class="makeRegistAreaInp1">
+					<input type="button" value="自有地址" class="makeRegistAreaInp2">
+					<input class="makeSelfArea" type="text" placeholder="请输入地址">
+					<span class="makeMakeXukeWord">办理许可</span>
+					<input type="button" value="不需要" class="makeMakeXukeInp1">
+					<input type="button" value="需要" class="makeMakeXukeInp2">
+					<span class="makePeopleZhiziWord">人员资质</span>
+					<input type="button" value="具备" class="makePeopleZhiziInp1">
+					<input type="button" value="否" class="makePeopleZhiziInp2">
+					<span class="makeXukeAreaWord">许可场地</span>
+					<input type="button" value="具备" class="makeXukeAreaInp1">
+					<input type="button" value="否" class="makeXukeAreaInp2">
+					<span class="makeXukeTypeWord">许可种类</span>
+					<input type="text" class="makeXukeTypeInp">
+					<span class="makeRegistPlaceWord">注册区域</span>
+					<select id="makeRegistPlaceSelect1">
+						<!--<option value ="0">上海市</option>
+						<option value="2">长沙市</option>-->
+					</select>
+					<select id="makeRegistPlaceSelect2">
+						<!--<option value ="0">闵行区</option>
+						<option value="2">衡阳县</option>-->
+					</select>
+					<select id="makeRegistPlaceSelect3">
+						<!--<option value ="0">不限</option>
+						<option value="2">衡山路</option>-->
+					</select>
+					<span class="makeMarkWord">备注</span>
+					<textarea class="makeMarkText"></textarea>
+					<span class="makeSave">保存</span>	
+					
+				</div>
+				<!--定制确认-->
+				<div class="makeSure">
+					<span class="makeSureTitle">二、定制确认</span>
+					<!--选择行业名-->
+					<span class="makeSureHangyeNameWd">选择行业名</span>
+					<input class="makeSureHangyeNameInp" type="text" placeholder="请输入行业名称">
+					<select class="makeSureHangyeSelect1">
+						<option value ="0">许可类</option>
+						<option value ="1">许可类2</option>
+						<option value="2">许可类3</option>
+					</select>
+					<select class="makeSureHangyeSelect2">
+						<option value ="0">食品类</option>
+						<option value ="1">食品类2</option>
+						<option value="2">食品类3</option>
+					</select>
+					<select class="makeSureHangyeSelect3">
+						<option value ="0">食品</option>
+						<option value ="1">食品2</option>
+						<option value="2">食品3</option>
+					</select>
+					<!--产品区域-->
+					<span class="makeSureProductsAreaWd">产品区域</span>
+					<select class="makeSureProductsArea1">
+						<option value ="0">上海市</option>
+						<option value ="1">上海市2</option>
+						<option value="2">上海市3</option>
+					</select>
+					<select class="makeSureProductsArea2">
+						<option value ="0">闵行区</option>
+						<option value ="1">闵行区2</option>
+						<option value="2">闵行区3</option>
+					</select>
+					<select class="makeSureProductsArea3">
+						<option value ="0">不限</option>
+						<option value ="1">不限2</option>
+						<option value="2">不限3</option>
+					</select>
+					<!--股东-->
+					<span class="makeSureShareholdersWd">股东</span>
+					<input type="button" value="中国大陆" class="makeSureShareholdersInp1">
+					<input type="button" value="境外(含港澳台)" class="makeSureShareholdersInp2">
+					<!--类型-->
+					<span class="makeSureTypeWd">类型</span>
+					<input type="button" value="有限公司" class="makeSureTypeInp1">
+					<input type="button" value="合伙企业" class="makeSureTypeInp2">
+					<input type="button" value="分支机构" class="makeSureTypeInp3">
+					<!--偏好-->
+					<span class="makeSureLikingWd">偏好</span>
+					<input type="button" value="普通注册" class="makeSureLikingInp1">
+					<input type="button" value="极速注册" class="makeSureLikingInp2">
+					<input type="button" value="自贸区" class="makeSureLikingInp3">
+					<!--搜索注册产品-->
+					<span class="searchRegistProducts">搜索注册产品</span>	
+					<span class="creatNewPlans">新增方案(未找到方案)</span>
+					<span class="failDeal">成交失败</span>
+				</div>
+				<!--定制确认里面的新增方案弹窗-->
+				<div class="CreatNewPlanAlert">
+					<div class="CreatNewPlanAlertTop">新增方案<i class="CreatNewPlanAlertDel fa fa-close" ></i></div>
+					<div class="CreatNewPlanAlertBottom">
+					    <!--股东-->
+						<span class="AlertShareholdersWd">股东</span>
+						<input type="button" value="中国大陆" class="AlertShareholdersInp1">
+						<input type="button" value="境外(含港澳台)" class="AlertShareholdersInp2">
+						<!--类型-->
+						<span class="AlertTypeWd">类型</span>
+						<input type="button" value="有限公司" class="AlertTypeInp1">
+						<input type="button" value="合伙企业" class="AlertTypeInp2">
+						<input type="button" value="分支机构" class="AlertTypeInp3">
+						<!--偏好-->
+						<span class="AlertLikingWd">偏好</span>
+						<input type="button" value="普通注册" class="AlertLikingInp1">
+						<input type="button" value="极速注册" class="AlertLikingInp2">
+						<input type="button" value="自贸区" class="AlertLikingInp3">
+						<!--行业名-->
+						<span class="AlertHangyeNameWd">行业名</span>
+						<input type="text" class="AlertHangyeNameInp">
+						<!--服务时长-->
+						<span class="AlertServerTimeWd">服务时长</span>
+						<input type="text" class="AlertServerTimeInp">
+						<!--服务费-->
+						<span class="AlertServerMoneyWd">服务费</span>
+						<input type="text" class="AlertServerMoneyInp">
+						<!--工本费-->
+						<span class="AlertBastMoneyWd">工本费</span>
+						<input type="text" class="AlertBastMoneyInp">
+						<!--注册区域-->
+						<span class="AlertRegistAreaWd">注册区域</span>
+						<select class="AlertRegistAreaSelect1">
+							<option value ="0">上海市</option>
+							<option value ="1">北京市</option>
+							<option value="2">长沙市</option>
+						</select>
+						<select class="AlertRegistAreaSelect2">
+							<option value ="0">闵行区</option>
+							<option value ="1">浦东新区</option>
+							<option value="2">衡阳县</option>
+						</select>
+						<select class="AlertRegistAreaSelect3">
+							<option value ="0">不限</option>
+							<option value ="1">漕宝路</option>
+							<option value="2">衡山路</option>
+						</select>
+						<!--返回、提交-->
+						<span class="AlertCreatNewGoBack">返回</span>
+						<span class="AlertCreatNewSubmit">提交</span>
+					</div>
+				</div>
+				<!--定制确认里面的成交失败原因弹窗-->
+				<div class="FailDealCauseAlert">
+					<div class="FailDealCauseAlertTop">成交失败原因<i class="FailDealCauseAlertDel fa fa-close" ></i></div>
+					<div class="FailDealCauseAlertBottom">
+						<input type="button" value="价格原因" class="FailDealCauseInp1">
+						<input type="button" value="客户原因" class="FailDealCauseInp2">
+						<input type="button" value="无此业务" class="FailDealCauseInp3">
+						<!--返回、提交-->
+						<span class="AlertFailDealCauseGoBack">返回</span>
+						<span class="AlertFailDealCauseSubmit">提交</span>
+					</div>
+				</div>
+			</div>
+			<!--右边模块-->
+			<div class="main_right">
+				<div class="addProduct">
+					<span class="addProductTitle">三、添加产品/服务</span>
+					<div class="addProductTableCont">
+						<table class="addProductTable" border="0" cellspacing="0" cellpadding="0">
+							<thead style="background:#f0f2f5">
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">单选</th>
+								<th style="line-height: 18px;background:#f0f2f5;">行业名</th>
+								<th style="line-height: 18px;background:#f0f2f5;">区域</th>
+								<th style="line-height: 18px;background:#f0f2f5;">股东</th>
+								<th style="line-height: 18px;background:#f0f2f5;">类型</th>
+								<th style="line-height: 18px;background:#f0f2f5;">偏好</th>
+								<th style="line-height: 18px;background:#f0f2f5;">服务费</th>
+								<th style="line-height: 18px;background:#f0f2f5;">工本费</th>
+								<th style="line-height: 18px;background:#f0f2f5;">操作</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="border-left: 1px solid black;"><input type="checkbox" class="addProductTableRadioInp"></td>
+									<td>科技技术</td>
+									<td>上海市奉贤区</td>
+									<td>中国大陆</td>
+									<td>有限公司</td>
+									<td>普通注册</td>
+									<td>0</td>
+									<td>500</td>
+									<td style="color: blue; cursor: pointer;">修改</td>
+								</tr>
+								<tr>
+									<td style="border-left: 1px solid black;"><input type="checkbox" class="addProductTableRadioInp"></td>
+									<td>科技技术</td>
+									<td>上海市奉贤区</td>
+									<td>中国大陆</td>
+									<td>有限公司</td>
+									<td>普通注册</td>
+									<td>0</td>
+									<td>500</td>
+									<td style="color: blue; cursor: pointer;">修改</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div>
+					<!--确认增加-->
+					<span class="addProductYes">确认增加</span>
+				</div>
+				<div class="ProductList">
+					<span class="ProductListTitle">四、产品列表</span>
+					<div class="ProductListTableCont">
+						<table class="ProductListTable" border="0" cellspacing="0" cellpadding="0">
+							<thead style="background:#f0f2f5">
+								<th style="line-height: 18px;background:#f0f2f5; border-left: 1px solid black;">序号</th>
+								<th style="line-height: 18px;background:#f0f2f5;">行业名</th>
+								<th style="line-height: 18px;background:#f0f2f5;">区域</th>
+								<th style="line-height: 18px;background:#f0f2f5;">股东</th>
+								<th style="line-height: 18px;background:#f0f2f5;">类型</th>
+								<th style="line-height: 18px;background:#f0f2f5;">偏好</th>
+								<th style="line-height: 18px;background:#f0f2f5;">操作</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="border-left: 1px solid black;">1</td>
+									<td>科技技术</td>
+									<td>上海市奉贤区</td>
+									<td>中国大陆</td>
+									<td>有限公司</td>
+									<td>普通注册</td>
+									<td style="color: blue; cursor: pointer;">删除</td>
+								</tr>
+								<tr>
+									<td style="border-left: 1px solid black;">2</td>
+									<td>科技技术</td>
+									<td>上海市奉贤区</td>
+									<td>中国大陆</td>
+									<td>有限公司</td>
+									<td>普通注册</td>
+									<td style="color: blue; cursor: pointer;">删除</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--返回、生成订单、定制已完成-->
+					<span class="ProductListBack">返回</span>
+					<span class="ProductListBetrue">生成订单</span>
+					<span class="ProductListCompled">定制已完成</span>
+				</div>
+			</div>
+		</div>
+		<!--弹框-->
+		<!--<div class="modal fade" id="modalAddEntrustCommunicate">
+			<div class="modal-dialog">
+				<div class="modal-content message_align">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<h4 class="modal-title">待跟进内容</h4>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control" rows="6" style="resize:none;margin-bottom:15px" placeholder="请填写沟通内容"></textarea>
+						<div style="height: 0;display: block;clear: both"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+						<a class="btn btn-success" data-dismiss="modal" id="exch">保存</a>
+					</div>
+				</div>
+			</div>
+		</div>-->
+	</body>
+
+</html>

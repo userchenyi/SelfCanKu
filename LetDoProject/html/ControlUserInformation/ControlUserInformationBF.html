@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>客户信息管理</title>
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="../../js/bootstrapSelect/bootstrap-select.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ControlUserInformation/ControlUserInformation.css"/>
+		
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--bootstrap-select-->
+		<script src="../../js/bootstrapSelect/bootstrap-select.min.js"></script>
+		<script src="../../js/bootstrapSelect/defaults-zh_CN.min.js"></script>
+		
+		<script src="../../js/ControlUserInformation/ControlUserInformation.js"></script>
+	</head>
+	<body>
+		<div class="OutContant">
+			<!--位置信息-->
+			<!--<span class="CurrentTitle">客户信息管理 / 持有人信息</span>-->
+			<!--标注-->
+			<span class="MindThings">对公司产品购买客户、注册客户、产品预约客户、产品路演预约客户以及活动预约客户进行的管理。<i class="redmind">(注：现在选中第一个复选框不会将所有页的数据都选中)</i></span>
+			<!--导航标签-->
+			<!--<ul class="Navbar">
+				<li class="barItem">持有人管理</li>
+				<li class="barItem">历史持有人管理</li>
+				<li class="barItem">渠道客户</li>
+				<li class="barItem">申请通行证号客户</li>
+				<li class="barItem">注册客户</li>
+				<li class="barItem">预约客户</li>
+				<li class="barItem">产品路演预约客户</li>
+				<li class="barItem">活动预约客户</li>
+			</ul>-->
+			<!--下拉选择-->
+			<div class="col-sm-5 selectCont" style="margin:0; padding:0; margin-top:10px; width: 100%;">
+			    <!--<div class="row">-->
+			        <!--<label class="col-sm-3 control-label" style="line-height: 34px;margin-bottom: 20px;">选择用户：</label>-->
+			        <!--
+			        	1、show-tick  会在你选择的每个选项后面 打一个 对号
+						2、form-control 就是bootstrap的样式 没什么用						
+						3、属性 multiple 毫无疑问 就是多选的意思						
+						4、属性 data-live-search="true"  一看到search 没错 就是下面那个搜索框 					
+						5、属性 data-actions-box="true" 全选，取消全选  	
+			        -->
+			        <div class="col-sm-5" style="float:left;width:220px;">
+			            <select id="select" name="select" class="selectpicker1 show-tick form-control" data-live-search="true">
+							
+			            </select>
+			        </div>
+			        <div class="col-sm-5" style="float:left;width:220px;">
+			            <select id="select1" name="select" class="selectpicker2 show-tick form-control" data-live-search="true">
+							<option value="2-1">按购买状态筛选,全部(200)</option>
+							<option value="2-2">已签约(40)</option>
+							<option value="2-3">签约中-互联网签约(160)</option>  
+			            </select>
+			        </div>
+			        <div class="col-sm-5" style="float:left;width:220px;">
+			            <select id="select2" name="select" class="selectpicker3 show-tick form-control" data-live-search="true">
+							<option value="3-1">按风险类型筛选,全部(109)</option>
+							<option value="3-2">个人版-积极型(43)</option>
+							<option value="3-3">个人版-激进型(10)</option>
+							<option value="3-4">个人版-稳健型(45)</option>
+							<option value="3-5">个人版-谨慎型(8)</option>
+							<option value="3-6">机构版-激进型(1)</option>
+							<option value="3-7">机构版-积极型(2)</option>
+			            </select>
+			        </div>
+			        <!--<div class="col-sm-5" style="float:left;width:220px;">
+			            <select id="select3" name="select" class="selectpicker4 show-tick form-control" data-live-search="true">
+							<option value="4-1">按投资者类型筛选,全部(190)</option>
+							<option value="4-2">普通投资者(111)</option>
+							<option value="4-3">专业投资者(8)</option>
+							<option value="4-4">未知(71)</option> 
+			            </select>
+			        </div>
+			        <div class="col-sm-5" style="float:left;width:220px;">
+			            <select id="select4" name="select" class="selectpicker5 show-tick form-control" data-live-search="true">
+							<option value="5-1">按自然人/机构筛选,全部(190)</option>
+							<option value="5-2">自然人(187)</option>
+							<option value="5-3">机构(3)</option>    
+			            </select>
+			        </div>-->
+			    <!--</div>-->
+			</div>                       
+			
+			
+			
+			
+		</div>
+		<script>
+//			function selectOnchang(obj){
+//				//获取被选中的option标签选项	
+//				alert(obj.selectedIndex);	
+//			}
+		</script>
+	</body>
+</html>

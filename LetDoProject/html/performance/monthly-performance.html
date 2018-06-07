@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>月度业绩汇报表</title>
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="../../js/bootstrapSelect/bootstrap-select.min.css" />
+
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/tableExport.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--bootstrap-select-->
+		<script src="../../js/bootstrapSelect/bootstrap-select.min.js"></script>
+		<script src="../../js/bootstrapSelect/defaults-zh_CN.min.js"></script>
+		<!--page-->
+		<script src="../../js/performance/info.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/performance/monthly-performance.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="panel-body">
+			<!--配置-->
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-1 control-label" for="mouthly">选择月份</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control form_datetime" id="mouthly" value="" readonly="readonly" />
+					</div>
+					<div class="col-sm-2">
+						<button type="button" id="btn_search" class="btn btn-primary" onclick="showTable();">查询</button>
+					</div>
+					<div class="col-xs-7 text-right">
+						<button type="button" id="exportTable" class="btn btn-primary">导出Excel</button>
+					</div>
+				</div>
+			</div>
+			
+			<!--业绩表格-->
+			<table id="mouthTable" class="table table-bordered table-striped">
+			</table>
+
+		</div>
+	</body>
+
+</html>
