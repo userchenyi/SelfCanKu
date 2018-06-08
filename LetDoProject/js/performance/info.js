@@ -1,6 +1,5 @@
 $(function() {
 	setAllSystemUsers();
-	//	getLabeledOrg();
 });
 
 function getLabeledOrg() {
@@ -835,59 +834,9 @@ function getAllCertNos() {
 	}
 	return _certNos;
 }
-//整体业绩
-function dataTeam(data) {
-	var _block = data;
-	//certNo->对应的部门
-	var branches = [];
-	var companies = [];
-	var allACertNos = getAllCertNos(); //获取全公司理财师身份证列表
-	var _sum = 0;
-	console.log("业绩", _block);
-	console.log(allACertNos);
-	for(var i = 0; i < _block.length; i++) {
-		var _agent = _block[i];
-		var _index = $.inArray(_agent.id, allACertNos.certNos);
-		if(-1 != _index) {
-			var amount = 0;
-			for(var j = 0; j < _agent.data.length; j++) {
-				amount += Number(_agent.data[j].Amount / 10000);
-			}
-			_agent.amount = amount;
-			_sum += Number(amount);
-			var businessUnitId = allACertNos.departIds[_index];
-			var parentBusinessUnitId = allACertNos.parentsdepartIds[_index];
-			var businessUnitName = allACertNos.departNames[_index];
-			var key = companies.indexOf(businessUnitId);
-			if(-1 != key) {
-				branches[key].list.push(_agent);
-			} else {
-				var _company = {
-					amount: 0,
-					businessUnitName: businessUnitName,
-					businessUnitId: businessUnitId,
-					parentBusinessUnitId: parentBusinessUnitId,
-					percent: 0,
-					list: []
-				};
-				_company.list.push(_agent);
-				branches.push(_company);
-				companies.push(businessUnitId);
-			}
-		}
-	}
-	for(var i = 0; i < branches.length; i++) {
-		for(j = 0; j < branches[i].list.length; j++) {
-			branches[i].amount += Number(branches[i].list[j].amount);
-		}
-		branches[i].percent = ((Number((branches[i].amount / _sum) * 10000)) / 100).toFixed(2); //四舍五入保留两位小数
-	}
-	return branches;
-}
 //匹配理财师对应的部门
 function listTeam(data) {
 	var _block = data;//业绩数据
-	console.log("理财师业绩",_block);
 	var department_list = [];//设置分公司包含部门unitId
 	var arr1 = [];//上海私行
 	arr1.push(LabeledOrg[18].businessUnitId);
@@ -1005,8 +954,7 @@ function listTeam(data) {
 			}
 		}
 	}
-	console.log("整理完毕",departArr);
-	
+	return departArr;
 }
 var LabeledOrg = [{
 	"businessUnitId": "7253B029-B64D-E711-80B4-1866DAF3CBC4",

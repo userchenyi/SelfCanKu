@@ -1,4 +1,13 @@
 $(function() {
+	$('.form_datetime').datetimepicker({
+		format: 'yyyy-mm',  
+	     weekStart: 1,  
+	     autoclose: true,  
+	     startView: 3,  
+	     minView: 3,  
+	     forceParse: false,  
+	     language: 'zh-CN'  
+	});
 	$("#exportTable").click(function() {
 		$('#mouthTable').tableExport({
 			type: 'excel',
@@ -7,17 +16,8 @@ $(function() {
 		});
 	});
 	//1.初始化Table
-	/*var oTable = new TableInit();
-	oTable.Init();*/
-});
-$('.form_datetime').datetimepicker({
-	format: 'yyyy-mm',  
-     weekStart: 1,  
-     autoclose: true,  
-     startView: 3,  
-     minView: 3,  
-     forceParse: false,  
-     language: 'zh-CN'  
+	var oTable = new TableInit();
+	oTable.Init();
 });
 var TableInit = function() {
 	var oTableInit = new Object();
@@ -34,7 +34,10 @@ var TableInit = function() {
 			clickToSelect: true, //是否启用点击选中行
 			uniqueId: "ID", //每一行的唯一标识，一般为主键列
 			detailView: false, //是否显示父子表
-			height: 500,
+			formatNoMatches: function () {  //没有匹配的结果  
+			    return '';  
+			},  
+//			height: 500,
 			columns: [
 				[{
 					"title": "月度业绩汇总表",
@@ -2808,8 +2811,8 @@ var TableInit = function() {
 	};
 	return oTableInit;
 };
+//显示表格数据
 function showTable(){
-//	listTeam();
 	var mouthly = $("#mouthly").val();
 	if(!mouthly){
 		sweeterror("请选择月份");
@@ -2819,7 +2822,7 @@ function showTable(){
 	var mouth = mouthly.substring(5,7);
 	var start_date = mouthly+"-"+"01";
 	var end_date = mouthly+"-"+getRangeDay(year,mouth);
-	var department_amount;
+	var amount_data;
 	$.ajax({
 		type:"get",
 		url:setIp + "getAccountantsAchievement",
@@ -2829,15 +2832,34 @@ function showTable(){
 			"endDate": end_date
 		},
 		success:function(data){
-			listTeam(data);
+			amount_data = listTeam(data);
+			console.log("理财师数据",amount_data);
 		}
 	});
-	/*$.ajax({
-		type:"get",
-		url:loginIp + "product/getProductSeriesList",
-		async:true,
-		success:function(data){
-			console.log(data);
-		}
-	});*/
+	var getProductSeriesList;//产品、系列
+	$.ajax({
+    	type:"post",
+    	url:loginIp+"productSeries/getSeriesTree",
+    	data:{
+    		"beginDate":"",
+    		"endDate":""
+    	},
+    	async:false,
+    	success:function(data){
+    		getProductSeriesList = data;
+    		console.log(data);
+    	}
+    });
+	
+}
+//根据月份获取天数
+function getRangeDay(year, month) {
+	var new_year = year; //取当前的年份 
+	var new_month = month++; //取下一个月的第一天，方便计算（最后一天不固定） 
+	if(month > 12) {
+		new_month -= 12; //月份减 
+		new_year++; //年份增 
+	}
+	var new_date = new Date(new_year, new_month, 1); //取当年当月中的第一天 
+	return(new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate(); //获取当月最后一天日期 
 }

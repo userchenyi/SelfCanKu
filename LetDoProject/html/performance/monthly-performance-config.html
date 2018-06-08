@@ -1,9 +1,84 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>月度业绩汇报表配置</title>
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/iCheck/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/performance/monthly-performance-config.css"/>
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/tableExport.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--bootstrap-datetimepicker-->
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+		<!--icheck-->
+		<script src="../../plugins/iCheck/icheck.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--page-->
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/performance/monthly-performance-config.js" type="text/javascript" charset="utf-8"></script>
 	</head>
-	<body>
+
+	<body style="background: #FFFFFF;">
+		<div class="panel-body">
+			<hr />
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<div class="form-horizontal">
+							<label class="col-sm-1 control-label"><span class="form-tip">*</span>时间配置：</label>
+							<label class="col-sm-1 control-label">开始时间</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control form_datetime" id="start_time" value="" readonly="readonly" />
+							</div>
+							<label class="col-sm-1 control-label" for="mouthly">结束时间</label>
+							<div class="col-sm-2">
+								<input type="text" class="form-control form_datetime" id="end_time" value="" readonly="readonly" />
+							</div>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<div class="form-horizontal">
+							<label class="col-sm-1 control-label"><span class="form-tip">*</span>选择系列</label>
+							<ul class="col-sm-10 z-ul seriesList"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="row product_wrap" style="display: none;">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<div class="form-horizontal">
+							<label class="col-sm-1 control-label"><span class="form-tip">*</span>选择产品</label>
+							<ul class="col-sm-10 z-ul productList"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row margin-t-25">
+				<div class="col-sm-12">
+					<div class="form-group text-center">
+						<button type="button" class="btn btn-primary" onclick="saveconfig()">保存配置</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
+
 </html>

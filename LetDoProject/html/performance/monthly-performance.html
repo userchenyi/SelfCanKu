@@ -7,24 +7,25 @@
 		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
-		<link rel="stylesheet" href="../../js/bootstrapSelect/bootstrap-select.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css"/>
 
 		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
 		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
 		<!--bootstrap-table-->
 		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
-		<script src="../../js/bootstrapTable/tableExport.js"></script>
-		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
-		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
-		<!--bootstrap-select-->
-		<script src="../../js/bootstrapSelect/bootstrap-select.min.js"></script>
-		<script src="../../js/bootstrapSelect/defaults-zh_CN.min.js"></script>
+		<script src="../../plugins/tableExport/xlsx.core.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../plugins/tableExport/fileSaver.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../plugins/tableExport/tableExport.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--bootstrap-datetimepicker-->
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
 		<!--page-->
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/performance/info.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/performance/monthly-performance.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
-	<body>
+	<body style="background: #FFFFFF;">
 		<div class="panel-body">
 			<!--配置-->
 			<div class="form-horizontal">
@@ -43,8 +44,11 @@
 			</div>
 			
 			<!--业绩表格-->
-			<table id="mouthTable" class="table table-bordered table-striped">
-			</table>
+			<div class="row">
+				<div class="col-sm-12">
+					<table id="mouthTable" class="table table-bordered table-striped"></table>
+				</div>
+			</div>
 
 		</div>
 	</body>
