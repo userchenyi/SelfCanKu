@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>加班汇总表</title>
+		<link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/StatisticsReport/OverWorkSum.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--tableexport-->
+		<script src="../../plugins/tableExport/tableExport.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--datetimepicker-->
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>		
+		<!--page-->
+		<script src="../../js/StatisticsReport/OverWorkSum.js"></script>
+	</head>
+	<body>
+		<div class="OutContant">
+            <!--顶部选择-->
+			<div class="selectCont">
+				<span class="titleTiShi"><strong>加班汇总表</strong></span>
+		        <!--时间选择-->
+		        <span class="TimeSelSp"><strong>选择时间：</strong></span>
+		        <input type="text" class="TimeSel form-control" value="" readonly="readonly" />
+		        <!--搜索姓名-->
+		        <span class="NameSelSp"><strong>搜索姓名：</strong></span>
+		        <input type="text" class="NameSel" value="" placeholder="回车搜索" />
+		        <!--导出全部-->
+		        <a class="modelExportAll" href="javascript:void(0)">导出</a>
+			</div>   
+			<!--表格部分-->
+	        <div id="reportTableDiv">
+				<table id="reportTable">
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

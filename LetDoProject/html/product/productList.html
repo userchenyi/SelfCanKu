@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>产品列表</title>
+		<link rel="stylesheet" type="text/css" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/bootstrapSelect/bootstrap-select.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/product/productList.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="../../js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="../../js/bootstrapSelect/bootstrap-select.min.css"/>
+		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
+		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
+		<!--bootstrap-table-->
+		<script src="../../js/bootstrapTable/bootstrap-table.min.js"></script>
+		<script src="../../js/bootstrapTable/tableExport.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-export.min.js"></script>
+		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+		<!--bootstrap-select-->
+		<script src="../../js/bootstrapSelect/bootstrap-select.min.js"></script>
+		<script src="../../js/bootstrapSelect/defaults-zh_CN.min.js"></script>
+		<!--datetimepicker-->
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+		<!--wangEditor-->
+		<link rel="stylesheet" type="text/css" href="../../plugins/wangEditor3/wangEditor.min.css" />
+		<script src="../../plugins/wangEditor3/wangEditor.min.js"></script>
+		<!--page-->
+		<script src="../../utils/pagesFunctionPack.js"></script>
+		<script src="../../js/product/productList.js"></script>
+	</head>
+	<body>
+		<div class="OutContant">			
+			<!--下拉选择-->
+			<div class="col-sm-5 selectCont" style="margin:0; padding:0; float:left; margin-top:10px; width: 100%;">
+		        <!--
+		        	1、show-tick  会在你选择的每个选项后面 打一个 对号
+					2、form-control 就是bootstrap的样式 没什么用						
+					3、属性 multiple 多选					
+					4、属性 data-live-search="true"  搜索框 					
+					5、属性 data-actions-box="true" 全选，取消全选  	
+		        -->
+		        <div class="col-sm-5" style="float:left;width:220px;">
+		            <select id="select1" name="select" class="selectpicker1 show-tick form-control" data-live-search="true">
+						<option value="">按产品状态筛选(全部)</option>
+						<option value="206290000">未提交</option>
+						<option value="206290001">未审核</option>
+						<option value="206290002">产品部驳回</option>
+						<option value="206290003">发行中</option>
+						<option value="206290004">已成立</option>
+						<option value="206290005">产品部通过</option>
+						<option value="206290006">销售部通过</option>
+						<option value="206290007">销售部驳回</option>
+						<option value="206290008">产品作业部驳回</option>
+						<option value="206290009">募集完成</option>
+						<option value="206290010">清算完成</option>
+						<option value="206290011">兑付完成</option>
+						<option value="206290012">暂停</option>
+		            </select>
+		        </div>
+		        <div class="col-sm-5" style="float:left;width:220px;">
+		            <select id="select2" name="select" class="selectpicker2 show-tick form-control" data-live-search="true">
+						<option value="">按产品类型筛选(全部)</option>
+						<option value="206290000">FOF产品</option>
+						<option value="206290001">PPP产品</option>
+						<option value="206290002">OTC产品</option>
+						<option value="206290003">PE股权产品</option>
+		            </select>
+		        </div>
+		        <!--<input class="modelExport" type="button" value="导出全部" />-->
+		        <a class="modelExportAll" href="javascript:void(0)">导出全部</a>
+		        <!--<a class="modelExportPart" href="http://192.168.17.51:8080/personnelInformation/listPage?status=1&personnelId="+selectionIds>导出选中</a>-->
+			</div>                       
+			
+			<!--表格部分-->
+            <div id="reportTableDiv">
+				<table id="reportTable">
+				</table>
+			</div>
+						
+			<!--产品详情弹窗-->
+			<div class="productDetailWrapper">
+				<span class="detailTitle"><strong>产品列表-产品信息详情（产品xxx）</strong><i class="fa fa-times close"></i></span>
+				<div class="detailWrapper">
+					<!------------------常规信息------------------>
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#CGcontent">常规信息:</button>	
+				    <i title="保存" class="modalTiltleSave fa fa-floppy-o"></i>			    
+					<div id="CGcontent" class="collapse in contmodal">
+						<ul>
+							<li>
+								<span class="spl"><strong>产品名称</strong><i class="dotMark">*</i>：</span>
+								<input class="spr WRInpt ProductNameInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>产品经理</strong><i class="dotMark">*</i>：</span>
+								<input class="spr ProductMangerInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>分配类型</strong><i class="dotMark">*</i>：</span>
+								<input class="spr DistribtTypeInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>产品类型</strong><i class="dotMark">*</i>：</span>
+								<input class="spr WRInpt ProductTypeInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>产品状态</strong><i class="dotMark">*</i>：</span>
+								<input class="spr ProductStatusInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>托管外包费%</strong>：</span>
+								<input class="spr WRInpt HostOutCostInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>管理费%</strong>：</span>
+								<input class="spr WRInpt ManagerFeeInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>成立时间</strong>：</span>
+								<input class="spr TheCreatTime form-control" type="button" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>已成立额度</strong>：</span>
+								<input class="spr EstablishedInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>募集规模</strong><i class="dotMark">*</i>：</span>
+								<input class="spr WRInpt MJGMInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>募集规模(大写)</strong>：</span>
+								<input class="spr MJGMInpZs" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>公共池</strong>：</span>
+								<input class="spr PublicPoolInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>最低认购金额</strong>：</span>
+								<input class="spr WRInpt ZDRGJEInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>最低认购金额(大写)</strong>：</span>
+								<input class="spr ZDRGJEInpZs" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>vip额度</strong>：</span>
+								<input class="spr VIPQuotaInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>追加起点</strong>：</span>
+								<input class="spr WRInpt ZJQDInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>追加起点(大写)</strong>：</span>
+								<input class="spr ZJQDInpZs" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>可分配额度</strong>：</span>
+								<input class="spr KFPEDInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>已分配额度</strong>：</span>
+								<input class="spr YFPEDInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>							
+							<li>
+								<span class="spl"><strong>额度进度条</strong>：</span>
+								<input class="spr EDJDTInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>							
+							<li>
+								<span class="spl"><strong>可预约额度</strong>：</span>
+								<input class="spr KYYEDInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>
+							<li>
+								<span class="spl"><strong>已预约额度</strong>：</span>
+								<input class="spr YYYEDInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>							
+							<li>
+								<span class="spl"><strong>预约总进度条</strong>：</span>
+								<input class="spr YYZJDTInp" type="text" value="" readonly="readonly" />
+								<i class="fa fa-lock Inplock"></i>
+							</li>																										
+							<li>
+								<span class="spl"><strong>货币</strong>：</span>
+								<input class="spr WRInpt CurrencyInp" type="text" value="" />
+							</li>
+							<li>
+								<span class="spl"><strong>预约时效(H)</strong><i class="dotMark">*</i>：</span>
+								<input class="spr WRInpt YYSXInp" type="text" value="" />
+							</li>							
+							<li class="liTimeSlect">
+								<span class="spl lastSpl"><strong>存续期限</strong>：</span>
+								<div id="mon3" class="monthDot montfirst">3个月</div>
+								<div id="mon6" class="monthDot">6个月</div>
+								<div id="mon9" class="monthDot">9个月</div>
+								<div id="mon12" class="monthDot">12个月</div>
+								<div id="mon18" class="monthDot">18个月</div>
+								<div id="mon24" class="monthDot">24个月</div>
+								<div id="mon36" class="monthDot">36个月</div>
+								<div id="mon48" class="monthDot">48个月</div>
+								<div id="mon0" class="monthDot">永续</div>	
+							</li>
+						</ul>
+					</div>
+					<!----------------详细信息--------------->
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#CommonToggle">详细信息:</button>					     
+					<div id="CommonToggle" class="collapse in FOURcontmodal">
+						<!--FOF类产品--> 
+						<div class="FOFcontentWrap" style="display: none;">
+							<ul class="FOFcontentUlCont">
+								<li>
+									<span class="spl"><strong>投资类型</strong>：</span>
+									<select class="spr markSelect TZLXslect">
+										<option value="930820000">股票策略</option>
+										<option value="930820001">管理期货</option>
+										<option value="930820002">相对价值</option>
+										<option value="930820003">事件驱动</option>
+										<option value="930820004">债券策略</option>
+										<option value="930820005">宏观策略</option>
+										<option value="930820006">组合策略</option>
+										<option value="930820007">复合策略</option>
+										<option value="930820008">大类资产配置</option>
+										<option value="930820009">安心定增</option>
+										<option value="930820010">量化对冲</option>
+										<option value="930820011">现金管理</option>
+									</select>
+								</li>
+								<li>
+									<span class="spl"><strong>备案编码</strong>：</span>
+									<input class="spr WRInpt FOFBABMInp" type="text" value=""/>
+								</li>
+								<li>
+									<span class="spl"><strong>产品类型</strong>：</span>
+									<select class="spr markSelect CPLXslect">
+										<option value="930820000">信托产品</option>
+										<option value="930820001">自主发行</option>
+										<option value="930820002">公募专户</option>
+										<option value="930820003">券商资管</option>
+										<option value="930820004">期货资管</option>
+										<option value="930820005">有限合伙</option>
+										<option value="930820006">海外基金</option>
+										<option value="930820007">单账户</option>
+									</select>
+								</li>
+								<li>
+									<span class="spl"><strong>管理团队</strong>：</span>
+									<input class="spr WRInpt FOFGLTDInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>基金管理人</strong>：</span>
+									<input class="spr WRInpt FOFJJGLRInp" type="text" value=""/>
+								</li>
+								<li>
+									<span class="spl"><strong>基金托管人</strong>：</span>
+									<input class="spr WRInpt FOFJJTGRInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>投资顾问</strong>：</span>
+									<input class="spr WRInpt FOFTZGWInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>证券经纪商</strong>：</span>
+									<input class="spr WRInpt FOFZQJJSInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>期货经纪商</strong>：</span>
+									<input class="spr WRInpt FOFQHJJSInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>管理人管理费率</strong>：</span>
+									<input class="spr WRInpt FOFGLRGLFLInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>业绩报酬（%）</strong>：</span>
+									<input class="spr WRInpt FOFYJBCInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>管理机构</strong>：</span>
+									<input class="spr WRInpt FOFGLJGInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>基金经理</strong>：</span>
+									<input class="spr WRInpt FOFJJJLInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>开放日</strong>：</span>
+									<input class="spr WRInpt FOFKFRInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>封闭期</strong>：</span>
+									<input class="spr WRInpt FOFFBQInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>认购费率（%）</strong>：</span>
+									<input class="spr WRInpt FOFRGFLInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>赎回费率（%）</strong>：</span>
+									<input class="spr WRInpt FOFSHFLInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>预警线（%）</strong>：</span>
+									<input class="spr WRInpt FOFYJXInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>止损线（%）</strong>：</span>
+									<input class="spr WRInpt FOFZSXInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>托管费（%）</strong>：</span>
+									<input class="spr WRInpt FOFTGFInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>行政管理费（%）</strong>：</span>
+									<input class="spr WRInpt FOFXZGLFInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>成立日期</strong>：</span>
+									<input class="spr FOFCLRQInp" type="button" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>是否伞型</strong>：</span>
+									<select class="spr markSelect SFSXslect">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</li>
+								<li>
+									<span class="spl"><strong>是否分级</strong>：</span>
+									<select class="spr markSelect SFFJslect">
+										<option value="1">分级</option>
+										<option value="0">不分级</option>
+									</select>
+								</li>
+								<li>
+									<span class="spl"><strong>托管机构</strong>：</span>
+									<input class="spr WRInpt FOFTGJJInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>基金费用</strong>：</span>
+									<input class="spr WRInpt FOFJJFYInp" type="text" value="" />
+								</li>	
+							</ul>
+							<!--FOF富文本编辑区域-->
+							<div class="FOFedirtorArea">
+								<div class="lip">
+									<span class="spl"><strong>净值公布</strong>：</span>								
+									<div class="sprp FEdiTorJZGB">
+										<div id="FEdiTorJZGB1" class="toolbar toolbar1"></div>
+										<div id="FEdiTorJZGB2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资范围</strong>：</span>
+									<div class="sprp FEdiTorTZFW">
+										<div id="FEdiTorTZFW1" class="toolbar toolbar2"></div>
+										<div id="FEdiTorTZFW2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>参与退出</strong>：</span>
+									<div class="sprp FEdiTorCYTC">
+										<div id="FEdiTorCYTC1" class="toolbar toolbar3"></div>
+										<div id="FEdiTorCYTC2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>产品亮点</strong>：</span>
+									<div class="sprp FEdiTorCPLD">
+										<div id="FEdiTorCPLD1" class="toolbar toolbar4"></div>
+										<div id="FEdiTorCPLD2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险措施</strong>：</span>
+									<div class="sprp FEdiTorFXCS">
+										<div id="FEdiTorFXCS1" class="toolbar toolbar5"></div>
+										<div id="FEdiTorFXCS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资目标</strong>：</span>
+									<div class="sprp FEdiTorTZMB">
+										<div id="FEdiTorTZMB1" class="toolbar toolbar6"></div>
+										<div id="FEdiTorTZMB2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资策略</strong>：</span>
+									<div class="sprp FEdiTorTZCL">
+										<div id="FEdiTorTZCL1" class="toolbar toolbar7"></div>
+										<div id="FEdiTorTZCL2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>合格投资者</strong>：</span>
+									<div class="sprp FEdiTorHGTZZ">
+									    <div id="FEdiTorHGTZZ1" class="toolbar toolbar8"></div>
+										<div id="FEdiTorHGTZZ2" class="WRichtext"></div>   	
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>目标开户</strong>：</span>
+									<div class="sprp FEdiTorMBKH">
+										<div id="FEdiTorMBKH1" class="toolbar toolbar9"></div>
+										<div id="FEdiTorMBKH2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>备注</strong>：</span>
+									<div class="sprp FEdiTorBZ">
+										<div id="FEdiTorBZ1" class="toolbar toolbar10"></div>
+										<div id="FEdiTorBZ2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险提示</strong>：</span>
+									<div class="sprp FEdiTorFXTS">
+										<div id="FEdiTorFXTS1" class="toolbar toolbar11"></div>
+										<div id="FEdiTorFXTS2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>还款来源</strong>：</span>
+									<div class="sprp FEdiTorHKLY">
+										<div id="FEdiTorHKLY1" class="toolbar toolbar12"></div>
+										<div id="FEdiTorHKLY2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>资金用途</strong>：</span>
+									<div class="sprp FEdiTorZJYT">
+										<div id="FEdiTorZJYT1" class="toolbar toolbar13"></div>
+										<div id="FEdiTorZJYT2" class="WRichtext"></div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					    <!--固定收益类产品-->
+					    <div class="GDSYcontentWrap" style="display: none;">
+					    	<ul class="GDSYcontentUlCont">
+								<li>
+									<span class="spl"><strong>托管账户</strong>：</span>
+									<input class="spr WRInpt GDTGZHInp" type="text" value=""/>
+								</li>					
+								<li>
+									<span class="spl"><strong>基础资产类型</strong>：</span>
+									<input class="spr WRInpt GDJCZCLXInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>转让方</strong>：</span>
+									<input class="spr WRInpt GDZRFInp" type="text" value=""/>
+								</li>
+								<li>
+									<span class="spl"><strong>资金用途</strong>：</span>
+									<input class="spr WRInpt GDZJYTInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>转让顾问</strong>：</span>
+									<input class="spr WRInpt GDZRGWInp" type="text" value="" />
+								</li>
+							</ul>
+							<!--固定收益类富文本编辑区域-->
+							<div class="GDSYedirtorArea">
+								<div class="lip">
+									<span class="spl"><strong>参与退出</strong>：</span>								
+									<div class="sprp GEdiTorCYTC">
+										<div id="GEdiTorCYTC1" class="toolbar toolbar14"></div>
+										<div id="GEdiTorCYTC2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>收益分配方式</strong>：</span>
+									<div class="sprp GEdiTorSYFP">
+										<div id="GEdiTorSYFP1" class="toolbar toolbar15"></div>
+										<div id="GEdiTorSYFP2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资范围</strong>：</span>
+									<div class="sprp GEdiTorTZFW">
+										<div id="GEdiTorTZFW1" class="toolbar toolbar16"></div>
+										<div id="GEdiTorTZFW2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>还款来源及保障</strong>：</span>
+									<div class="sprp GEdiTorHKLY">
+										<div id="GEdiTorHKLY1" class="toolbar toolbar17"></div>
+										<div id="GEdiTorHKLY2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>项目方介绍</strong>：</span>
+									<div class="sprp GEdiTorXMFJS">
+										<div id="GEdiTorXMFJS1" class="toolbar toolbar18"></div>
+										<div id="GEdiTorXMFJS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>融资方介绍</strong>：</span>
+									<div class="sprp GEdiTorRZFJS">
+										<div id="GEdiTorRZFJS1" class="toolbar toolbar19"></div>
+										<div id="GEdiTorRZFJS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>增信措施</strong>：</span>
+									<div class="sprp GEdiTorZXCS">
+									    <div id="GEdiTorZXCS1" class="toolbar toolbar20"></div>
+										<div id="GEdiTorZXCS2" class="WRichtext"></div>   	
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险提示</strong>：</span>
+									<div class="sprp GEdiTorFXTS">
+										<div id="GEdiTorFXTS1" class="toolbar toolbar23"></div>
+										<div id="GEdiTorFXTS2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>产品亮点</strong>：</span>
+									<div class="sprp GEdiTorCPLD">
+										<div id="GEdiTorCPLD1" class="toolbar toolbar24"></div>
+										<div id="GEdiTorCPLD2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险控制</strong>：</span>
+									<div class="sprp GEdiTorFXKZ">
+										<div id="GEdiTorFXKZ1" class="toolbar toolbar25"></div>
+										<div id="GEdiTorFXKZ2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>分红</strong>：</span>
+									<div class="sprp GEdiTorFH">
+										<div id="GEdiTorFH1" class="toolbar toolbar21"></div>
+										<div id="GEdiTorFH2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>其它</strong>：</span>
+									<div class="sprp GEdiTorQT">
+										<div id="GEdiTorQT1" class="toolbar toolbar22"></div>
+										<div id="GEdiTorQT2" class="WRichtext"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					    <!--PPP类产品-->
+					    <div class="PPPcontentWrap" style="display: none;">
+					    	<ul class="PPPcontentUlCont">
+								<li>
+									<span class="spl"><strong>托管机构</strong>：</span>
+									<input class="spr WRInpt PTGJGInp" type="text" value=""/>
+								</li>					
+								<li>
+									<span class="spl"><strong>管理机构</strong>：</span>
+									<input class="spr WRInpt PJGGLInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>托管账户</strong>：</span>
+									<input class="spr WRInpt PTGZHInp" type="text" value=""/>
+								</li>
+								<li>
+									<span class="spl"><strong>基金管理费</strong>：</span>
+									<input class="spr WRInpt PJJGLFInp" type="text" value="" />
+								</li>
+							</ul>
+							<!--PPP类富文本编辑区域-->
+							<div class="PPPedirtorArea">
+								<div class="lip">
+									<span class="spl"><strong>参与退出</strong>：</span>								
+									<div class="sprp PEdiTorCYTC">
+										<div id="PEdiTorCYTC1" class="toolbar toolbar26"></div>
+										<div id="PEdiTorCYTC2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>收益分配方式</strong>：</span>
+									<div class="sprp PEdiTorSYFP">
+										<div id="PEdiTorSYFP1" class="toolbar toolbar27"></div>
+										<div id="PEdiTorSYFP2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资范围</strong>：</span>
+									<div class="sprp PEdiTorTZFW">
+										<div id="PEdiTorTZFW1" class="toolbar toolbar28"></div>
+										<div id="PEdiTorTZFW2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>还款来源及保障</strong>：</span>
+									<div class="sprp PEdiTorHKLY">
+										<div id="PEdiTorHKLY1" class="toolbar toolbar29"></div>
+										<div id="PEdiTorHKLY2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>项目方介绍</strong>：</span>
+									<div class="sprp PEdiTorXMFJS">
+										<div id="PEdiTorXMFJS1" class="toolbar toolbar30"></div>
+										<div id="PEdiTorXMFJS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>融资方介绍</strong>：</span>
+									<div class="sprp PEdiTorRZFJS">
+										<div id="PEdiTorRZFJS1" class="toolbar toolbar31"></div>
+										<div id="PEdiTorRZFJS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>增信措施</strong>：</span>
+									<div class="sprp PEdiTorZXCS">
+									    <div id="PEdiTorZXCS1" class="toolbar toolbar32"></div>
+										<div id="PEdiTorZXCS2" class="WRichtext"></div>   	
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险提示</strong>：</span>
+									<div class="sprp PEdiTorFXTS">
+										<div id="PEdiTorFXTS1" class="toolbar toolbar35"></div>
+										<div id="PEdiTorFXTS2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>产品亮点</strong>：</span>
+									<div class="sprp PEdiTorCPLD">
+										<div id="PEdiTorCPLD1" class="toolbar toolbar36"></div>
+										<div id="PEdiTorCPLD2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险控制</strong>：</span>
+									<div class="sprp PEdiTorFXKZ">
+										<div id="PEdiTorFXKZ1" class="toolbar toolbar37"></div>
+										<div id="PEdiTorFXKZ2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>资金用途</strong>：</span>
+									<div class="sprp PEdiTorZJYT">
+										<div id="PEdiTorZJYT1" class="toolbar toolbar38"></div>
+										<div id="PEdiTorZJYT2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>分红</strong>：</span>
+									<div class="sprp PEdiTorFH">
+										<div id="PEdiTorFH1" class="toolbar toolbar33"></div>
+										<div id="PEdiTorFH2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>其它</strong>：</span>
+									<div class="sprp PEdiTorQT">
+										<div id="PEdiTorQT1" class="toolbar toolbar34"></div>
+										<div id="PEdiTorQT2" class="WRichtext"></div>
+									</div>
+								</div>		
+							</div>
+						</div>
+						<!--PE股权产品-->
+					    <div class="PEcontentWrap" style="display: none;">
+					    	<ul class="PEcontentUlCont">
+								<li>
+									<span class="spl"><strong>募集期</strong>：</span>
+									<input class="spr PEcretime PGMJQInp" type="button" value=""/>
+								</li>					
+								<li>
+									<span class="spl"><strong>管理团队</strong>：</span>
+									<input class="spr WRInpt PGGLTDInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>基金托管人</strong>：</span>
+									<input class="spr WRInpt PGJJTGRInp" type="text" value=""/>
+								</li>
+								<li>
+									<span class="spl"><strong>基金管理人</strong>：</span>
+									<input class="spr WRInpt PGJJGLRInp" type="text" value="" />
+								</li>
+								<li>
+									<span class="spl"><strong>产品结构</strong>：</span>
+									<select class="spr markSelect CPJGslect">
+										<option value="930820000">组合型</option>
+										<option value="930820001">单一型</option>
+									</select>
+								</li>
+								<li class="ProductJGXQ">
+									<span class="spl"><strong>产品结构详情</strong>：</span>
+									<input class="spr WRInpt PGCPJGXQInp" type="text" value=""/>								
+								</li>
+								<li>
+									<span class="spl"><strong>是否跟投</strong>：</span>
+									<select class="spr markSelect SFGTslect">
+										<option value="930820000">是</option>
+										<option value="930820001">否</option>
+										<option value="930820002">不适用</option>
+									</select>
+								</li>
+							</ul>
+							<!--PE股权类富文本编辑区域-->
+							<div class="PEedirtorArea">
+								<div class="lip">
+									<span class="spl"><strong>分配方式</strong>：</span>								
+									<div class="sprp PGEdiTorFPFS">
+										<div id="PGEdiTorFPFS1" class="toolbar toolbar39"></div>
+										<div id="PGEdiTorFPFS2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>投资方向</strong>：</span>
+									<div class="sprp PGEdiTorTZFX">
+										<div id="PGEdiTorTZFX1" class="toolbar toolbar40"></div>
+										<div id="PGEdiTorTZFX2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>信息披露</strong>：</span>
+									<div class="sprp PGEdiTorXXPL">
+										<div id="PGEdiTorXXPL1" class="toolbar toolbar41"></div>
+										<div id="PGEdiTorXXPL2" class="WRichtext"></div>
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>储备项目</strong>：</span>
+									<div class="sprp PGEdiTorCBXM">
+										<div id="PGEdiTorCBXM1" class="toolbar toolbar42"></div>
+										<div id="PGEdiTorCBXM2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风控措施</strong>：</span>
+									<div class="sprp PGEdiTorFKCS">
+										<div id="PGEdiTorFKCS1" class="toolbar toolbar43"></div>
+										<div id="PGEdiTorFKCS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>风险提示</strong>：</span>
+									<div class="sprp PGEdiTorFXTS">
+										<div id="PGEdiTorFXTS1" class="toolbar toolbar44"></div>
+										<div id="PGEdiTorFXTS2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>产品亮点</strong>：</span>
+									<div class="sprp PGEdiTorCPLD">
+										<div id="PGEdiTorCPLD1" class="toolbar toolbar45"></div>
+										<div id="PGEdiTorCPLD2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>还款来源</strong>：</span>
+									<div class="sprp PGEdiTorHKLY">
+										<div id="PGEdiTorHKLY1" class="toolbar toolbar46"></div>
+										<div id="PGEdiTorHKLY2" class="WRichtext"></div>									
+									</div>
+								</div>
+								<div class="lip">
+									<span class="spl"><strong>资金用途</strong>：</span>
+									<div class="sprp PGEdiTorZJYT">
+										<div id="PGEdiTorZJYT1" class="toolbar toolbar47"></div>
+										<div id="PGEdiTorZJYT2" class="WRichtext"></div>									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--募集账户信息-->
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#MJZHcontent">募集账户信息:</button>	
+					<div id="MJZHcontent" class="collapse in contmodal">
+						<div id="w11" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容1
+						</div>
+						<div id="w21" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容2
+						</div>
+						<div id="w31" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容3
+						</div>
+					</div>
+					<!--业绩比较基准信息-->
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#YJBJcontent">业绩比较基准信息:</button>	
+					<div id="YJBJcontent" class="collapse in contmodal">
+						<div id="w12" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容1
+						</div>
+						<div id="w22" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容2
+						</div>
+						<div id="w32" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容3
+						</div>
+					</div>
+					<!--产品净值信息-->
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#CPJZcontent">产品净值信息:</button>	
+					<div id="CPJZcontent" class="collapse in contmodal">
+						<div id="w13" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容1
+						</div>
+						<div id="w23" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容2
+						</div>
+						<div id="w33" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容3
+						</div>
+					</div>
+					<!--附件上传-->
+				    <button type="button" class="btn btn-default modalTiltleBt" data-toggle="collapse" data-target="#FJSCcontent">附件上传:</button>	
+					<div id="FJSCcontent" class="collapse in contmodal">
+						<div id="w14" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容1
+						</div>
+						<div id="w24" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容2
+						</div>
+						<div id="w34" style="width: 100%;height: 40px;line-height: 40px;text-align: center;">
+							内容3
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
