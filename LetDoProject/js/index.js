@@ -276,6 +276,8 @@
             });
         }
     };
+    //定义一个变量保存用户点击需要二次登录的一级标题
+    var FirstMenuClick;
     $.learunindex = {
         load: function () {
             $("body").removeClass("hold-transition");
@@ -327,29 +329,21 @@
 //  	        }
 //  	        
 //  	    ];
-            var data = menuData;
-            
+            var data = menuData;            
             var _html = "";
             $.each(data, function (i) {
 	            var row = data[i];
-	            //console.log(row);
-	            if (row.f_ParentId == "0" || row.f_ParentId == "1_2") {
-					//if (i == 0) {
-		            //    _html += '<li class="treeview active">';
-		            //} else {
-		            //    _html += '<li class="treeview">';
-		            //}
-	                _html += '<li class="treeview">';
-	                //_html += '<a href="#">';
-	                //判断是否有儿子节点
-	                if(row.f_Children){
+	            if (row.f_ParentId == "0" || row.f_ParentId == "1_2") {					
+	                _html += '<li class="treeview">';                
+	                //判断是否有儿子节点,并判断是否需要二次登录
+	                if(row.f_Children && row.f_SecondaryLanding){
+	                	_html += '<a href="#" id="userLog'+row.f_ModuleId+'" class="SecdLogin" style="position:relative"><i class="' + row.f_Icon + '"></i><span>' + row.f_FullName + '</span><i class="fa fa-angle-right" style="position:absolute;right:4%;top:10px;"></i></a>'
+	                }else if(row.f_Children && !row.f_SecondaryLanding){
 	                	_html += '<a href="#" style="position:relative"><i class="' + row.f_Icon + '"></i><span>' + row.f_FullName + '</span><i class="fa fa-angle-right" style="position:absolute;right:4%;top:10px;"></i></a>'
 	                }else{
 	                	_html += '<a style="position:relative" class="menuItem" data-id="' + row.f_ModuleId + '" href="' + row.f_UrlAddress + '">'+'<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName + '</span></a>'
-	                }
-	                // _html += '</a>';
+	                }	                
 	                var childNodes = $.learunindex.jsonWhere(data, function (v) { return v.f_ParentId == row.f_ModuleId });
-	                //console.log(childNodes);
 	                if (childNodes.length > 0) {
 	                    _html += '<ul class="treeview-menu">';
 	                    $.each(childNodes, function (i) {
@@ -377,45 +371,78 @@
 	            }
 	        });
             $("#sidebar-menu").append(_html);
-            //点击左侧菜单栏a标签
-            $("#sidebar-menu li a").click(function () {
-                var d = $(this), e = d.next();
-                if (e.is(".treeview-menu") && e.is(":visible")) {
-                    e.slideUp(500, function () {
-                        e.removeClass("menu-open")
-                    }),
-                    e.parent("li").removeClass("active")
-                } else if (e.is(".treeview-menu") && !e.is(":visible")) {
-                    var f = d.parents("ul").first(),
-                    g = f.find("ul:visible").slideUp(500);
-                    g.removeClass("menu-open");
-                    var h = d.parent("li");
-                    e.slideDown(500, function () {
-                        e.addClass("menu-open"),
-                        f.find("li.active").removeClass("active"),
-                        h.addClass("active");
-                    })
-               } else if (!d.parent().parent().is(".treeview-menu")){
-               	    d.parent("li").siblings().removeClass("active");
-               	    $(".treeview-menu").slideUp(500,function(){
-               	    	$(".treeview-menu").removeClass("menu-open")
-               	    })
-               	    d.parent('li').addClass('active');
-               }
-                //e.is(".treeview-menu");
+            //点击左侧菜单栏a标签(一级标题)
+            $("#sidebar-menu li a").click(function () {         
+            	//先判断是否需要二次登录
+            	if($(this).hasClass('SecdLogin')){
+            		FirstMenuClick = $(this);
+            		//判断用户是否有过二次登录
+            		//if(getCookie(FirstMenuClick.attr('id')) == "Yes"){
+            		if(sessionStorage.getItem(FirstMenuClick.attr('id')) == "Yes"){
+            			var d1 = $(this), e1 = d1.next();
+		                if (e1.is(".treeview-menu") && e1.is(":visible")) {             	
+		                    e1.slideUp(500, function () {
+		                        e1.removeClass("menu-open")
+		                    }),
+		                    e1.parent("li").removeClass("active")
+		                } else if (e1.is(".treeview-menu") && !e1.is(":visible")) {               	
+		                    var f1 = d1.parents("ul").first(),
+		                    g1 = f1.find("ul:visible").slideUp(500);
+		                    g1.removeClass("menu-open");
+		                    var h11 = d1.parent("li");
+		                    e1.slideDown(500, function () {
+		                        e1.addClass("menu-open"),
+		                        f1.find("li.active").removeClass("active"),
+		                        h11.addClass("active");
+		                    })
+		                } else if (!d1.parent().parent().is(".treeview-menu")){              	    
+		               	    d1.parent("li").siblings().removeClass("active");
+		               	    $(".treeview-menu").slideUp(500,function(){
+		               	    	$(".treeview-menu").removeClass("menu-open")
+		               	    })
+		               	    d1.parent('li').addClass('active');
+		                }
+            		}else{
+            			$(".secondLogin").modal('show');
+            		}         		           		
+            	}else{
+            		var d = $(this), e = d.next();
+	                if (e.is(".treeview-menu") && e.is(":visible")) {             	
+	                    e.slideUp(500, function () {
+	                        e.removeClass("menu-open")
+	                    }),
+	                    e.parent("li").removeClass("active")
+	                } else if (e.is(".treeview-menu") && !e.is(":visible")) {               	
+	                    var f = d.parents("ul").first(),
+	                    g = f.find("ul:visible").slideUp(500);
+	                    g.removeClass("menu-open");
+	                    var h = d.parent("li");
+	                    e.slideDown(500, function () {
+	                        e.addClass("menu-open"),
+	                        f.find("li.active").removeClass("active"),
+	                        h.addClass("active");
+	                    })
+	                } else if (!d.parent().parent().is(".treeview-menu")){              	    
+	               	    d.parent("li").siblings().removeClass("active");
+	               	    $(".treeview-menu").slideUp(500,function(){
+	               	    	$(".treeview-menu").removeClass("menu-open")
+	               	    })
+	               	    d.parent('li').addClass('active');
+	                }
+            	}                
             });
         }
     };
     //进入页面调用函数获取菜单列表
     getMenu();
+    //console.log(localStorage.getItem("Utoken"));
     var menuData;
     function getMenu(){
     	$.ajax({
 	  	    async: true,
 			type:'get',
 			url:"http://127.0.0.1/api/admin/navbar",
-            crossDomain:true,
-            xhrFields: {  withCredentials: true  },
+			headers: {'Authorization': localStorage.getItem("Utoken")},
 			data:{
 				username: localStorage.getItem("Uname")
 			},
@@ -430,7 +457,11 @@
 				        $.learunindex.loadMenu();
 				        $.learuntab.init();
 				    });
-		       }else{
+		        }else if(result.code == "-10"){
+		        	sessionStorage.clear();  //清除session
+		        	alert(result.message+"，请重新登录！");
+		        	window.location.href = "./login.html";
+		        }else{
 		        	alert(result.message);
 		        }
 		    }, 
@@ -440,14 +471,9 @@
 	    });
     };
     
-//  $(function () {
-//      $.learunindex.load();
-//      $.learunindex.loadMenu();
-//      $.learuntab.init();
-//  });
     //本地获取用户昵称
     var Nickname = localStorage.getItem("Uname");
-    console.log(Nickname);
+    //console.log(Nickname);
     $(".welComeUser").html("欢迎您，"+Nickname);
     //时间显示框
     function showTime(){
@@ -480,29 +506,31 @@
 		$("#LogOutAlert").modal('show');
     });
     $(".LogOutSure").bind('click',function(){
-    	localStorage.removeItem("Uname");
-	    //localStorage.removeItem("NICNAME");
-	    window.location.href = "./login.html";
     	//调用接口通知后台
-//  	$.ajax({
-//    	    async: true,
-//			type:'get',
-//			url:"http://127.0.0.1/api/admin/logout",
-//			data:{},
-//			success:function(result){
-//				console.log(result);
-//				if(result.code == "0"){
-//					localStorage.removeItem("Uname");
-//				    //localStorage.removeItem("NICNAME");
-//				    window.location.href = "./login.html";
-//		        }else{
-//		        	alert(result.msg);
-//		        }
-//		    }, 
-//		  	error:function(){
-//		  		alert("网络错误！");	
-//		  	}	 
-//	    });	
+    	$.ajax({
+      	    async: true,
+			type:'get',
+			url:"http://127.0.0.1/api/admin/logout",
+			headers: {'Authorization': localStorage.getItem("Utoken")},
+			data:{},
+			success:function(result){
+				console.log(result);
+				if(result.code == "0"){
+					localStorage.removeItem("Utoken");       //清除一级登录token
+					//sessionStorage.removeItem("CRMUtoken");  //清除二级登录token
+					//sessionStorage.removeItem("LCSID");      //清除二级登录理财师ID
+					//sessionStorage.removeItem("LCSBMID");    //清除二级登录理财师部门ID
+					sessionStorage.clear();  //清除session
+					$("#LogOutAlert").modal('hide');
+				    window.location.href = "./login.html";
+		        }else{
+		        	alert(result.message);
+		        }
+		    }, 
+		  	error:function(){
+		  		alert("网络错误！");	
+		  	}	 
+	    });	
     });
     
     //密码重置
@@ -517,12 +545,12 @@
     	}else if($(".InNewPsd").val() != $(".AgainNewPsd").val()){
     		alert("两次输入密码不一致！");
     	}else{
-    		//$(".resetPassword").modal('hide');
     		//信息完整，请求后台接口
             $.ajax({
           	    async: true,
 				type:'post',
 				url:"http://127.0.0.1/api/admin/user/updatePwd",
+				headers: {'Authorization': localStorage.getItem("Utoken")},
 				data:{
 				    oldPassword: $(".InOldPsd").val(),
 			        password1: $(".InNewPsd").val(),
@@ -531,7 +559,18 @@
 				success:function(result){
 					console.log(result);
 					if(result.code == "0"){
-						
+						$(".resetPassword").modal('hide');
+						sessionStorage.clear();  //清除session
+						//密码修改成功后，清除登录cookie用户信息
+						setCookie('user',null,-1); //一级登录用户名
+	                    setCookie('pswd',null,-1); //一级登录用户密码
+						alert("修改成功，请重新登录！")
+						//密码修改成功，退出重新登录
+						window.location.href = "./login.html";
+			        }else if(result.code == "-10"){
+			        	sessionStorage.clear();  //清除session
+			        	alert(result.message+"，请重新登录！");
+			        	window.location.href = "./login.html";
 			        }else{
 			        	alert(result.msg);
 			        }
@@ -541,6 +580,94 @@
 			  	}	 
 		    });	
     	}
+    });
+    
+    //二次登录弹窗点击登录
+    $(".secondLogInBtn").on("click", function () {
+    	//alert(FirstMenuClick.attr('id'));
+		//校验
+        if($('.InSecondNam').val() == "" && $('.InSecondPsd').val() == ""){
+        	alert("请完善信息！");
+        }else if($('.InSecondNam').val() == ""){
+        	$(".InSecondNam").html("姓名不能为空！");
+        }else if($('.InSecondPsd').val() == ""){
+        	$(".InSecondPsd").html("密码不能为空！");
+        }else{
+        	//信息完整，请求后台登录
+            $.ajax({
+            	beforeSend: function () {
+	                $(".LoadingImg").addClass("fa fa-spinner fa-spin");
+			        $(".loadwraper").css("display", "block");
+	            },
+          	    async: true,
+				type:'post',
+				url:"http://127.0.0.1/api/admin/crm/login",
+				data:{
+				    username: $(".InSecondNam").val(),
+			        password: $(".InSecondPsd").val()
+			    },
+				success:function(result){
+					console.log(result);
+					var datareturn = result.data;
+					if(result.code == "0"){
+						//本地存储CRM登录token值
+						sessionStorage.setItem("CRMUtoken",datareturn.authToken);
+						//本地存储登录理财师ID以及存储理财师部门ID
+						sessionStorage.setItem("LCSID",datareturn.userInfo.systemUserId);
+						sessionStorage.setItem("LCSBMID",datareturn.userInfo.businessUnitId);
+						//隐藏登录弹窗
+						$(".secondLogin").modal('hide');
+	                    $(".LoadingImg").removeClass("fa fa-spinner fa-spin");
+			            $(".loadwraper").css("display", "none");			            
+			            //本地存储登录理财师是否有编辑权限
+			            sessionStorage.setItem("LCSWrite",datareturn.userInfo.writePerms);
+			            //用户二次登录信息存本地session
+			            sessionStorage.setItem(FirstMenuClick.attr('id'),"Yes");
+                        //用户二次登录信息存本地CooKie,保存时间暂定--分钟
+//                      setCookieLT(FirstMenuClick.attr('id'),"Yes",1);
+//                      setInterval(function(){
+//                      	console.log(getCookie(FirstMenuClick.attr('id')));
+//                      },1000);
+                        var d = FirstMenuClick, e = d.next();
+		                if (e.is(".treeview-menu") && e.is(":visible")) {             	
+		                    e.slideUp(500, function () {
+		                        e.removeClass("menu-open")
+		                    }),
+		                    e.parent("li").removeClass("active")
+		                } else if (e.is(".treeview-menu") && !e.is(":visible")) {               	
+		                    var f = d.parents("ul").first(),
+		                    g = f.find("ul:visible").slideUp(500);
+		                    g.removeClass("menu-open");
+		                    var h = d.parent("li");
+		                    e.slideDown(500, function () {
+		                        e.addClass("menu-open"),
+		                        f.find("li.active").removeClass("active"),
+		                        h.addClass("active");
+		                    })
+		                } else if (!d.parent().parent().is(".treeview-menu")){              	    
+		               	    d.parent("li").siblings().removeClass("active");
+		               	    $(".treeview-menu").slideUp(500,function(){
+		               	    	$(".treeview-menu").removeClass("menu-open")
+		               	    })
+		               	    d.parent('li').addClass('active');
+		                }
+			        }else if(result.code == "-10"){
+			        	sessionStorage.clear();  //清除session
+			        	alert(result.message+"，请重新登录！");
+			        	window.location.href = "./login.html";
+			        }else{
+			        	$(".LoadingImg").removeClass("fa fa-spinner fa-spin");
+			            $(".loadwraper").css("display", "none");
+			        	alert(result.message);
+			        }
+			    }, 
+			  	error:function(){
+			  		$(".LoadingImg").removeClass("fa fa-spinner fa-spin");
+			        $(".loadwraper").css("display", "none");
+			  		alert("网络错误！");	
+			  	}	 
+		    });	
+        }
     });
     
 })(jQuery);

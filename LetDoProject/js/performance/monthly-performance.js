@@ -2841,8 +2841,8 @@ function showTable(){
     	type:"post",
     	url:loginIp+"productSeries/getSeriesTree",
     	data:{
-    		"beginDate":"",
-    		"endDate":""
+    		"beginDate":start_date,
+    		"endDate":end_date
     	},
     	async:false,
     	success:function(data){

@@ -36,6 +36,13 @@ window.onload = function(){
             $('#reportTable').bootstrapTable('refresh');
         }
     });
+    //回车部门搜索输入框
+    $(".DeptSel").keydown(function (event) {
+        event = arguments.callee.caller.arguments[0] || window.event; // 消除浏览器差异
+        if (event.keyCode == 13) {
+            $('#reportTable').bootstrapTable('refresh');
+        }
+    });
     //点击导出
     $(".modelExportAll").click(function() {
 		$('#reportTable').tableExport({
@@ -80,7 +87,7 @@ window.onload = function(){
 	var selectionIds = []; 
 	$table = $('#reportTable').bootstrapTable({
 		method: 'get',
-		url:"http://192.168.17.57:8080/aBusinessTravel",		
+		url:"http://192.168.17.199:8080/aBusinessTravel",		
 		dataType: "json",
 		dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里前后端约定好就行
 		cache: false, //设置为 false 禁用 AJAX 数据缓存
@@ -184,6 +191,7 @@ window.onload = function(){
 	    return {
 	    	monthString: $(".TimeSel").val(), //时间参数
 	    	checkName: $(".NameSel").val(),  //姓名参数
+	    	deptName: $(".DeptSel").val(),  //部门参数
 	    	status:"2"
 	    }
 	};	
@@ -195,12 +203,12 @@ window.onload = function(){
 		var list = [];
 		//第一层循环给部门加stringNameLen表示字段,根据数组长度标识部门行rowspan的数值
 		for(var i=0;i<obj.length;i++){
-			var lenBM = obj[i].abusinessTravelList.length;
+			var lenBM = obj[i].aBusinessTravelList.length;
 			for(var j=0;j<lenBM;j++){
-				if(obj[i].abusinessTravelList[j]){
-					obj[i].abusinessTravelList[j].stringNameLen = 0;	
-					obj[i].abusinessTravelList[0].stringNameLen = lenBM;
-					arr.push(obj[i].abusinessTravelList[j]);
+				if(obj[i].aBusinessTravelList[j]){
+					obj[i].aBusinessTravelList[j].stringNameLen = 0;	
+					obj[i].aBusinessTravelList[0].stringNameLen = lenBM;
+					arr.push(obj[i].aBusinessTravelList[j]);
 				}						
 			}
 		}

@@ -159,41 +159,18 @@ body .OutContant{
 	line-height: 34px;
 	color: #333;
 }
-/*时间选择框*/
-.selectCont .TimeSelSp{
+/*条件筛选框*/
+.selectCont .TimeSelSp,.selectCont .NameSelSp,.selectCont .DeptSelSp{
 	float: left;
 	margin-left: 40px;
 	height: 100%;
 	line-height: 34px;
 	color: #333;
 }
-.selectCont .TimeSel{
+.selectCont .TimeSel,.selectCont .NameSel,.selectCont .DeptSel{
 	float: left;
-	margin-left: 10px;
-	width: 260px;
-	height: 100%;
-	line-height: 34px;
-	background: #fff !important;
-	color: #666666;
-	text-align: left;
-	padding-left: 4%;
-	border: 1px solid #EDEDED;
-	border-radius: 4px;
-	box-sizing: border-box;
-	cursor: pointer;
-}
-/*搜索姓名框*/
-.selectCont .NameSelSp{
-	float: left;
-	margin-left: 40px;
-	height: 100%;
-	line-height: 34px;
-	color: #333;
-}
-.selectCont .NameSel{
-	float: left;
-	margin-left: 10px;
-	width: 260px;
+	margin-left: 0px;
+	width: 210px;
 	height: 100%;
 	line-height: 34px;
 	background: #fff !important;
@@ -204,6 +181,10 @@ body .OutContant{
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+.selectCont .TimeSel{
+	cursor: pointer;
+}
+
 /*导出全部按钮*/
 .selectCont .modelExportAll{
 	float: right;

@@ -10,7 +10,6 @@ $(function() {
 		async: false,
 		success: function(data) {
 			getProductSeriesList = data;
-			console.log(data);
 			var html = "";
 			for(var i = 0; i < data.length; i++) {
 				html += '<li>' +
@@ -71,19 +70,6 @@ $(function() {
 	});
 
 });
-//查询
-function search() {
-	var start_time = $('#start_time').val();
-	var end_time = $('#end_time').val();
-	if(!start_time) {
-		sweeterror("开始时间不得为空！");
-		return false;
-	}
-	if(!end_time) {
-		sweeterror("结束时间不得为空！");
-		return false;
-	}
-}
 //保存配置
 function saveconfig() {
 	var radioArr;
@@ -96,32 +82,47 @@ function saveconfig() {
 		productId.push($(this).val());
 		productName.push($(this).attr("data-name"));
 	});
-	var seriesName = getProductSeriesList[radioArr].seriesName;
 	var start_time = $("#start_time").val();
 	var end_time = $("#end_time").val();
-	var data = {
-		"productId": productId,//JSON.stringify(productId)
-		"productName":productName,//JSON.stringify(productName)
-		"seriesName": seriesName,
-		"beginTime": start_time,
-		"endTime": end_time
+	if(start_time==""){
+		sweeterror("时间不得为空！");
+		return false;
 	}
-	/*var data = {
-		"productIds":["465BB722-BE30-E811-80B9-1866DAF3CBC5","6356D828-5624-E811-80B9-1866DAF3CBC5"],
-		"productNames":["华泰基金19号5期","华泰基金19号4期"],
-		"seriesName":"股权系列",
-		"beginTime":"2018-06-03",
-		"endTime":"2018-06-07"
-	};*/
-	console.log(data);
+	if(end_time==""){
+		sweeterror("时间不得为空！");
+		return false;
+	}
+	if(!radioArr){
+		sweeterror("请选择产品系列！");
+		return false;
+	}
+	if(productName==""){
+		sweeterror("请选择产品！");
+		return false;
+	}
+	var seriesName = getProductSeriesList[radioArr].seriesName;
+	var data = {
+		"productIds":productId,
+		"productNames":productName,
+		"seriesName":seriesName,
+		"beginTime":start_time,
+		"endTime":end_time
+	}
 	$.ajax({
-		type: "post",  
-		url: loginIp+"productSeries/add",
-		data: JSON.stringify(data),
+		type:"post",
+		url:loginIp+"productSeries/add",
+		data:JSON.stringify(data),
 		contentType:"application/json",
-		async: true,
-		success: function(data) {
-			console.log(data);
+		async:true,
+		success:function(data){
+			if(data.statusCode==0){
+				sweetsuccess("保存成功");
+				setTimeout(function(){
+					window.location.reload();
+				},1500);
+			}
+		},error:function(err){
+			console.log(err);
 		}
 	});
 }

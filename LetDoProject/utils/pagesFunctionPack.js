@@ -23,6 +23,25 @@ var dealNumber = function(money,type){
     }  
 };
 /*
+ * 将¥100,000.00转为100000形式
+ * 
+ */
+function dealNumberFX(money){
+	if (money == '' || money == null || money == undefined) { 
+	  	return ''; 
+	}else{
+	  	for (var m = money.length - 1; m >= 0; m--) {
+            money = money.replace(",", "")//替换tomoney()中的“,”
+            money = money.replace("，", "")//替换tomoney()中的“，”
+            money = money.replace(" ", "")//替换tomoney()中的空格
+            money = money.replace("￥", "")//替换掉可能出现的￥字符
+            money = money.replace("¥", "")//替换掉可能出现的¥字符
+        }
+	  	return money;
+	}
+}
+/*
+ *
  *金额小写转大写函数()
  * 
  */
@@ -67,3 +86,24 @@ function charMoney(money) {
 	var sum= s.replace(/(零.)*零圆/,'圆').replace(/(零.)+/g, '零').replace(/^整$/, '零圆整');
 	return sum;
 }
+/*
+ * 将13位时间戳转换为yyyy-MM-dd形式函数
+ * 
+ * */
+function formatDateTime(timeStamp) { 
+    var date = new Date();
+    date.setTime(timeStamp);
+    var y1 = date.getFullYear();    
+    var m1 = date.getMonth() + 1;    
+    m1 = m1 < 10 ? ('0' + m1) : m1;    
+    var d1 = date.getDate();    
+    d1 = d1 < 10 ? ('0' + d1) : d1;    
+    var h1 = date.getHours();  
+    h1 = h1 < 10 ? ('0' + h1) : h1;  
+    var minute = date.getMinutes();  
+    var second = date.getSeconds();  
+    minute = minute < 10 ? ('0' + minute) : minute;    
+    second = second < 10 ? ('0' + second) : second;   
+    //return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;  
+    return y1 + '-' + m1+ '-' + d1;
+};  

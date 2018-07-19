@@ -36,6 +36,13 @@ window.onload = function(){
             $('#reportTable').bootstrapTable('refresh');
         }
     });
+    //回车部门搜索输入框
+    $(".DeptSel").keydown(function (event) {
+        event = arguments.callee.caller.arguments[0] || window.event; // 消除浏览器差异
+        if (event.keyCode == 13) {
+            $('#reportTable').bootstrapTable('refresh');
+        }
+    });
     //点击导出
     $(".modelExportAll").click(function() {
 		$('#reportTable').tableExport({
@@ -74,13 +81,36 @@ window.onload = function(){
 	        index += count;
 	    }
 	};
+	function mergeCellsRow(data,colspan){
+	    //声明一个map计算相同属性值在data对象出现的次数和
+	    var sortMapl = {};
+	    for(var j = 0 ; j < data.length ; j++){
+	        for(var prop in data[j]){
+	            if(prop == "name"){
+	                var key = data[j][prop];
+	                if(sortMapl.hasOwnProperty(key)){
+	                    sortMapl[key] = sortMapl[key] * 1 + 1;
+	                } else {
+	                    sortMapl[key] = 1;
+	                }
+	                break;
+	            } 
+	        }
+	    }
+	    var indexl = 0;
+	    for(var prop in sortMapl){
+	        var countl = sortMapl[prop] * 1;
+	        $table.bootstrapTable('mergeCells',{index:indexl, field:"num", colspan: colspan, rowspan: countl});   
+	        indexl += countl;
+	    }
+	};
 	//表格部分
 	var $table; 
 	//保存选中ids 
 	var selectionIds = []; 
 	$table = $('#reportTable').bootstrapTable({
 		method: 'get',
-		url:"http://192.168.17.57:8080/aBusinessTravel",		
+		url:"http://192.168.17.199:8080/late",		
 		dataType: "json",
 		dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里前后端约定好就行
 		cache: false, //设置为 false 禁用 AJAX 数据缓存
@@ -97,7 +127,7 @@ window.onload = function(){
 	                return index+1;
 				},
 				colspan: 1,  //占几列
-				rowspan: 2   //占几行
+				rowspan: 1   //占几行
 			},{
 				field: "deptName",
 				title: "部门",
@@ -109,25 +139,32 @@ window.onload = function(){
 				align: "center",
 				valign: "middle"
 			},{
-				field: "name2",
+				field: "date",
 				title: "打卡时间",
 				align: "center",
 				valign: "middle"
 			},{
-				field: "sjccts1",
-				title: "迟到/早退/旷工时间",
+				field: "hourLength",
+				title: "迟到/早退/旷工时间（分钟）",
 				align: "center",
 				valign: "middle"
 			},{
-				field: "startDate1",
+				field: "num",
 				title: "迟到/早退/旷工次数",
 				align: "center",
 				valign: "middle"
 			},{
-				field: "startDate1",
+				field: "CD2",
 				title: "绩效处罚",
 				align: "center",
-				valign: "middle"
+				valign: "middle",
+				formatter: function (value, row, index){
+					if(value == "" || value == null || value == undefined || value == " " || value == "undefined"){
+						return "";
+					}else{
+						return value;
+					}
+				}
 			}
 		],	
 		locale: 'zh-CN', //中文支持
@@ -140,6 +177,7 @@ window.onload = function(){
 		        alert(res.message);
 		        return;
 		    }
+			//console.log(setData(res.data));
 			//如果没有错误则返回数据，渲染表格
 		    return {
 		        data : setData(res.data) //行数据，前面的key要与之前设置的dataField的值一致.
@@ -160,6 +198,7 @@ window.onload = function(){
 		onLoadSuccess: function (data) {
 			mergeCells(data.data, "deptName", 1);//部门行合并
 			mergeCells(data.data, "name", 1);//姓名行合并
+			mergeCellsRow(data.data,1); //合并迟到/早退/旷工次数,这里的合并根据姓名的次数作参考
 		}
     });
     $(window).resize(function() {
@@ -171,6 +210,7 @@ window.onload = function(){
 	    return {
 	    	monthString: $(".TimeSel").val(), //时间参数
 	    	checkName: $(".NameSel").val(),  //姓名参数
+	    	deptName: $(".DeptSel").val(),  //部门参数
 	    	status:"2"
 	    }
 	};	
@@ -182,12 +222,12 @@ window.onload = function(){
 		var list = [];
 		//第一层循环给部门加stringNameLen表示字段,根据数组长度标识部门行rowspan的数值
 		for(var i=0;i<obj.length;i++){
-			var lenBM = obj[i].abusinessTravelList.length;
+			var lenBM = obj[i].lateList.length;
 			for(var j=0;j<lenBM;j++){
-				if(obj[i].abusinessTravelList[j]){
-					obj[i].abusinessTravelList[j].stringNameLen = 0;	
-					obj[i].abusinessTravelList[0].stringNameLen = lenBM;
-					arr.push(obj[i].abusinessTravelList[j]);
+				if(obj[i].lateList[j]){
+					obj[i].lateList[j].stringNameLen = 0;	
+					obj[i].lateList[0].stringNameLen = lenBM;
+					arr.push(obj[i].lateList[j]);
 				}						
 			}
 		}

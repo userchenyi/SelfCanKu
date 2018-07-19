@@ -839,7 +839,7 @@ function listTeam(data) {
 	var _block = data;//业绩数据
 	var department_list = [];//设置分公司包含部门unitId
 	var arr1 = [];//上海私行
-	arr1.push(LabeledOrg[18].businessUnitId);
+	arr1.push(LabeledOrg[19].businessUnitId);
 	var arr2 = [];//杭州一分
 	arr2.push(LabeledOrg[24].businessUnitId);
 	var arr3 = [];//杭州二分
@@ -855,7 +855,7 @@ function listTeam(data) {
 	var arr8 = [];//东营
 	arr8.push(LabeledOrg[37].businessUnitId);
 	for(var i = 0; i < LabeledOrg.length; i++) {
-		if(LabeledOrg[18].businessUnitId == LabeledOrg[i].parentBusinessUnitId) {
+		if(LabeledOrg[19].businessUnitId == LabeledOrg[i].parentBusinessUnitId) {
 			arr1.push(LabeledOrg[i].businessUnitId);
 		};
 		if(LabeledOrg[24].businessUnitId == LabeledOrg[i].parentBusinessUnitId) {
@@ -881,8 +881,8 @@ function listTeam(data) {
 		};
 	}
 	var departArr = [{
-		"businessUnitId":LabeledOrg[18].businessUnitId,//分公司
-		"businessUnitName": LabeledOrg[18].businessUnitName,
+		"businessUnitId":LabeledOrg[19].businessUnitId,//分公司
+		"businessUnitName": LabeledOrg[19].businessUnitName,
 		"businessUnitIdArr":arr1,//分公司子部门unitId集合
 		"certNoArr":[],//存放分公司理财省份证号
 		"list":[]//存放理财师业绩

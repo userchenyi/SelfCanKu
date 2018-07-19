@@ -107,7 +107,13 @@
 							</li>
 							<li>
 								<span class="spl"><strong>产品类型</strong><i class="dotMark">*</i>：</span>
-								<input class="spr WRInpt ProductTypeInp" type="text" value="" />
+								<!--<input class="spr WRInpt ProductTypeInp" type="text" value="" />-->
+								<select class="spr markSelect ProductTypeInp">
+									<option value="206290000">FOF产品</option>
+									<option value="206290001">PPP产品</option>
+									<option value="206290002">固定收益类</option>
+									<option value="206290003">PE股权产品</option>
+								</select>
 							</li>
 							<li>
 								<span class="spl"><strong>产品状态</strong><i class="dotMark">*</i>：</span>
@@ -124,7 +130,7 @@
 							</li>
 							<li>
 								<span class="spl"><strong>成立时间</strong>：</span>
-								<input class="spr TheCreatTime form-control" type="button" value="" />
+								<input class="spr TheCreatTime form-control" type="text" readonly="readonly" value="" />
 							</li>
 							<li>
 								<span class="spl"><strong>已成立额度</strong>：</span>
@@ -477,6 +483,10 @@
 									<span class="spl"><strong>转让顾问</strong>：</span>
 									<input class="spr WRInpt GDZRGWInp" type="text" value="" />
 								</li>
+								<li>
+									<span class="spl"><strong>分红</strong>：</span>
+									<input class="spr WRInpt GDFHInp" type="number" value="" />
+								</li>
 							</ul>
 							<!--固定收益类富文本编辑区域-->
 							<div class="GDSYedirtorArea">
@@ -532,35 +542,35 @@
 								<div class="lip">
 									<span class="spl"><strong>风险提示</strong>：</span>
 									<div class="sprp GEdiTorFXTS">
-										<div id="GEdiTorFXTS1" class="toolbar toolbar23"></div>
+										<div id="GEdiTorFXTS1" class="toolbar toolbar22"></div>
 										<div id="GEdiTorFXTS2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>产品亮点</strong>：</span>
 									<div class="sprp GEdiTorCPLD">
-										<div id="GEdiTorCPLD1" class="toolbar toolbar24"></div>
+										<div id="GEdiTorCPLD1" class="toolbar toolbar23"></div>
 										<div id="GEdiTorCPLD2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>风险控制</strong>：</span>
 									<div class="sprp GEdiTorFXKZ">
-										<div id="GEdiTorFXKZ1" class="toolbar toolbar25"></div>
+										<div id="GEdiTorFXKZ1" class="toolbar toolbar24"></div>
 										<div id="GEdiTorFXKZ2" class="WRichtext"></div>
 									</div>
 								</div>
-								<div class="lip">
+								<!--<div class="lip">
 									<span class="spl"><strong>分红</strong>：</span>
 									<div class="sprp GEdiTorFH">
 										<div id="GEdiTorFH1" class="toolbar toolbar21"></div>
 										<div id="GEdiTorFH2" class="WRichtext"></div>									
 									</div>
-								</div>
+								</div>-->
 								<div class="lip">
 									<span class="spl"><strong>其它</strong>：</span>
 									<div class="sprp GEdiTorQT">
-										<div id="GEdiTorQT1" class="toolbar toolbar22"></div>
+										<div id="GEdiTorQT1" class="toolbar toolbar21"></div>
 										<div id="GEdiTorQT2" class="WRichtext"></div>
 									</div>
 								</div>	
@@ -585,97 +595,101 @@
 									<span class="spl"><strong>基金管理费</strong>：</span>
 									<input class="spr WRInpt PJJGLFInp" type="text" value="" />
 								</li>
+								<li>
+									<span class="spl"><strong>分红</strong>：</span>
+									<input class="spr WRInpt PFHInp" type="number" value="" />
+								</li>
 							</ul>
 							<!--PPP类富文本编辑区域-->
 							<div class="PPPedirtorArea">
 								<div class="lip">
 									<span class="spl"><strong>参与退出</strong>：</span>								
 									<div class="sprp PEdiTorCYTC">
-										<div id="PEdiTorCYTC1" class="toolbar toolbar26"></div>
+										<div id="PEdiTorCYTC1" class="toolbar toolbar25"></div>
 										<div id="PEdiTorCYTC2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>收益分配方式</strong>：</span>
 									<div class="sprp PEdiTorSYFP">
-										<div id="PEdiTorSYFP1" class="toolbar toolbar27"></div>
+										<div id="PEdiTorSYFP1" class="toolbar toolbar26"></div>
 										<div id="PEdiTorSYFP2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>投资范围</strong>：</span>
 									<div class="sprp PEdiTorTZFW">
-										<div id="PEdiTorTZFW1" class="toolbar toolbar28"></div>
+										<div id="PEdiTorTZFW1" class="toolbar toolbar27"></div>
 										<div id="PEdiTorTZFW2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>还款来源及保障</strong>：</span>
 									<div class="sprp PEdiTorHKLY">
-										<div id="PEdiTorHKLY1" class="toolbar toolbar29"></div>
+										<div id="PEdiTorHKLY1" class="toolbar toolbar28"></div>
 										<div id="PEdiTorHKLY2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>项目方介绍</strong>：</span>
 									<div class="sprp PEdiTorXMFJS">
-										<div id="PEdiTorXMFJS1" class="toolbar toolbar30"></div>
+										<div id="PEdiTorXMFJS1" class="toolbar toolbar29"></div>
 										<div id="PEdiTorXMFJS2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>融资方介绍</strong>：</span>
 									<div class="sprp PEdiTorRZFJS">
-										<div id="PEdiTorRZFJS1" class="toolbar toolbar31"></div>
+										<div id="PEdiTorRZFJS1" class="toolbar toolbar30"></div>
 										<div id="PEdiTorRZFJS2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>增信措施</strong>：</span>
 									<div class="sprp PEdiTorZXCS">
-									    <div id="PEdiTorZXCS1" class="toolbar toolbar32"></div>
+									    <div id="PEdiTorZXCS1" class="toolbar toolbar31"></div>
 										<div id="PEdiTorZXCS2" class="WRichtext"></div>   	
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>风险提示</strong>：</span>
 									<div class="sprp PEdiTorFXTS">
-										<div id="PEdiTorFXTS1" class="toolbar toolbar35"></div>
+										<div id="PEdiTorFXTS1" class="toolbar toolbar33"></div>
 										<div id="PEdiTorFXTS2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>产品亮点</strong>：</span>
 									<div class="sprp PEdiTorCPLD">
-										<div id="PEdiTorCPLD1" class="toolbar toolbar36"></div>
+										<div id="PEdiTorCPLD1" class="toolbar toolbar34"></div>
 										<div id="PEdiTorCPLD2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>风险控制</strong>：</span>
 									<div class="sprp PEdiTorFXKZ">
-										<div id="PEdiTorFXKZ1" class="toolbar toolbar37"></div>
+										<div id="PEdiTorFXKZ1" class="toolbar toolbar35"></div>
 										<div id="PEdiTorFXKZ2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>资金用途</strong>：</span>
 									<div class="sprp PEdiTorZJYT">
-										<div id="PEdiTorZJYT1" class="toolbar toolbar38"></div>
+										<div id="PEdiTorZJYT1" class="toolbar toolbar36"></div>
 										<div id="PEdiTorZJYT2" class="WRichtext"></div>
 									</div>
 								</div>
-								<div class="lip">
+								<!--<div class="lip">
 									<span class="spl"><strong>分红</strong>：</span>
 									<div class="sprp PEdiTorFH">
 										<div id="PEdiTorFH1" class="toolbar toolbar33"></div>
 										<div id="PEdiTorFH2" class="WRichtext"></div>									
 									</div>
-								</div>
+								</div>-->
 								<div class="lip">
 									<span class="spl"><strong>其它</strong>：</span>
 									<div class="sprp PEdiTorQT">
-										<div id="PEdiTorQT1" class="toolbar toolbar34"></div>
+										<div id="PEdiTorQT1" class="toolbar toolbar32"></div>
 										<div id="PEdiTorQT2" class="WRichtext"></div>
 									</div>
 								</div>		
@@ -719,69 +733,73 @@
 										<option value="930820002">不适用</option>
 									</select>
 								</li>
+								<li class="SFGTWrapLi">
+									<span class="spl"><strong>跟投详情</strong>：</span>
+									<input class="spr WRInpt PGGTXQInp" type="text" value=""/>
+								</li>
 							</ul>
 							<!--PE股权类富文本编辑区域-->
 							<div class="PEedirtorArea">
 								<div class="lip">
 									<span class="spl"><strong>分配方式</strong>：</span>								
 									<div class="sprp PGEdiTorFPFS">
-										<div id="PGEdiTorFPFS1" class="toolbar toolbar39"></div>
+										<div id="PGEdiTorFPFS1" class="toolbar toolbar37"></div>
 										<div id="PGEdiTorFPFS2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>投资方向</strong>：</span>
 									<div class="sprp PGEdiTorTZFX">
-										<div id="PGEdiTorTZFX1" class="toolbar toolbar40"></div>
+										<div id="PGEdiTorTZFX1" class="toolbar toolbar38"></div>
 										<div id="PGEdiTorTZFX2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>信息披露</strong>：</span>
 									<div class="sprp PGEdiTorXXPL">
-										<div id="PGEdiTorXXPL1" class="toolbar toolbar41"></div>
+										<div id="PGEdiTorXXPL1" class="toolbar toolbar39"></div>
 										<div id="PGEdiTorXXPL2" class="WRichtext"></div>
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>储备项目</strong>：</span>
 									<div class="sprp PGEdiTorCBXM">
-										<div id="PGEdiTorCBXM1" class="toolbar toolbar42"></div>
+										<div id="PGEdiTorCBXM1" class="toolbar toolbar40"></div>
 										<div id="PGEdiTorCBXM2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>风控措施</strong>：</span>
 									<div class="sprp PGEdiTorFKCS">
-										<div id="PGEdiTorFKCS1" class="toolbar toolbar43"></div>
+										<div id="PGEdiTorFKCS1" class="toolbar toolbar41"></div>
 										<div id="PGEdiTorFKCS2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>风险提示</strong>：</span>
 									<div class="sprp PGEdiTorFXTS">
-										<div id="PGEdiTorFXTS1" class="toolbar toolbar44"></div>
+										<div id="PGEdiTorFXTS1" class="toolbar toolbar42"></div>
 										<div id="PGEdiTorFXTS2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>产品亮点</strong>：</span>
 									<div class="sprp PGEdiTorCPLD">
-										<div id="PGEdiTorCPLD1" class="toolbar toolbar45"></div>
+										<div id="PGEdiTorCPLD1" class="toolbar toolbar43"></div>
 										<div id="PGEdiTorCPLD2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>还款来源</strong>：</span>
 									<div class="sprp PGEdiTorHKLY">
-										<div id="PGEdiTorHKLY1" class="toolbar toolbar46"></div>
+										<div id="PGEdiTorHKLY1" class="toolbar toolbar44"></div>
 										<div id="PGEdiTorHKLY2" class="WRichtext"></div>									
 									</div>
 								</div>
 								<div class="lip">
 									<span class="spl"><strong>资金用途</strong>：</span>
 									<div class="sprp PGEdiTorZJYT">
-										<div id="PGEdiTorZJYT1" class="toolbar toolbar47"></div>
+										<div id="PGEdiTorZJYT1" class="toolbar toolbar45"></div>
 										<div id="PGEdiTorZJYT2" class="WRichtext"></div>									
 									</div>
 								</div>

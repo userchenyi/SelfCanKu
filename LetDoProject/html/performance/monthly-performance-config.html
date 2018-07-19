@@ -10,6 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../plugins/iCheck/all.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/performance/monthly-performance-config.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/SweetAlert2/resource/css/sweetalert2.min.css"/>
+		
 		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
 		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
 		<!--bootstrap-table-->
@@ -22,6 +24,8 @@
 		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
 		<!--icheck-->
 		<script src="../../plugins/iCheck/icheck.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--sweetalert-->
+		<script src="../../plugins/SweetAlert2/resource/js/sweetalert2.min.js" type="text/javascript" charset="utf-8"></script>
 		<!--page-->
 		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/performance/monthly-performance-config.js" type="text/javascript" charset="utf-8"></script>
@@ -37,13 +41,12 @@
 							<label class="col-sm-1 control-label"><span class="form-tip">*</span>时间配置：</label>
 							<label class="col-sm-1 control-label">开始时间</label>
 							<div class="col-sm-2">
-								<input type="text" class="form-control form_datetime" id="start_time" value="" readonly="readonly" />
+								<input type="text" class="form-control form_datetime" id="start_time" value="" readonly="readonly" placeholder="选择开始时间"/>
 							</div>
 							<label class="col-sm-1 control-label" for="mouthly">结束时间</label>
 							<div class="col-sm-2">
-								<input type="text" class="form-control form_datetime" id="end_time" value="" readonly="readonly" />
+								<input type="text" class="form-control form_datetime" id="end_time" value="" readonly="readonly"  placeholder="选择结束时间"/>
 							</div>
-							</label>
 						</div>
 					</div>
 				</div>

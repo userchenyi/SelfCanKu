@@ -87,17 +87,12 @@ window.onload = function(){
 	        }
         	//本地存储用户信息
         	localStorage.setItem("Uname",$(".userName").val());
-        	//显示加载动画
-            $(".LoadingImg").addClass("fa fa-spinner fa-spin");
-			$(".loadwraper").css("display", "block");
-			//模拟后台ajax加载数据
-//      	setTimeout(function(){
-//      		$(".LoadingImg").removeClass("fa fa-spinner fa-spin");
-//				$(".loadwraper").css("display", "none");
-//      		window.location.href = "./index.html";
-//      	},1000);
             //信息完整，请求后台登录
             $.ajax({
+            	beforeSend: function () {
+	                $(".LoadingImg").addClass("fa fa-spinner fa-spin");
+			        $(".loadwraper").css("display", "block");
+	            },
           	    async: true,
 				type:'post',
 				url:"http://127.0.0.1/api/admin/login",
@@ -109,9 +104,6 @@ window.onload = function(){
 					console.log(result);
 					var datareturn = result.data;
 					if(result.code == "0"){
-						//localStorage.setItem("UAid",datareturn[0].Aid);
-						//localStorage.setItem("UToken",datareturn[0].Token);
-						//localStorage.setItem("Uname",datareturn[0].Name);
 						//本地存储token值
 						localStorage.setItem("Utoken",datareturn.token);
 	                    $(".LoadingImg").removeClass("fa fa-spinner fa-spin");

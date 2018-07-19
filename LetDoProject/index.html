@@ -138,9 +138,36 @@
 				</div>
 			</div>
 		</div>
-
+		
+		<!--二次CRM登录弹窗-->
+		<div class="modal fade secondLogin" style="top:18%;" tabindex="-1" role="dialog" aria-labelledby="myModalLabelWrite" aria-hidden="true">
+			<div class="modal-dialog" style="width:400px;position: relative;">
+				<!--登录加载动画-->
+				<div class="loadwraper">
+					<i class="LoadingImg"></i>
+				</div>
+				<div class="modal-content">
+					<div class="modal-header secondLogHeader">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" class="secondLogTile" style="color:#222222;font-size:14px;line-height:32px;text-align: center;"><strong>CRM账号登录</strong></h4>
+					</div>
+					<div class="modal-body" style="width:100%; overflow:auto;">
+						<span class="secondNamSpan">姓名<i style="color:#FF5722">*</i>：</span>
+						<input type="text" maxlength="16" class="InSecondNam" value="13500010000" placeholder="请输入姓名" /><br>
+						<span class="secondPsdSpan">密码<i style="color:#FF5722">*</i>：</span>
+						<input type="password" maxlength="16" class="InSecondPsd" value="1234abCD" placeholder="请输入密码" />
+					</div>
+					<div class="modal-footer secondLogFooter">
+						<!--<button type="button" class="resetPsdF" data-dismiss="modal"><strong>取消</strong></button>-->
+						<button type="button" class="secondLogInBtn"><strong>登录</strong></button>
+					</div>
+				</div>
+			</div>
+		</div>
+        
 		<script src="js/jquery/jQuery-2.2.0.min.js"></script>
 		<script src="js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="utils/cookieTools.js"></script>
 		<script src="js/index.js"></script>
 	</body>
 

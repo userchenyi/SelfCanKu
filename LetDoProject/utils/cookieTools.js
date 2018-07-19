@@ -24,3 +24,11 @@ function getCookie(name){
 function delCookie(name){
     setCookie(name,null,-1);
 };
+
+
+//二级登录设置cookie
+function setCookieLT(name,value,miunes){
+	var date = new Date();
+    date.setTime(date.getTime()+miunes*60*1000);
+    document.cookie = name + '=' + value + ';expires='+ date.toGMTString();
+}

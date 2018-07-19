@@ -1,20 +1,18 @@
 window.onload = function(){
 	//定义一个变量，模拟用户权限
-	var TorF = false;
+	var TorF;
+	if(sessionStorage.getItem("LCSWrite")){
+		TorF = true;
+	}else{
+		TorF = false;
+	}
+	//定义变量，根据产品状态来判定页面是否具有编辑修改权限
+	var PTorF = true;
 	//定义一个变量用来保存当前为哪款产品的详细信息模块
 	var currentProduct = "";
 	//定义一个变量用来保存当前所查看产品数据对应ID
 	var currentProductId = "";
-	//根据用户权限设置下拉框是否能选择
-    if(!TorF){ //无修改权限情况
-    	$(".markSelect").mousedown(function(){
-    		return false;
-    	});
-    	//设置所有带WRInpt类名的input标签为不可编辑
-    	$(".WRInpt").prop("readonly",true);
-    	//隐藏保存按钮
-    	$(".modalTiltleSave").hide();
-    }
+	
 	//下拉选择框初始化
 	$('.selectpicker1,.selectpicker2').selectpicker();	
 	//选择框chang事件
@@ -23,22 +21,21 @@ window.onload = function(){
 	    console.log(this.value);
 	    $('#reportTable').bootstrapTable('refresh');
 	});
-	//判断如果存在修改权限，初始化时间插件实例
-	if(TorF){
-        $('.TheCreatTime,.PEcretime,.FOFCLRQInp').datetimepicker({
-	        minView: 'month',      //设置时间选择为年月日 去掉时分秒选择
-	        format:'yyyy-mm-dd',
-	        weekStart: 1,
-	        todayBtn:  1,
-	        autoclose: 1,
-	        todayHighlight: 1,
-	        startView: 2,
-	        forceParse: 0,
-	        showMeridian: 1,
-	        language: 'zh-CN'      //设置时间控件为中文
-	    });        
-    }	
-
+	//初始化时间插件实例
+    $('.TheCreatTime,.PEcretime,.FOFCLRQInp').datetimepicker({
+        minView: 'month',      //设置时间选择为年月日 去掉时分秒选择
+        format:'yyyy-mm-dd',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        language: 'zh-CN'      //设置时间控件为中文
+    });
+    
+    
 	//表格部分
 	//设置表格外围容器高度
 	$("#reportTableDiv").height($(window).height() - $(".selectCont").height() - 10 + "px");
@@ -62,7 +59,7 @@ window.onload = function(){
 		//url: "http://192.168.17.50:8080/questionBank/listPage", //要请求数据的文件路径
 		url:"http://127.0.0.1/api/admin/product/index",
 		ajaxOptions:{
-	        headers: {'Authorization': localStorage.getItem("Utoken")}
+	        headers: {'Authorization': localStorage.getItem("Utoken"),'authToken': sessionStorage.getItem("CRMUtoken")}
 	    },		
 		dataType: "json",
 		dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里前后端约定好就行
@@ -226,19 +223,28 @@ window.onload = function(){
 		sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
 		responseHandler:function (res) {  //在渲染页面数据之前执行的方法
 			console.log(res);
-			if(res.code != 0){
+			if(res.code == "-10"){
+				sessionStorage.clear();  //清除session
+				alert(res.message+"，请重新登录！");
+		        window.parent.location.href = "../../login.html";
+			}else if(res.code == "-11"){
+				sessionStorage.clear();  //清除session
+				alert(res.message+"，请重新登录CRM账号！");
+				parent.$(".secondLogin").modal('show');
+			}else if(res.code == "0"){
+				$.each(res.data.list, function (i, row) { 
+			        row.checkStatus = $.inArray(row.productinformationid, selectionIds) != -1; //判断当前行的数据id是否存在与选中的数组，存在则将多选框状态变为true 
+			    }); 
+			    //return res; 
+				//如果没有错误则返回数据，渲染表格
+			    return {
+			        total : res.data.totalNumber, //总页数,前面的key必须为"total"
+			        data : res.data.list //行数据，前面的key要与之前设置的dataField的值一致.
+			    };
+			}else{
 		        alert(res.message);
 		        return;
-		    }
-			$.each(res.data.list, function (i, row) { 
-		        row.checkStatus = $.inArray(row.productinformationid, selectionIds) != -1; //判断当前行的数据id是否存在与选中的数组，存在则将多选框状态变为true 
-		    }); 
-		    //return res; 
-			//如果没有错误则返回数据，渲染表格
-		    return {
-		        total : res.data.totalNumber, //总页数,前面的key必须为"total"
-		        data : res.data.list //行数据，前面的key要与之前设置的dataField的值一致.
-		    };
+		    }	
         },
         //单击某一格(这里指对点击操作列里面的查看)
         onClickCell: function(field, value, row, $element){
@@ -338,7 +344,11 @@ window.onload = function(){
 	$(window).resize(function() {
 		$('#reportTable').bootstrapTable('resetView');
 	});
-	
+	$(document).click(function(){
+		//parent.$(".secondLogin").modal('show');
+		//sessionStorage.clear();  //清除session
+		//window.parent.location.href = "../../login.html";
+	});
 	/*---------------------------------------------------------产品详情页部分逻辑代码-------------------------------------------*/
 	//页面加载将弹窗元素先隐藏再定位在屏幕右侧外围
 	$(".productDetailWrapper").css({"display":"none","left":$(window).width()});
@@ -347,7 +357,7 @@ window.onload = function(){
     	$(".productDetailWrapper").animate({"left": $(window).width()}, 200);
     });
 	
-	//当查看产品信息详情函数
+	//查看产品信息详情函数
     function checkDetailPage(parama_1){
     	//console.log(parama_1);
     	var URLselet = "";
@@ -363,7 +373,7 @@ window.onload = function(){
       	    async: true,
 			type:'get',
 			url:URLselet,
-			headers: {'Authorization': localStorage.getItem("Utoken")},
+			headers: {'Authorization': localStorage.getItem("Utoken"),'authToken': sessionStorage.getItem("CRMUtoken")},
 			data:{
 			    productinformationid: parama_1
 		    },
@@ -385,10 +395,10 @@ window.onload = function(){
 						    break;
 						default:
 						    $(".DistribtTypeInp").val(datareturn.assignmenttype); 
-					}
+					}			                       
 					switch (datareturn.producttype){  //产品类型
 						case 206290000:  //(FOF产品)
-						    $(".ProductTypeInp").val('FOF产品');
+						    $(".ProductTypeInp").val(datareturn.producttype);
 						    $(".FOFcontentWrap").css("display","block"); 
 						    $(".GDSYcontentWrap,.PPPcontentWrap,.PEcontentWrap").css("display","none");	
 						    currentProduct = "FOF";  //设置当前模块变量值
@@ -429,12 +439,12 @@ window.onload = function(){
                             editor8.txt.text(datareturn.fofqualifiedinvestors); //合格投资者
                             editor9.txt.text(datareturn.foftargetaccount); //目标开户
                             editor10.txt.text(datareturn.fofremarks); //备注
-                            editor11.txt.text(datareturn.risklwarning); //风险提示
+                            editor11.txt.text(datareturn.riskwarning); //风险提示
                             editor12.txt.text(datareturn.sourceguaranteerepayment); //还款来源
                             editor13.txt.text(datareturn.proceedsuse); //资金用途
 						    break;
 						case 206290002:  //(OTC产品)
-						    $(".ProductTypeInp").val('OTC产品');
+						    $(".ProductTypeInp").val(datareturn.producttype);
 						    $(".GDSYcontentWrap").css("display","block");
 						    $(".PPPcontentWrap,.FOFcontentWrap,.PEcontentWrap").css("display","none");
 						    currentProduct = "OTC";  //设置当前模块变量值
@@ -444,6 +454,7 @@ window.onload = function(){
 						    $(".GDZRFInp").val(datareturn.transferor);  //转让方					    
 						    $(".GDZJYTInp").val(datareturn.proceedsuse);  //资金用途
 						    $(".GDZRGWInp").val(datareturn.transferconsultant);  //转让顾问
+						    $(".GDFHInp").val(datareturn.fee2);  //分红
 						    editor14.txt.text(datareturn.participationexit); //参与退出
 						    editor15.txt.text(datareturn.incomedistribution); //收益分配方式
 						    editor16.txt.text(datareturn.investmentscope); //投资范围
@@ -451,14 +462,14 @@ window.onload = function(){
 						    editor18.txt.text(datareturn.projectintroduction); //项目方介绍
 						    editor19.txt.text(datareturn.financingintroduction); //融资方介绍
 						    editor20.txt.text(datareturn.trustmeasures); //增信措施
-						    editor21.txt.text(datareturn.fee2); //分红
-						    editor22.txt.text(datareturn.other); //其它
-						    editor23.txt.text(datareturn.risklwarning); //风险提示
-						    editor24.txt.text(datareturn.producthighlights); //产品亮点
-						    editor25.txt.text(datareturn.riskcontrol); //风险控制
+						    //editor21.txt.text(datareturn.fee2); //分红
+						    editor21.txt.text(datareturn.other); //其它
+						    editor22.txt.text(datareturn.riskwarning); //风险提示
+						    editor23.txt.text(datareturn.producthighlights); //产品亮点
+						    editor24.txt.text(datareturn.riskcontrol); //风险控制
 						    break;
 						case 206290001:  //(PPP产品)
-						    $(".ProductTypeInp").val('PPP产品');
+						    $(".ProductTypeInp").val(datareturn.producttype);
 						    $(".PPPcontentWrap").css("display","block");
 						    $(".GDSYcontentWrap,.FOFcontentWrap,.PEcontentWrap").css("display","none");	
 						    currentProduct = "PPP";  //设置当前模块变量值
@@ -467,22 +478,23 @@ window.onload = function(){
 						    $(".PJGGLInp").val(datareturn.administrativeorganization);  //管理机构				    
 						    $(".PTGZHInp").val(datareturn.account1);  //托管账户				    
 						    $(".PJJGLFInp").val(datareturn.fundmanagementfee);  //基金管理费
-						    editor26.txt.text(datareturn.participationexit); //参与退出
-						    editor27.txt.text(datareturn.incomedistribution); //收益分配方式
-						    editor28.txt.text(datareturn.investmentscope); //投资范围
-						    editor29.txt.text(datareturn.sourceguaranteerepayment); //还款来源及保障
-						    editor30.txt.text(datareturn.projectintroduction); //项目方介绍
-						    editor31.txt.text(datareturn.financingintroduction); //融资方介绍
-						    editor32.txt.text(datareturn.trustmeasures); //增信措施
-						    editor33.txt.text(datareturn.fee2); //分红
-						    editor34.txt.text(datareturn.other); //其它
-						    editor35.txt.text(datareturn.risklwarning); //风险提示
-						    editor36.txt.text(datareturn.producthighlights); //产品亮点
-						    editor37.txt.text(datareturn.riskcontrol); //风险控制
-						    editor38.txt.text(datareturn.proceedsuse); //资金用途
+						    $(".PFHInp").val(datareturn.fee2);  //分红
+						    editor25.txt.text(datareturn.participationexit); //参与退出
+						    editor26.txt.text(datareturn.incomedistribution); //收益分配方式
+						    editor27.txt.text(datareturn.investmentscope); //投资范围
+						    editor28.txt.text(datareturn.sourceguaranteerepayment); //还款来源及保障
+						    editor29.txt.text(datareturn.projectintroduction); //项目方介绍
+						    editor30.txt.text(datareturn.financingintroduction); //融资方介绍
+						    editor31.txt.text(datareturn.trustmeasures); //增信措施
+						    //editor33.txt.text(datareturn.fee2); //分红
+						    editor32.txt.text(datareturn.other); //其它
+						    editor33.txt.text(datareturn.riskwarning); //风险提示
+						    editor34.txt.text(datareturn.producthighlights); //产品亮点
+						    editor35.txt.text(datareturn.riskcontrol); //风险控制
+						    editor36.txt.text(datareturn.proceedsuse); //资金用途
 						    break;
 						case 206290003:  //(PE股权产品)
-						    $(".ProductTypeInp").val('PE股权产品');
+						    $(".ProductTypeInp").val(datareturn.producttype);
 						    $(".PEcontentWrap").css("display","block");
 						    $(".PPPcontentWrap,.FOFcontentWrap,.GDSYcontentWrap").css("display","none");
 						    currentProduct = "PE";  //设置当前模块变量值
@@ -494,15 +506,16 @@ window.onload = function(){
 						    $(".CPJGslect").val(datareturn.peproductmix);  //产品结构
 						    $(".PGCPJGXQInp").val(datareturn.pemixdetails);  //产品结构详情			    
 						    $(".SFGTslect").val(datareturn.pewhether);  //是否跟投
-						    editor39.txt.text(datareturn.pedistributionmode); //分配方式
-						    editor40.txt.text(datareturn.peinvestmentdirection); //投资方向
-						    editor41.txt.text(datareturn.peinformationdis); //信息披露
-						    editor42.txt.text(datareturn.pereserveitem); //储备项目
-						    editor43.txt.text(datareturn.periskcontrol); //风控措施
-						    editor44.txt.text(datareturn.risklwarning); //风险提示
-						    editor45.txt.text(datareturn.producthighlights); //产品亮点
-						    editor46.txt.text(datareturn.sourceguaranteerepayment); //还款来源
-						    editor47.txt.text(datareturn.proceedsuse); //资金用途	    
+						    $(".PGGTXQInp").val(datareturn.pefollowdetails);  //跟投详情
+						    editor37.txt.text(datareturn.pedistributionmode); //分配方式
+						    editor38.txt.text(datareturn.peinvestmentdirection); //投资方向
+						    editor39.txt.text(datareturn.peinformationdis); //信息披露
+						    editor40.txt.text(datareturn.pereserveitem); //储备项目
+						    editor41.txt.text(datareturn.periskcontrol); //风控措施
+						    editor42.txt.text(datareturn.riskwarning); //风险提示
+						    editor43.txt.text(datareturn.producthighlights); //产品亮点
+						    editor44.txt.text(datareturn.sourceguaranteerepayment); //还款来源
+						    editor45.txt.text(datareturn.proceedsuse); //资金用途	    
 						    break;
 						default:
 						    $(".ProductTypeInp").val(datareturn.producttype);
@@ -511,46 +524,71 @@ window.onload = function(){
 					switch (datareturn.productstate){  //产品状态
 						case 206290000:
 							$(".ProductStatusInp").val('未提交');
+							PTorF = true;
 							break;
 						case 206290001:
 							$(".ProductStatusInp").val('未审核');
+							PTorF = false;
 							break;
 						case 206290002:
 							$(".ProductStatusInp").val('产品部驳回');
+							PTorF = false;
 							break;
 						case 206290003:
 							$(".ProductStatusInp").val('发行中');
+							PTorF = false;
 							break;
 						case 206290004:
 							$(".ProductStatusInp").val('已成立');
+							PTorF = false;
 							break;
 						case 206290005:
 							$(".ProductStatusInp").val('产品部通过');
+							PTorF = false;
 							break;
 						case 206290006:
 							$(".ProductStatusInp").val('销售部通过');
+							PTorF = false;
 							break;
 						case 206290007:
 							$(".ProductStatusInp").val('销售部驳回');
+							PTorF = false;
 							break;
 						case 206290008:
 							$(".ProductStatusInp").val('产品作业部驳回');
+							PTorF = false;
 							break;
 						case 206290009:
 							$(".ProductStatusInp").val('募集完成');
+							PTorF = false;
 							break;
 						case 206290010:
 							$(".ProductStatusInp").val('清算完成');
+							PTorF = false;
 							break;
 						case 206290011:
 							$(".ProductStatusInp").val('兑付完成');
+							PTorF = false;
 							break;
 						case 206290012:
 							$(".ProductStatusInp").val('暂停');
+							PTorF = false;
 							break;
 						default:
 						    $(".ProductStatusInp").val(datareturn.productstate); 
-					}										
+						    PTorF = false;
+					}
+					//控制富文本编辑模块权限
+				    $.each(editorObjArry, function(index,item) {				    	
+				        //判断用户是否具有编辑功能
+				        if(TorF == true && PTorF == true){
+				        	// 开启编辑功能
+				        	item.$textElem.attr('contenteditable', true);
+				        }else{
+				        	// 禁用编辑功能
+				            item.$textElem.attr('contenteditable', false);
+				        }
+				    });										
 					$(".HostOutCostInp").val(datareturn.fee1); //托管外包费%				
 					$(".ManagerFeeInp").val(datareturn.managementexpense); //管理费%
 					$(".TheCreatTime").val(datareturn.duedate); //成立时间				
@@ -584,8 +622,38 @@ window.onload = function(){
 				        	$("#mon"+tarry).addClass("monMaked");
 				        }			        
 				    });
-		        }else{
-		        	alert(result.msg);
+				    //根据用户权限设置下拉框是否能选择
+				    if(TorF == false ||  PTorF == false){ //无修改权限情况
+                        //设置下拉选择框不可选状态
+                        $(".markSelect").attr("disabled",true);
+				    	//设置所有带WRInpt类名的input标签为不可编辑
+				    	$(".WRInpt").prop("readonly",true);
+				    	//隐藏保存按钮
+				    	$(".modalTiltleSave").hide();
+				    }else{
+				    	//设置下拉选择框为可选状态
+				    	$(".markSelect").attr("disabled",false);
+				    	//设置所有带WRInpt类名的input标签为可编辑
+				    	$(".WRInpt").prop("readonly",false);
+				    	//显示保存按钮
+				    	$(".modalTiltleSave").show();
+				    }
+				    //如果存在修改权限，启用时间选择框
+				    if(TorF == true && PTorF == true){
+				        $('.TheCreatTime,.PEcretime,.FOFCLRQInp').attr("disabled",false);
+				    }else{
+				    	$('.TheCreatTime,.PEcretime,.FOFCLRQInp').attr("disabled",true);
+				    }			    
+		        }else if(result.code == "-10"){
+					sessionStorage.clear();  //清除session
+					alert(result.message+"，请重新登录！");
+			        window.parent.location.href = "../../login.html";
+				}else if(result.code == "-11"){
+					sessionStorage.clear();  //清除session
+					alert(result.message+"，请重新登录CRM账号！");
+					parent.$(".secondLogin").modal('show');
+				}else{
+		        	alert(result.message);
 		        }
 		    }, 
 		  	error:function(){
@@ -600,7 +668,7 @@ window.onload = function(){
 	var editorParama = {};
     //常规信息存续期限的月份点击
     $(".monthDot").unbind('click').click(function(){
-    	if(TorF){ //存在修改权限
+    	if(TorF && PTorF){ //存在修改权限
     	    if($(this).hasClass('monMaked')){
     	    	$(this).removeClass('monMaked');
     	    }else{
@@ -610,9 +678,85 @@ window.onload = function(){
         	return false;
         }
     });
-    //点击保存提交时，获取页面对应模块相关信息，调用接口上传数据
+    //点击--------------------保存提交------------------时，获取页面对应模块(常规、信息信息模块)相关信息，调用接口上传数据
     $(".modalTiltleSave").click(function(){
     	//console.log(currentProductId);
+    	//币种传值变量
+    	var MoneyType = "";
+    	if($(".CurrencyInp").val() == "人民币"){
+			MoneyType = "64DF3650-D733-E711-80B9-549F350F546D";
+		}else{
+			MoneyType = $(".CurrencyInp").val();
+		}
+		//分配类型传值变量
+		var FenPeiType = "";
+		if($(".DistribtTypeInp").val() == "统打"){
+			FenPeiType = "930820001"
+		}else if($(".DistribtTypeInp").val() == "常规"){
+			FenPeiType ="930820000"
+		}else{
+			FenPeiType = $(".DistribtTypeInp").val()
+		}
+		//产品状态传值变量
+		var CYZTType = "";
+		switch ($(".ProductStatusInp").val()){  //产品状态
+			case '未提交':
+				CYZTType = "206290000";
+				break;
+			case '未审核':
+				CYZTType = "206290001";
+				break;
+			case '产品部驳回':
+				CYZTType = "206290002";
+				break;
+			case '发行中':
+				CYZTType = "206290003";
+				break;
+			case '已成立':
+				CYZTType = "206290004";
+				break;
+			case '产品部通过':
+				CYZTType = "206290005";
+				break;
+			case '销售部通过':
+				CYZTType = "206290006";
+				break;
+			case '销售部驳回':
+				CYZTType = "206290007";
+				break;
+			case '产品作业部驳回':
+				CYZTType = "206290008";
+				break;
+			case '募集完成':
+				CYZTType = "206290009";
+				break;
+			case '清算完成':
+				CYZTType = "206290010";
+				break;
+			case '兑付完成':
+				CYZTType = "206290011";
+				break;
+			case '暂停':
+				CYZTType = "206290012";
+				break;
+			default:
+			    CYZTType = $(".ProductStatusInp").val(); 
+		}					
+		//产品结构详情传值变量
+		var CYJGXQVal = "";
+		if($(".CPJGslect").children('option:selected').val() == 930820000){
+			CYJGXQVal = $(".PGCPJGXQInp").val();
+		}else{
+			CYJGXQVal = "";
+		}
+		//跟投详情传值变量
+		var GTXQVal = "";
+		if($(".SFGTslect").children('option:selected').val() == 930820000){
+			GTXQVal = $(".PGGTXQInp").val();
+		}else{
+			GTXQVal = "";
+		}
+		//初始化参数
     	monthArry=[];
     	editorParama = {};
 	    $(".monthDot").each(function(){
@@ -624,85 +768,220 @@ window.onload = function(){
 			editorParama = {
 				productinformationid:currentProductId,  //产品id
 				//常规信息字段
-				name: ,  //产品名称
-				ownerid: ,  //产品经理
-				sumamount: ,  //募集规模
-				sumamountcapitals: ,  //募集规模(大写)
-				commonpool: , //公共池 
-				assignmenttype: ,  //分配类型
-				producttype: ,  //产品类型
-				productstate: ,  //产品状态
-				fee1: ,  //托管外包费%
-				managementexpense: ,  //管理费%
-				duedate: ,  //成立时间
-				durationtext: ,  //存续期限
-				subscriptionstartingpoint: ,  //最低认购金额
-				subscriptionstartingpointcapital: ,  //最低认购金额(大写)
-				additionalstartingpoint: ,  //追加起点
-				additionalstartingpointcapital: ,  //追加起点(大写)
-				limit: ,  //可分配额度
-				allocatedamount: ,  //已分配额度
-				limitper: ,  //额度进度条
-				reservelimit: ,  //可预约额度
-				reservedquota: ,  //已预约额度
-				subper: ,  //预约总进度条
-				establishedquota: ,  //已成立额度
-				transactioncurrencyid: ,  //货币
-				prescription: ,  //预约时效（H）
-				vipquota:   //vip额度
+				name: $(".ProductNameInp").val(),  //产品名称
+				ownerid: $(".ProductMangerInp").val(),  //产品经理
+				sumamount: dealNumberFX($(".MJGMInp").val()),  //募集规模
+				sumamountcapitals: $(".MJGMInpZs").val(),  //募集规模(大写)
+				commonpool: dealNumberFX($(".PublicPoolInp").val()), //公共池 
+				assignmenttype: FenPeiType,  //分配类型
+				producttype: $(".ProductTypeInp").val(),  //产品类型
+				productstate: CYZTType,  //产品状态		
+				fee1: $(".HostOutCostInp").val(),  //托管外包费%
+				managementexpense: $(".ManagerFeeInp").val(),  //管理费%
+				duedate: $(".TheCreatTime").val(),  //成立时间
+				durationtext: monthArry,  //存续期限
+				subscriptionstartingpoint: dealNumberFX($(".ZDRGJEInp").val()),  //最低认购金额
+				subscriptionstartingpointcapital: $(".ZDRGJEInpZs").val(),  //最低认购金额(大写)
+				additionalstartingpoint: dealNumberFX($(".ZJQDInp").val()),  //追加起点
+				additionalstartingpointcapital: $(".ZJQDInpZs").val(),  //追加起点(大写)
+				limit: dealNumberFX($(".KFPEDInp").val()),  //可分配额度
+				allocatedamount: dealNumberFX($(".YFPEDInp").val()),  //已分配额度
+				limitper: $(".EDJDTInp").val(),  //额度进度条
+				reservelimit: dealNumberFX($(".KYYEDInp").val()),  //可预约额度
+				reservedquota: dealNumberFX($(".YYYEDInp").val()),  //已预约额度
+				subper: $(".YYZJDTInp").val(),  //预约总进度条
+				establishedquota: dealNumberFX($(".EstablishedInp").val()),  //已成立额度			
+				transactioncurrencyid: MoneyType,  //货币
+				prescription: $(".YYSXInp").val(),  //预约时效（H）
+				vipquota: $(".VIPQuotaInp").val(),  //vip额度
 				//详细信息字段
-				investmenttype: ,  //投资类型
-				filingcode: ,  //备案编码
-				fofproducttype: ,  //产品类型
-				managementteam: ,  //管理团队
-				fundmanager: ,  //基金管理人
-				custodian: ,  //基金托管人
-				invest_advisor: ,  //投资顾问
-				securitiesbroker: ,  //证券经纪商
-				futuresbroker: ,  //期货经纪商
-				managementfeerate: ,  //管理人管理费率
-				payback1: ,  //业绩报酬（%）
-				fofnetworthannouncement: ,  //净值公布
-				fofadministrativeorganization: ,  //管理机构
-				fofinvestmentscope: ,  //投资范围
-				fofparticipationexit: ,  //参与退出
-				fofproducthighlights: ,  //产品亮点
-				fofriskmeasures: ,  //风险措施
-				foffundmanager: ,  //基金经理
-				opendate: ,  //开放日
-				enddate: ,  //封闭期
-				subscriptionfee: ,  //认购费率（%）
-				redemptionrate: ,  //赎回费率（%）
-				warningline: ,  //预警线（%）
-				stopline: ,  //止损线（%）
-				fee3: ,  //托管费（%）
-				fee4: ,  //行政管理费（%）
-				establishmentdate: ,  //成立日期
-				umbrellatype: ,  //是否伞型
-				whetherclassification: ,  //是否分级
-				foftrusteeshipbody: ,  //托管机构
-				foffundcost: ,  //基金费用
-				fofinvestmenttarget: ,  //投资目标
-				fofinvestmentstrategy: ,  //投资策略
-				fofqualifiedinvestors: ,  //合格投资者
-				foftargetaccount: ,  //目标开户
-				fofremarks: ,  //备注
-				risklwarning: ,  //风险提示
-				sourceguaranteerepayment: ,  //还款来源
-				proceedsuse:   //资金用途
-				
+				investmenttype: $(".TZLXslect").val(),  //投资类型
+				filingcode: $(".FOFBABMInp").val(),  //备案编码
+				fofproducttype: $(".CPLXslect").val(),  //产品类型
+				managementteam: $(".FOFGLTDInp").val(),  //管理团队
+				fundmanager: $(".FOFJJGLRInp").val(),  //基金管理人
+				custodian: $(".FOFJJTGRInp").val(),  //基金托管人
+				invest_advisor: $(".FOFTZGWInp").val(),  //投资顾问
+				securitiesbroker: $(".FOFZQJJSInp").val(),  //证券经纪商
+				futuresbroker: $(".FOFQHJJSInp").val(),  //期货经纪商
+				managementfeerate: $(".FOFGLRGLFLInp").val(),  //管理人管理费率
+				payback1: $(".FOFYJBCInp").val(),  //业绩报酬（%）
+				fofnetworthannouncement: editor1.txt.text(),  //净值公布
+				fofadministrativeorganization: $(".FOFGLJGInp").val(),  //管理机构
+				fofinvestmentscope: editor2.txt.text(),  //投资范围
+				fofparticipationexit: editor3.txt.text(),  //参与退出
+				fofproducthighlights: editor4.txt.text(),  //产品亮点
+				fofriskmeasures: editor5.txt.text(),  //风险措施
+				foffundmanager: $(".FOFJJJLInp").val(),  //基金经理
+				opendate: $(".FOFKFRInp").val(),  //开放日
+				enddate: $(".FOFFBQInp").val(),  //封闭期
+				subscriptionfee: $(".FOFRGFLInp").val(),  //认购费率（%）
+				redemptionrate: $(".FOFSHFLInp").val(),  //赎回费率（%）
+				warningline: $(".FOFYJXInp").val(),  //预警线（%）
+				stopline: $(".FOFZSXInp").val(),  //止损线（%）
+				fee3: $(".FOFTGFInp").val(),  //托管费（%）
+				fee4: $(".FOFXZGLFInp").val(),  //行政管理费（%）
+				establishmentdate: $(".FOFCLRQInp").val(),  //成立日期
+				umbrellatype: $(".SFSXslect").val(),  //是否伞型
+				whetherclassification: $(".SFFJslect").val(),  //是否分级
+				foftrusteeshipbody: $(".FOFTGJJInp").val(),  //托管机构
+				foffundcost: $(".FOFJJFYInp").val(),  //基金费用
+				fofinvestmenttarget: editor6.txt.text(),  //投资目标
+				fofinvestmentstrategy: editor7.txt.text(),  //投资策略
+				fofqualifiedinvestors: editor8.txt.text(),  //合格投资者
+				foftargetaccount: editor9.txt.text(),  //目标开户
+				fofremarks: editor10.txt.text(),  //备注
+				riskwarning: editor11.txt.text(),  //风险提示
+				sourceguaranteerepayment: editor12.txt.text(),  //还款来源
+				proceedsuse: editor13.txt.text()  //资金用途			
 			}
 		}else if(currentProduct == "PPP"){  //PPP类
 			editorParama = {
 				productinformationid:currentProductId,  //产品id
+				//常规信息字段
+				name: $(".ProductNameInp").val(),  //产品名称
+				ownerid: $(".ProductMangerInp").val(),  //产品经理
+				sumamount: dealNumberFX($(".MJGMInp").val()),  //募集规模
+				sumamountcapitals: $(".MJGMInpZs").val(),  //募集规模(大写)
+				commonpool: dealNumberFX($(".PublicPoolInp").val()), //公共池 
+				assignmenttype: FenPeiType,  //分配类型
+				producttype: $(".ProductTypeInp").val(),  //产品类型
+				productstate: CYZTType,  //产品状态		
+				fee1: $(".HostOutCostInp").val(),  //托管外包费%
+				managementexpense: $(".ManagerFeeInp").val(),  //管理费%
+				duedate: $(".TheCreatTime").val(),  //成立时间
+				durationtext: monthArry,  //存续期限
+				subscriptionstartingpoint: dealNumberFX($(".ZDRGJEInp").val()),  //最低认购金额
+				subscriptionstartingpointcapital: $(".ZDRGJEInpZs").val(),  //最低认购金额(大写)
+				additionalstartingpoint: dealNumberFX($(".ZJQDInp").val()),  //追加起点
+				additionalstartingpointcapital: $(".ZJQDInpZs").val(),  //追加起点(大写)
+				limit: dealNumberFX($(".KFPEDInp").val()),  //可分配额度
+				allocatedamount: dealNumberFX($(".YFPEDInp").val()),  //已分配额度
+				limitper: $(".EDJDTInp").val(),  //额度进度条
+				reservelimit: dealNumberFX($(".KYYEDInp").val()),  //可预约额度
+				reservedquota: dealNumberFX($(".YYYEDInp").val()),  //已预约额度
+				subper: $(".YYZJDTInp").val(),  //预约总进度条
+				establishedquota: dealNumberFX($(".EstablishedInp").val()),  //已成立额度			
+				transactioncurrencyid: MoneyType,  //货币
+				prescription: $(".YYSXInp").val(),  //预约时效（H）
+				vipquota: $(".VIPQuotaInp").val(),  //vip额度
+				//详细信息字段
+				trustee: $(".PTGJGInp").val(),  //托管机构
+				administrativeorganization: $(".PJGGLInp").val(),  //管理机构
+				account1: $(".PTGZHInp").val(),  //托管账户
+				fundmanagementfee: $(".PJJGLFInp").val(),  //基金管理费
+				fee2: $(".PFHInp").val(),  //分红
+				participationexit: editor25.txt.text(),  //参与退出
+				incomedistribution: editor26.txt.text(),  //收益分配方式
+				investmentscope: editor27.txt.text(),  //投资范围
+				sourceguaranteerepayment: editor28.txt.text(),  //还款来源及保障
+				projectintroduction: editor29.txt.text(),  //项目方介绍
+				financingintroduction: editor30.txt.text(),  //融资方介绍
+				other: editor32.txt.text(),  //其他
+				trustmeasures: editor31.txt.text(),  //增信措施
+				riskwarning: editor33.txt.text(),  //风险提示
+				producthighlights: editor34.txt.text(),  //产品亮点
+				riskcontrol: editor35.txt.text(),  //风险控制
+				proceedsuse: editor36.txt.text()  //资金用途
 			}
 		}else if(currentProduct == "OTC"){  //OTC类
 			editorParama = {
 				productinformationid:currentProductId,  //产品id
+				//常规信息字段
+				name: $(".ProductNameInp").val(),  //产品名称
+				ownerid: $(".ProductMangerInp").val(),  //产品经理
+				sumamount: dealNumberFX($(".MJGMInp").val()),  //募集规模
+				sumamountcapitals: $(".MJGMInpZs").val(),  //募集规模(大写)
+				commonpool: dealNumberFX($(".PublicPoolInp").val()), //公共池 
+				assignmenttype: FenPeiType,  //分配类型
+				producttype: $(".ProductTypeInp").val(),  //产品类型
+				productstate: CYZTType,  //产品状态		
+				fee1: $(".HostOutCostInp").val(),  //托管外包费%
+				managementexpense: $(".ManagerFeeInp").val(),  //管理费%
+				duedate: $(".TheCreatTime").val(),  //成立时间
+				durationtext: monthArry,  //存续期限
+				subscriptionstartingpoint: dealNumberFX($(".ZDRGJEInp").val()),  //最低认购金额
+				subscriptionstartingpointcapital: $(".ZDRGJEInpZs").val(),  //最低认购金额(大写)
+				additionalstartingpoint: dealNumberFX($(".ZJQDInp").val()),  //追加起点
+				additionalstartingpointcapital: $(".ZJQDInpZs").val(),  //追加起点(大写)
+				limit: dealNumberFX($(".KFPEDInp").val()),  //可分配额度
+				allocatedamount: dealNumberFX($(".YFPEDInp").val()),  //已分配额度
+				limitper: $(".EDJDTInp").val(),  //额度进度条
+				reservelimit: dealNumberFX($(".KYYEDInp").val()),  //可预约额度
+				reservedquota: dealNumberFX($(".YYYEDInp").val()),  //已预约额度
+				subper: $(".YYZJDTInp").val(),  //预约总进度条
+				establishedquota: dealNumberFX($(".EstablishedInp").val()),  //已成立额度			
+				transactioncurrencyid: MoneyType,  //货币
+				prescription: $(".YYSXInp").val(),  //预约时效（H）
+				vipquota: $(".VIPQuotaInp").val(),  //vip额度
+				//详细信息字段
+				account1: $(".GDTGZHInp").val(),  //托管账户
+				underlyingtype: $(".GDJCZCLXInp").val(),  //基础资产类型
+				transferor: $(".GDZRFInp").val(),  //转让方
+				proceedsuse: $(".GDZJYTInp").val(),  //资金用途
+				transferconsultant: $(".GDZRGWInp").val(),  //转让顾问
+				participationexit: editor14.txt.text(),  //参与退出
+				incomedistribution: editor15.txt.text(),  //收益分配方式
+				investmentscope: editor16.txt.text(),  //投资范围
+				fee2: $(".GDFHInp").val(),  //分红
+				sourceguaranteerepayment: editor17.txt.text(),  //还款来源及保障
+				projectintroduction: editor18.txt.text(),  //项目方介绍
+				financingintroduction: editor19.txt.text(),  //融资方介绍
+				other: editor21.txt.text(),  //其他
+				trustmeasures: editor20.txt.text(),  //增信措施
+				riskwarning: editor22.txt.text(),  //风险提示
+				producthighlights: editor23.txt.text(),  //产品亮点
+			    riskcontrol: editor24.txt.text()  //风险控制
 			}
 		}else{  //PE类
-			editorParama = { 
+			editorParama = {
+				modifiedby: sessionStorage.getItem("LCSID"),
 				productinformationid:currentProductId,  //产品id
+				//常规信息字段
+				name: $(".ProductNameInp").val(),  //产品名称
+				ownerid: $(".ProductMangerInp").val(),  //产品经理
+				sumamount: dealNumberFX($(".MJGMInp").val()),  //募集规模
+				sumamountcapitals: $(".MJGMInpZs").val(),  //募集规模(大写)
+				commonpool: dealNumberFX($(".PublicPoolInp").val()), //公共池 
+				assignmenttype: FenPeiType,  //分配类型
+				producttype: $(".ProductTypeInp").val(),  //产品类型
+				productstate: CYZTType,  //产品状态		
+				fee1: $(".HostOutCostInp").val(),  //托管外包费%
+				managementexpense: $(".ManagerFeeInp").val(),  //管理费%
+				duedate: $(".TheCreatTime").val(),  //成立时间
+				durationtext: monthArry,  //存续期限
+				subscriptionstartingpoint: dealNumberFX($(".ZDRGJEInp").val()),  //最低认购金额
+				subscriptionstartingpointcapital: $(".ZDRGJEInpZs").val(),  //最低认购金额(大写)
+				additionalstartingpoint: dealNumberFX($(".ZJQDInp").val()),  //追加起点
+				additionalstartingpointcapital: $(".ZJQDInpZs").val(),  //追加起点(大写)
+				limit: dealNumberFX($(".KFPEDInp").val()),  //可分配额度
+				allocatedamount: dealNumberFX($(".YFPEDInp").val()),  //已分配额度
+				limitper: $(".EDJDTInp").val(),  //额度进度条
+				reservelimit: dealNumberFX($(".KYYEDInp").val()),  //可预约额度
+				reservedquota: dealNumberFX($(".YYYEDInp").val()),  //已预约额度
+				subper: $(".YYZJDTInp").val(),  //预约总进度条
+				establishedquota: dealNumberFX($(".EstablishedInp").val()),  //已成立额度			
+				transactioncurrencyid: MoneyType,  //货币
+				prescription: $(".YYSXInp").val(),  //预约时效（H）
+				vipquota: $(".VIPQuotaInp").val(),  //vip额度
+				//详细信息字段
+				perecruitment: $(".PGMJQInp").val(),  //募集期
+				pemanagementteam: $(".PGGLTDInp").val(),  //管理团队
+				pedistributionmode: editor37.txt.text(),  //分配方式
+				peinvestmentdirection: editor38.txt.text(),  //投资方向
+				peinformationdis: editor39.txt.text(),  //信息披露
+				pecustodian: $(".PGJJTGRInp").val(),  //基金托管人
+				pefundmanager: $(".PGJJGLRInp").val(),  //基金管理人
+				peproductmix: $(".CPJGslect").val(),  //产品结构
+				pemixdetails: CYJGXQVal,  //产品结构详情
+				pewhether: $(".SFGTslect").val(),  //是否跟投
+				pefollowdetails: GTXQVal,  //跟投详情
+				pereserveitem: editor40.txt.text(),  //储备项目
+				periskcontrol: editor41.txt.text(),  //风控措施
+				riskwarning: editor42.txt.text(),  //风险提示
+				producthighlights: editor43.txt.text(),  //产品亮点
+				sourceguaranteerepayment: editor44.txt.text(),  //还款来源
+				proceedsuse: editor45.txt.text(),  //资金用途
 			}
 		}
 	    //console.log(monthArry);
@@ -712,10 +991,26 @@ window.onload = function(){
 		    async: true,
 		    type:'POST',
 			url:'http://127.0.0.1/api/admin/product/edit',
-			headers: {'Authorization': localStorage.getItem("Utoken")},
-			data: {editorParama},
+			traditional :true,  //数组形式传参该参数是必须的
+			headers: {'Authorization': localStorage.getItem("Utoken"),'authToken': sessionStorage.getItem("CRMUtoken")},
+			data: editorParama,
 		    success:function(result){
 		    	console.log(result);
+		    	if(result.code == 0){
+		    		//刷新产品列表表格
+		    		$('#reportTable').bootstrapTable('refresh');
+		    		alert("保存成功！");
+		    	}else if(res.code == "-10"){
+					sessionStorage.clear();  //清除session
+					alert(res.message+"，请重新登录！");
+			        window.parent.location.href = "../../login.html";
+				}else if(res.code == "-11"){
+					sessionStorage.clear();  //清除session
+					alert(res.message+"，请重新登录CRM账号！");
+					parent.$(".secondLogin").modal('show');
+				}else{
+		    		alert(result.message);
+		    	}
 		    },
 		    error:function(){
 		  		alert("网络错误！");	
@@ -821,6 +1116,15 @@ window.onload = function(){
 	    	$(".ProductJGXQ").hide();
 	    }
 	});
+	//PE股权类产品-是否跟投下拉选择-跟投详情栏对应显示隐藏功能模块
+	$('.SFGTslect').change(function(){ 
+	    var SFGTslectVal = $(this).children('option:selected').val(); //这就是selected的值    
+	    if(SFGTslectVal == 930820000){        //组合型
+	    	$(".SFGTWrapLi").show();
+	    }else if(SFGTslectVal == 930820001 || SFGTslectVal == 930820002){
+	    	$(".SFGTWrapLi").hide();
+	    }
+	});
     
     //进入页面初始化wangEditor实例化对象
     var E = window.wangEditor;
@@ -844,35 +1148,35 @@ window.onload = function(){
     var editor18 = new E('#GEdiTorXMFJS1','#GEdiTorXMFJS2');
     var editor19 = new E('#GEdiTorRZFJS1','#GEdiTorRZFJS2');
     var editor20 = new E('#GEdiTorZXCS1','#GEdiTorZXCS2');
-    var editor21 = new E('#GEdiTorFH1','#GEdiTorFH2');
-    var editor22 = new E('#GEdiTorQT1','#GEdiTorQT2');
-    var editor23 = new E('#GEdiTorFXTS1','#GEdiTorFXTS2');
-    var editor24 = new E('#GEdiTorCPLD1','#GEdiTorCPLD2');
-    var editor25 = new E('#GEdiTorFXKZ1','#GEdiTorFXKZ2');
-    var editor26 = new E('#PEdiTorCYTC1','#PEdiTorCYTC2');
-    var editor27 = new E('#PEdiTorSYFP1','#PEdiTorSYFP2');
-    var editor28 = new E('#PEdiTorTZFW1','#PEdiTorTZFW2');
-    var editor29 = new E('#PEdiTorHKLY1','#PEdiTorHKLY2');
-    var editor30 = new E('#PEdiTorXMFJS1','#PEdiTorXMFJS2');
-    var editor31 = new E('#PEdiTorRZFJS1','#PEdiTorRZFJS2');
-    var editor32 = new E('#PEdiTorZXCS1','#PEdiTorZXCS2');
-    var editor33 = new E('#PEdiTorFH1','#PEdiTorFH2');
-    var editor34 = new E('#PEdiTorQT1','#PEdiTorQT2');
-    var editor35 = new E('#PEdiTorFXTS1','#PEdiTorFXTS2');
-    var editor36 = new E('#PEdiTorCPLD1','#PEdiTorCPLD2');
-    var editor37 = new E('#PEdiTorFXKZ1','#PEdiTorFXKZ2');
-    var editor38 = new E('#PEdiTorZJYT1','#PEdiTorZJYT2');
-    var editor39 = new E('#PGEdiTorFPFS1','#PGEdiTorFPFS2');
-    var editor40 = new E('#PGEdiTorTZFX1','#PGEdiTorTZFX2');
-    var editor41 = new E('#PGEdiTorXXPL1','#PGEdiTorXXPL2');
-    var editor42 = new E('#PGEdiTorCBXM1','#PGEdiTorCBXM2');
-    var editor43 = new E('#PGEdiTorFKCS1','#PGEdiTorFKCS2');
-    var editor44 = new E('#PGEdiTorFXTS1','#PGEdiTorFXTS2');
-    var editor45 = new E('#PGEdiTorCPLD1','#PGEdiTorCPLD2');
-    var editor46 = new E('#PGEdiTorHKLY1','#PGEdiTorHKLY2');
-    var editor47 = new E('#PGEdiTorZJYT1','#PGEdiTorZJYT2');
-    var editorObjArry = [editor1,editor2,editor3,editor4,editor5,editor6,editor7,editor8,editor9,editor10,editor11,editor12,editor13,editor14,editor15,editor16,editor17,editor18,editor19,editor20,editor21,editor22,editor23,editor24,editor25,
-    editor26,editor27,editor28,editor29,editor30,editor31,editor32,editor33,editor34,editor35,editor36,editor37,editor38,editor39,editor40,editor41,editor42,editor43,editor44,editor45,editor46,editor47];
+    //var editor21 = new E('#GEdiTorFH1','#GEdiTorFH2');
+    var editor21 = new E('#GEdiTorQT1','#GEdiTorQT2');
+    var editor22 = new E('#GEdiTorFXTS1','#GEdiTorFXTS2');
+    var editor23 = new E('#GEdiTorCPLD1','#GEdiTorCPLD2');
+    var editor24 = new E('#GEdiTorFXKZ1','#GEdiTorFXKZ2');
+    var editor25 = new E('#PEdiTorCYTC1','#PEdiTorCYTC2');
+    var editor26 = new E('#PEdiTorSYFP1','#PEdiTorSYFP2');
+    var editor27 = new E('#PEdiTorTZFW1','#PEdiTorTZFW2');
+    var editor28 = new E('#PEdiTorHKLY1','#PEdiTorHKLY2');
+    var editor29 = new E('#PEdiTorXMFJS1','#PEdiTorXMFJS2');
+    var editor30 = new E('#PEdiTorRZFJS1','#PEdiTorRZFJS2');
+    var editor31 = new E('#PEdiTorZXCS1','#PEdiTorZXCS2');
+    //var editor33 = new E('#PEdiTorFH1','#PEdiTorFH2');
+    var editor32 = new E('#PEdiTorQT1','#PEdiTorQT2');
+    var editor33 = new E('#PEdiTorFXTS1','#PEdiTorFXTS2');
+    var editor34 = new E('#PEdiTorCPLD1','#PEdiTorCPLD2');
+    var editor35 = new E('#PEdiTorFXKZ1','#PEdiTorFXKZ2');
+    var editor36 = new E('#PEdiTorZJYT1','#PEdiTorZJYT2');
+    var editor37 = new E('#PGEdiTorFPFS1','#PGEdiTorFPFS2');
+    var editor38 = new E('#PGEdiTorTZFX1','#PGEdiTorTZFX2');
+    var editor39 = new E('#PGEdiTorXXPL1','#PGEdiTorXXPL2');
+    var editor40 = new E('#PGEdiTorCBXM1','#PGEdiTorCBXM2');
+    var editor41 = new E('#PGEdiTorFKCS1','#PGEdiTorFKCS2');
+    var editor42 = new E('#PGEdiTorFXTS1','#PGEdiTorFXTS2');
+    var editor43 = new E('#PGEdiTorCPLD1','#PGEdiTorCPLD2');
+    var editor44 = new E('#PGEdiTorHKLY1','#PGEdiTorHKLY2');
+    var editor45 = new E('#PGEdiTorZJYT1','#PGEdiTorZJYT2');
+    var editorObjArry = [editor1,editor2,editor3,editor4,editor5,editor6,editor7,editor8,editor9,editor10,editor11,editor12,editor13,editor14,editor15,editor16,editor17,editor18,editor19,editor20,editor21,editor22,editor23,editor24,
+    editor25,editor26,editor27,editor28,editor29,editor30,editor31,editor32,editor33,editor34,editor35,editor36,editor37,editor38,editor39,editor40,editor41,editor42,editor43,editor44,editor45];
     $.each(editorObjArry, function(index,item) {
     	// 自定义菜单配置
       	item.customConfig.menus = [
@@ -898,29 +1202,29 @@ window.onload = function(){
 		    'redo'  // 重复
     	];
     	//判断是否有权限修改对应是否显示工具栏
-    	item.customConfig.onfocus = function () {
-        	if(TorF){
-        		$(".toolbar"+(index+1)).show();
-        	}           
-	    };
-	    item.customConfig.onblur = function () {
-	    	if(TorF){
-	    		$(".toolbar"+(index+1)).hide();
-	    	}	        
-	    };
+//  	item.customConfig.onfocus = function () {
+//      	if(TorF && PTorF){
+//      		$(".toolbar"+(index+1)).show();
+//      	}           
+//	    };
+//	    item.customConfig.onblur = function () {
+//	    	if(TorF && PTorF){
+//	    		$(".toolbar"+(index+1)).hide();
+//	    	}	        
+//	    };
 	    //生成
         item.create();
-        //判断用户是否具有编辑功能
-        if(TorF){
-        	// 开启编辑功能
-        	item.$textElem.attr('contenteditable', true);
-        }else{
-        	// 禁用编辑功能
-            item.$textElem.attr('contenteditable', false);
-        }
+//      //判断用户是否具有编辑功能
+//      if(TorF && PTorF){
+//      	// 开启编辑功能
+//      	item.$textElem.attr('contenteditable', true);
+//      }else{
+//      	// 禁用编辑功能
+//          item.$textElem.attr('contenteditable', false);
+//      }
         //初始化编辑器内容为空
         item.txt.text('');
     });
     //先隐藏工具栏模块
-    $(".toolbar").hide();
+    //$(".toolbar").hide();
 }

@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="../../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css"/>
-
+		<link rel="stylesheet" type="text/css" href="../../plugins/SweetAlert2/resource/css/sweetalert2.min.css"/>
 		<script src="../../js/jquery/jQuery-2.2.0.min.js"></script>
 		<script src="../../js/bootstrap/js/bootstrap.min.js"></script>
 		<!--bootstrap-table-->
@@ -19,6 +19,8 @@
 		<!--bootstrap-datetimepicker-->
 		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+		<!--sweetalert-->
+		<script src="../../plugins/SweetAlert2/resource/js/sweetalert2.min.js" type="text/javascript" charset="utf-8"></script>
 		<!--page-->
 		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/performance/info.js" type="text/javascript" charset="utf-8"></script>
@@ -32,7 +34,7 @@
 				<div class="form-group">
 					<label class="col-sm-1 control-label" for="mouthly">选择月份</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control form_datetime" id="mouthly" value="" readonly="readonly" />
+						<input type="text" class="form-control form_datetime" id="mouthly" value="" readonly="readonly" placeholder="选择月份"/>
 					</div>
 					<div class="col-sm-2">
 						<button type="button" id="btn_search" class="btn btn-primary" onclick="showTable();">查询</button>
@@ -45,11 +47,11 @@
 			
 			<!--业绩表格-->
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-12 table-responsive">
 					<table id="mouthTable" class="table table-bordered table-striped"></table>
 				</div>
 			</div>
-
+			
 		</div>
 	</body>
 

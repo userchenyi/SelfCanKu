@@ -36,6 +36,13 @@ window.onload = function(){
             $('#reportTable').bootstrapTable('refresh');
         }
     });
+    //回车部门搜索输入框
+    $(".DeptSel").keydown(function (event) {
+        event = arguments.callee.caller.arguments[0] || window.event; // 消除浏览器差异
+        if (event.keyCode == 13) {
+            $('#reportTable').bootstrapTable('refresh');
+        }
+    });
     //点击导出
     $(".modelExportAll").click(function() {
 		$('#reportTable').tableExport({
@@ -80,7 +87,7 @@ window.onload = function(){
 	var selectionIds = []; 
 	$table = $('#reportTable').bootstrapTable({
 		method: 'get',
-		url:"http://192.168.17.57:8080/overTime",		
+		url:"http://192.168.17.199:8080/overTime",		
 		dataType: "json",
 		dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里前后端约定好就行
 		cache: false, //设置为 false 禁用 AJAX 数据缓存
@@ -211,6 +218,7 @@ window.onload = function(){
 	    return {
 	    	monthString: $(".TimeSel").val(), //时间参数
 	    	checkName: $(".NameSel").val(),  //姓名参数
+	    	deptName: $(".DeptSel").val(),  //部门参数
 	    	status:"2"
 	    }
 	};	

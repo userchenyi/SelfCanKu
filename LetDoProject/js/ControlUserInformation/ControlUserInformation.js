@@ -38,6 +38,7 @@ window.onload = function(){
 		//contentType:"application/json",
 		//url: "http://192.168.17.50:8080/questionBank/listPage", //要请求数据的文件路径
 		url:"http://127.0.0.1/api/personnelInformation/listPage",
+		//headers: {'Authorization': localStorage.getItem("Utoken")},
 		dataType: "json",
 		dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里前后端约定好就行
 		cache: false, //设置为 false 禁用 AJAX 数据缓存
