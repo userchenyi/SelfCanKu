@@ -474,7 +474,7 @@ a:focus {
 .user-panel {
 	position: relative;
 	width: 100%;
-	padding: 16px 34px 16px 23px;
+	/*padding: 16px 34px 16px 23px;*/
 	overflow: hidden;
 }
 
@@ -491,7 +491,7 @@ a:focus {
 .user-panel>.image>img {
 	width: 100%;
 	max-width: 100%;
-	max-height: 40px;
+	/*max-height: 40px;*/
 	/*height: auto;*/
 }
 

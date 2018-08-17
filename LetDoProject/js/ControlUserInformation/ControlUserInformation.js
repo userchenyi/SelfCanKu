@@ -154,9 +154,9 @@ window.onload = function(){
 		queryParams: queryParams,//前端调用服务时，会默认传递上边提到的参数，如添加自定义参数，自定义一个函数返回请求参数
 		sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
 		responseHandler:function (res) {  //在渲染页面数据之前执行的方法
-			console.log(res);
+			//console.log(res);
 			if(res.code != 0){
-		        alert(res.msg);
+		        alert(res.message);
 		        return;
 		    }
 			$.each(res.data.list, function (i, row) { 

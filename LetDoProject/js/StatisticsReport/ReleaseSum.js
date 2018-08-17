@@ -15,11 +15,7 @@ window.onload = function(){
 	h = h < 10? "0" + h : "" + h;
 	m = m < 10? "0" + m : "" + m;
 	s = s < 10? "0" + s : "" + s;
-	//console.log(monthFirst);
 	var defalutTime = formatDateTime(monthFirst)+" ~ "+y+"-"+month+"-"+d;
-	//console.log(defalutTime + "--" +defalutTime.length);
-	//console.log(defalutTime.substring(0,10)+"&"+defalutTime.substring(0,10).length);
-	//console.log(defalutTime.substring(13)+"&"+defalutTime.substring(13).length);
 	//设置时间选择默认值
 //	$(".TimeSel").val(y+"-"+month);
 	//初始化时间插件实例
@@ -37,14 +33,13 @@ window.onload = function(){
 	    elem: '.TimeSel',
 	    //range: true //或 range: '~' 来自定义分割字符
 	    range: '~',
-	    isInitValue: true, //是否允许填充初始值，默认为 true
-	    //value: '2017-07-01 ~ 2017-07-18'        
+	    isInitValue: true, //是否允许填充初始值，默认为 true       
 	    value: defalutTime,
 	    done: function(value, date, endDate){
 //	    	console.log(value);
 //	    	$.ajax({
 //              type: "post",
-//              url:"http://192.168.17.199:8080/reportPublicSummary",
+//              url:CTX_PATHZHJCS+"reportPublicSummary",
 //              datType: "JSON",
 //              contentType: "application/json",
 //              data: JSON.stringify({
@@ -85,22 +80,20 @@ window.onload = function(){
             }else{
             	$("#reportTable").bootstrapTable('destroy');
 	    	    CreatTable(value,$(".NameSel").val());
-            }     
-//	    	if($(".TimeSel").val() == ""){
-//	    		return;
-//	    	}else{
-//	    		$('#reportTable').bootstrapTable('refresh');
-//	    	}		   
+            }     	   
 		}
     });
     //回车姓名搜索输入框
-    $(".NameSel").keydown(function (event) {
-        event = arguments.callee.caller.arguments[0] || window.event; // 消除浏览器差异
-        if (event.keyCode == 13) {
-            //$('#reportTable').bootstrapTable('refresh');
-            $("#reportTable").bootstrapTable('destroy');
-            CreatTable($(".TimeSel").val(),$(".NameSel").val());
-        }
+    $(".NameSel").keydown(function (event) {	
+		event = arguments.callee.caller.arguments[0] || window.event; // 消除浏览器差异
+	    if (event.keyCode == 13) {
+	        if($(".TimeSel").val() == ""){
+	    		alert("请选择时间区间！");
+	    	}else{
+	            $("#reportTable").bootstrapTable('destroy');
+	            CreatTable($(".TimeSel").val(),$(".NameSel").val());
+	        }
+	    }    
     });
     //回车部门搜索输入框
 //  $(".DeptSel").keydown(function (event) {
@@ -116,7 +109,7 @@ window.onload = function(){
 		$('#reportTable').tableExport({
 			type: 'excel',
 			escape: 'false',
-			fileName: $(".TimeSel").val()+'月公出汇总表'
+			fileName: $(".TimeSel").val()+'公出汇总表'
 		});
 	});
 	//设置表格内容区域高度
@@ -213,6 +206,14 @@ window.onload = function(){
 	        index += count;
 	    }
 	};
+	function mergeCellsByNameLen(data,fieldName,colspan){
+	    var index = 0;
+	    for(var i = 0 ; i < data.length ; i++){
+	    	if(parseInt(data[i].nameLen)>0){
+	    		$table.bootstrapTable('mergeCells',{index:i, field:fieldName, colspan: colspan, rowspan: data[i].nameLen}); 
+	    	}
+	    }
+	};
 	//表格部分
 	var $table; 
 	//保存选中ids 
@@ -221,7 +222,7 @@ window.onload = function(){
 	function CreatTable(parmTime,parmName){
 		$table = $('#reportTable').bootstrapTable({
 			method: 'POST',
-			url:"http://192.168.17.199:8080/reportPublicSummary",
+			url:CTX_PATHZHJCS+"reportPublicSummary",
 	//		ajaxOptions:{
 	//	        headers: {'Authorization': localStorage.getItem("Utoken")}
 	//	    },	
@@ -262,14 +263,14 @@ window.onload = function(){
 					colspan: 1,  //占几列
 					rowspan: 2   //占几行
 				},
-//				{
-//					field: "deptName",
-//					title: "部门",
-//					align: "center",
-//					valign: "middle",
-//					colspan: 1,
-//					rowspan: 2
-//				},
+				{
+					field: "deptName",
+					title: "部门",
+					align: "center",
+					valign: "middle",
+					colspan: 1,
+					rowspan: 2
+				},
 				{
 					field: "name",
 					title: "公出人员",
@@ -284,13 +285,51 @@ window.onload = function(){
 					colspan: 4,
 					rowspan: 1			
 				},{
+					field: "signDate",
+					title: "移动端打卡时间",
+					align: "center",
+					valign: "middle",
+					colspan: 1,
+					rowspan: 2,
+					formatter: function (value, row, index){
+						if(value == "" || value == null || value == undefined || value == " " || value == "undefined"){
+							return "";
+						}else{
+							return value;
+						}
+					}
+				},{
+					field: "address",
+					title: "移动端打卡地址",
+					align: "center",
+					valign: "middle",
+					colspan: 1,
+					rowspan: 2,
+					formatter: function (value, row, index){
+						if(value == "" || value == null || value == undefined || value == " " || value == "undefined"){
+							return "";
+						}else{
+							return value;
+						}
+					}
+				},{
 					field: "hourLength",
 					title: "时长/小时",
 					align: "center",
 					valign: "middle",
 					colspan: 1,
 					rowspan: 2
-				}
+				},{
+			    	field: "hourtotal",
+			    	title: "累计（小时）",
+			    	align: "center",
+					valign: "middle",
+					colspan: 1,
+					rowspan: 2,
+					formatter: function (value, row, index){			
+						return (Number(value).toFixed(2));
+					}
+			    }
 			    ],
 			    [{
 					field: "startDate",
@@ -328,12 +367,11 @@ window.onload = function(){
 			queryParams: queryParams(parmTime,parmName),//前端调用服务时，会默认传递上边提到的参数，如添加自定义参数，自定义一个函数返回请求参数
 			//sidePagination: "client",   //分页方式：client客户端分页，server服务端分页（*）
 			responseHandler:function (res) { //在渲染页面数据之前执行的方法
-				console.log(res);
+				//console.log(res);
 				if(res.status != 0){
 			        alert(res.message);
 			        return;
-			    }
-				//console.log(setData(res.data));
+			   }
 				//如果没有错误则返回数据，渲染表格
 			    return {
 			        //total : res.data.totalNumber, //总页数,前面的key必须为"total"
@@ -353,8 +391,10 @@ window.onload = function(){
 			    $('#reportTable').bootstrapTable('removeAll');  
 			},
 			onLoadSuccess: function (data) {
+				//console.log(data.data);
 				//mergeCells(data.data, "deptName", 1);//部门行合并
 				mergeCells(data.data, "name", 1);//公出人员行合并
+				mergeCellsByNameLen(data.data, "hourtotal", 1);//累计时间（小时）行合并hourtotal
 			}
 	    });
 	}
@@ -362,24 +402,8 @@ window.onload = function(){
     $(window).resize(function() {
 		$('#reportTable').bootstrapTable('resetView');
 	});
-//  var QueryParam = {
-//  	'startDate': $(".TimeSel").val().substring(0,10),
-//  	'endDate':  $(".TimeSel").val().substring(13),
-//  	'checkName': $(".NameSel").val(),  //姓名参数
-//  	'deptName': $(".DeptSel").val()  //部门参数
-//  };
-    //console.log(JSON.stringify(QueryParam));
-    //console.log(typeof(JSON.stringify(QueryParam)));
     //请求服务数据时所传参数
 	function queryParams(params1,params2){
-		console.log(params1);
-//		var seartype;
-//		//判断search模糊查询的是否为空
-//		if(params.searchText.trim() == ""){
-//			seartype = null;
-//		}else{
-//			seartype = params.searchText;
-//		}
 	    return JSON.stringify({
 	    	'startDate': params1.substring(0,10),
 	    	'endDate':  params1.substring(13),
@@ -393,10 +417,6 @@ window.onload = function(){
 //	        //search: seartype
 //          //order : params.sortOrder, //排序
 //          //orderBy: params.sortName  //按哪一列排序
-//	        //条件查询参数
-//	        //productState: $("#select1").val(),
-//	        //productType: $("#select2").val()
-
 	};
     
 	
@@ -407,6 +427,7 @@ window.onload = function(){
 		var arr = [];
 		var dest = [];
 		var list = [];
+		var listBetter = [];
 		//第一层循环给部门加stringNameLen表示字段,根据数组长度标识部门行rowspan的数值
 		for(var i=0;i<obj.length;i++){
 			var lenBM = obj[i].publicSummaryModelList.length;
@@ -448,6 +469,25 @@ window.onload = function(){
 				list.push(dest[i].data[j]);
 			}
 		}
+		for(z=0;z<list.length;z++){
+			//当公出汇总时长为0时，前端调用函数计算出时间差，填补时长
+			if(parseInt(list[z].hourLength) == 0){
+				list[z].hourLength = workTime(list[z].endDate+" "+list[z].endHourDate,list[z].startDate+" "+list[z].startHourDate);
+			}
+		}
+		//console.log(list);
+		for(k=0;k<list.length;k++){	
+			if(parseInt(list[k].nameLen) > 0){
+				list[k].hourtotal = 0;
+				//该循环累计一个人的公出时长
+				for(k1=0;k1<parseInt(list[k].nameLen);k1++){
+					if(list[k+k1].hourLength){
+						list[k].hourtotal += parseFloat(list[k+k1].hourLength);
+					}	
+				}
+			}
+		}
+		//console.log(list);
         return list;
 	}
 	

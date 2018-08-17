@@ -310,6 +310,7 @@
             return reval;
         },
         loadMenu: function () {
+        	//alert("加载菜单！");
 //  	    var data = [
 //  	        {
 //  	        	"f_ModuleId": "1", 
@@ -332,9 +333,16 @@
             var data = menuData;            
             var _html = "";
             $.each(data, function (i) {
+            	//console.log(i);
 	            var row = data[i];
-	            if (row.f_ParentId == "0" || row.f_ParentId == "1_2") {					
-	                _html += '<li class="treeview">';                
+	            if (row.f_ParentId == "0") {			
+	            	if(i == 0 && row.f_SecondaryLanding){
+	            		_html += '<li class="treeview" id="firstMenu">'; 
+	            	}else if(i == 0 && !row.f_SecondaryLanding){
+	            		_html += '<li class="treeview active" id="firstMenu">'; 
+	            	}else{
+	            		_html += '<li class="treeview">'; 
+	            	}                               
 	                //判断是否有儿子节点,并判断是否需要二次登录
 	                if(row.f_Children && row.f_SecondaryLanding){
 	                	_html += '<a href="#" id="userLog'+row.f_ModuleId+'" class="SecdLogin" style="position:relative"><i class="' + row.f_Icon + '"></i><span>' + row.f_FullName + '</span><i class="fa fa-angle-right" style="position:absolute;right:4%;top:10px;"></i></a>'
@@ -371,11 +379,21 @@
 	            }
 	        });
             $("#sidebar-menu").append(_html);
+            //设置一个定时器模拟点击第一个菜单
+		    setTimeout(function(){
+		    	//这里判断如果为二级菜单并且不需要二次登录，就打开该二级菜单下的第一个子菜单，否则直接点击第一个a标签
+		    	if($("#sidebar-menu li a:first").attr("href") == "#" && !$("#sidebar-menu li a:first").hasClass("SecdLogin")){
+		    		$("#sidebar-menu li a").eq(1).click();
+		    	}else{
+		    		$("#sidebar-menu li a:first").click();
+		    	}	
+		    },500);
             //点击左侧菜单栏a标签(一级标题)
-            $("#sidebar-menu li a").click(function () {         
+            $("#sidebar-menu li a").click(function () {           	
             	//先判断是否需要二次登录
             	if($(this).hasClass('SecdLogin')){
             		FirstMenuClick = $(this);
+            		//console.log(FirstMenuClick.attr('id'));
             		//判断用户是否有过二次登录
             		//if(getCookie(FirstMenuClick.attr('id')) == "Yes"){
             		if(sessionStorage.getItem(FirstMenuClick.attr('id')) == "Yes"){
@@ -385,7 +403,7 @@
 		                        e1.removeClass("menu-open")
 		                    }),
 		                    e1.parent("li").removeClass("active")
-		                } else if (e1.is(".treeview-menu") && !e1.is(":visible")) {               	
+		                }else if (e1.is(".treeview-menu") && !e1.is(":visible")) {
 		                    var f1 = d1.parents("ul").first(),
 		                    g1 = f1.find("ul:visible").slideUp(500);
 		                    g1.removeClass("menu-open");
@@ -412,7 +430,7 @@
 	                        e.removeClass("menu-open")
 	                    }),
 	                    e.parent("li").removeClass("active")
-	                } else if (e.is(".treeview-menu") && !e.is(":visible")) {               	
+	                }else if (e.is(".treeview-menu") && !e.is(":visible")) {
 	                    var f = d.parents("ul").first(),
 	                    g = f.find("ul:visible").slideUp(500);
 	                    g.removeClass("menu-open");
@@ -441,13 +459,13 @@
     	$.ajax({
 	  	    async: true,
 			type:'get',
-			url:"http://127.0.0.1/api/admin/navbar",
+			url:CTX_PATHNG+"admin/navbar",
 			headers: {'Authorization': localStorage.getItem("Utoken")},
 			data:{
 				username: localStorage.getItem("Uname")
 			},
 			success:function(result){
-				console.log(result);
+				//console.log(result);
 				var datareturn = result.data.navbar;
 				if(result.code == "0"){
 					menuData = datareturn;
@@ -510,11 +528,11 @@
     	$.ajax({
       	    async: true,
 			type:'get',
-			url:"http://127.0.0.1/api/admin/logout",
+			url:CTX_PATHNG+"admin/logout",
 			headers: {'Authorization': localStorage.getItem("Utoken")},
 			data:{},
 			success:function(result){
-				console.log(result);
+				//console.log(result);
 				if(result.code == "0"){
 					localStorage.removeItem("Utoken");       //清除一级登录token
 					//sessionStorage.removeItem("CRMUtoken");  //清除二级登录token
@@ -549,7 +567,7 @@
             $.ajax({
           	    async: true,
 				type:'post',
-				url:"http://127.0.0.1/api/admin/user/updatePwd",
+				url:CTX_PATHNG+"admin/user/updatePwd",
 				headers: {'Authorization': localStorage.getItem("Utoken")},
 				data:{
 				    oldPassword: $(".InOldPsd").val(),
@@ -557,7 +575,7 @@
 			        password2: $(".AgainNewPsd").val()
 			    },
 				success:function(result){
-					console.log(result);
+					//console.log(result);
 					if(result.code == "0"){
 						$(".resetPassword").modal('hide');
 						sessionStorage.clear();  //清除session
@@ -601,18 +619,19 @@
 	            },
           	    async: true,
 				type:'post',
-				url:"http://127.0.0.1/api/admin/crm/login",
+				url:CTX_PATHNG+"admin/crm/login",
 				data:{
 				    username: $(".InSecondNam").val(),
 			        password: $(".InSecondPsd").val()
 			    },
 				success:function(result){
-					console.log(result);
+					//console.log(result);
 					var datareturn = result.data;
 					if(result.code == "0"){
 						//本地存储CRM登录token值
 						sessionStorage.setItem("CRMUtoken",datareturn.authToken);
 						//本地存储登录理财师ID以及存储理财师部门ID
+						sessionStorage.setItem("LCSNAME",datareturn.userInfo.systemUserName);
 						sessionStorage.setItem("LCSID",datareturn.userInfo.systemUserId);
 						sessionStorage.setItem("LCSBMID",datareturn.userInfo.businessUnitId);
 						//隐藏登录弹窗
@@ -644,6 +663,8 @@
 		                        f.find("li.active").removeClass("active"),
 		                        h.addClass("active");
 		                    })
+		                    //二级登录成功默认打开第一个子菜单
+		                    e.find('a').eq(0).click();
 		                } else if (!d.parent().parent().is(".treeview-menu")){              	    
 		               	    d.parent("li").siblings().removeClass("active");
 		               	    $(".treeview-menu").slideUp(500,function(){

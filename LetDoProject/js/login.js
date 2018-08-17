@@ -14,31 +14,33 @@ window.onload = function(){
 		if($(this).val() == ""){
 			$(".nameNull").html("用户名不能为空！");
 			$(this).siblings('span').css("display","block");
-		}else{
-			//正则校验
-        	var Trimuser = $.trim($(".userName").val());
-            var myReg = /^[0-9a-zA-Z_]{1,}$/;
-            if(!myReg.test(Trimuser)){
-            	$(".nameNull").html("字母、数字、下划线组合！").css("display","block");
-                return;
-            };
-            $(this).siblings('span').css("display","none");
 		}
+//		else{
+//			//正则校验
+//      	var Trimuser = $.trim($(".userName").val());
+//          var myReg = /^[0-9a-zA-Z_]{1,}$/;
+//          if(!myReg.test(Trimuser)){
+//          	$(".nameNull").html("字母、数字、下划线组合！").css("display","block");
+//              return;
+//          };
+//          $(this).siblings('span').css("display","none");
+//		}
 	});
 	$(".userPsd").blur(function(){
 		if($(this).val() == ""){
 		    $(".psdNull").html("密码不能为空！");
 			$(this).siblings('span').css("display","block");
-		}else{
-			//正则校验
-        	var Trimpsd = $.trim($(".userPsd").val());
-            var myReg = /^[0-9a-zA-Z_]{1,}$/;
-            if(!myReg.test(Trimpsd)){
-            	$(".psdNull").html("字母、数字、下划线组合！").css("display","block");
-                return;
-            };
-            $(this).siblings('span').css("display","none");
 		}
+//		else{
+//			//正则校验
+//      	var Trimpsd = $.trim($(".userPsd").val());
+//          var myReg = /^[0-9a-zA-Z_]{1,}$/;
+//          if(!myReg.test(Trimpsd)){
+//          	$(".psdNull").html("字母、数字、下划线组合！").css("display","block");
+//              return;
+//          };
+//          $(this).siblings('span').css("display","none");
+//		}
 	});
 	//页面初始化时，如果帐号密码cookie存在则填充
     if(getCookie('user') && getCookie('pswd')){
@@ -71,14 +73,14 @@ window.onload = function(){
         	var Trimuser = $.trim($(".userName").val()),
                 Trimpsd = $.trim($(".userPsd").val());
             var myReg = /^[0-9a-zA-Z_]{1,}$/;
-            if(!myReg.test(Trimuser)){
-            	$(".nameNull").html("字母、数字、下划线组合！").css("display","block");
-                return;
-            };
-            if(!myReg.test(Trimpsd)){
-            	$(".psdNull").html("字母、数字、下划线组合！").css("display","block");
-                return;
-            };
+//          if(!myReg.test(Trimuser)){
+//          	$(".nameNull").html("字母、数字、下划线组合！").css("display","block");
+//              return;
+//          };
+//          if(!myReg.test(Trimpsd)){
+//          	$(".psdNull").html("字母、数字、下划线组合！").css("display","block");
+//              return;
+//          };
             
         	//如果选择记住账户信息，保存cookie
         	if(Uerrember.prop('checked') == true){ 
@@ -95,7 +97,7 @@ window.onload = function(){
 	            },
           	    async: true,
 				type:'post',
-				url:"http://127.0.0.1/api/admin/login",
+				url:CTX_PATHNG+"admin/login",
 				data:{
 				    username: $(".userName").val(),
 			        password: $(".userPsd").val()

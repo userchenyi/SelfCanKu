@@ -15,10 +15,11 @@
 		<script src="../../js/bootstrapTable/bootstrap-table-zh-CN.js"></script>
 		<!--tableexport-->
 		<script src="../../plugins/tableExport/tableExport.min.js" type="text/javascript" charset="utf-8"></script>
-		<!--datetimepicker-->
-		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>		
+		<!--laydate-->
+		<script src="../../plugins/laydate/laydate.js"></script>
 		<!--page-->
+		<script src="../../utils/pagesFunctionPack.js"></script>
+		<script src="../../js/CTX_PATH.js"></script>
 		<script src="../../js/StatisticsReport/ThreeCaseSum.js"></script>
 	</head>
 	<body>
@@ -27,15 +28,18 @@
 			<div class="selectCont">
 				<span class="titleTiShi"><strong>迟到、早退、旷工汇总表</strong></span>
 		        <!--时间选择-->
-		        <span class="TimeSelSp"><strong>选择时间：</strong></span>
+		        <span class="TimeSelSp"><strong>时间区间：</strong></span>
 		        <input type="text" class="TimeSel form-control" value="" readonly="readonly" />
 		        <!--搜索姓名-->
 		        <span class="NameSelSp"><strong>搜索姓名：</strong></span>
 		        <input type="text" class="NameSel" value="" placeholder="姓名搜索 Enter" />
+		        <!--屏蔽姓名-->
+		       <!-- <span class="ScreenName"><strong>屏蔽姓名搜索</strong></span>-->
 		        <!--搜索部门-->
-		        <span class="DeptSelSp"><strong>搜索部门：</strong></span>
-		        <input type="text" class="DeptSel" value="" placeholder="部门搜索 Enter" />
+		        <!--<span class="DeptSelSp"><strong>搜索部门：</strong></span>
+		        <input type="text" class="DeptSel" value="" placeholder="部门搜索 Enter" />-->
 		        <!--导出全部-->
+		        <div class="SendMsg">发送邮件</div>
 		        <a class="modelExportAll" href="javascript:void(0)">导出</a>
 			</div>   
 			<!--表格部分-->
@@ -43,6 +47,26 @@
 				<table id="reportTable">
 				</table>
 			</div>
+			<!--屏蔽姓名弹出窗-->
+			<!--<div class="modal fade ScreenNameAlert" style="top:18%;" tabindex="-1" role="dialog" aria-labelledby="myModalLabelWrite" aria-hidden="true">
+				<div class="modal-dialog" style="width:400px">
+					<div class="modal-content">
+						<div class="modal-header ScreenNameHeader">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" class="ScreenNameTile" style="color:#222222;font-size:13px;line-height:32px;"><strong>屏蔽姓名搜索</strong></h4>
+						</div>
+						<div class="modal-body" style="width:100%; overflow:auto;">
+							<span class="AddNameSp">输入姓名添加<i style="color:#FF5722">*</i>：</span>
+							<input type="password" maxlength="16" class="InOldPsd" placeholder="输入需要屏蔽的姓名" /><br>
+							
+						</div>
+						<div class="modal-footer rScreenNameFooter">
+							<button type="button" class="ScreenNameF" data-dismiss="modal"><strong>取消</strong></button>
+							<button type="button" class="ScreenNameY"><strong>确定</strong></button>
+						</div>
+					</div>
+				</div>
+			</div>-->
 		</div>
 	</body>
 </html>

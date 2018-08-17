@@ -1,0 +1,518 @@
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 5px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 20px;
+    background-clip: content-box;
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, .2) inset;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+/* 初始化标签在所有浏览器中的margin、padding值 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+table,
+th,
+td,
+input,
+select,
+textarea,
+button,
+img {
+	padding: 0;
+	margin: 0;
+}
+
+/*a链接*/
+
+a {
+	text-decoration: none;
+}
+
+/*input框*/
+body input {
+	outline: none;
+}
+
+/*placeholder字体颜色*/
+
+.AddProductWrapper input::-moz-placeholder {
+	color: #afb7c8;
+}
+
+.AddProductWrapper input::-webkit-input-placeholder {
+	color: #afb7c8;
+}
+
+.AddProductWrapper input::-ms-input-placeholder {
+	color: #afb7c8;
+}
+
+ul li{
+	list-style: none;
+}
+
+
+/*表格文字居中显示*/
+
+.AddProductWrapper table th,
+td {
+	text-align: center;
+}
+/* 缩写，图片等无边框 */
+fieldset,
+img,
+abbr,
+acronym {
+	border: 0 none;
+}
+select{
+    background: transparent;
+    border:none;
+    outline: none;
+}
+
+.dotMark{
+	color:#FF5722;
+	/*font-style: normal;*/
+}
+.monMaked{
+	background:#3C8DBC; 
+	color:#fff !important;
+}
+.Inplock{
+	position: absolute;
+	left: 38%;
+	top: 50%;
+	transform: translate(0,-50%);
+	color: 	#999999;
+}
+/*富文本编辑器样式*/
+.toolbarADD{
+	border-bottom: 1px solid #EDEDED;
+	box-sizing: border-box;
+	z-index: 1800;
+}
+.WRichtextADD{
+	width: 100%;
+	height: 130px;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	background: #FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 13px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+/*外层包裹容器*/
+body .AddProductWrapper{
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0 17.2px;
+	overflow: auto;
+	box-sizing: border-box;
+}
+.AddProductWrapper .modalTiltleBtADD{
+	float: left;
+	margin: 20px 0px 10px 17px;
+	background: #EDEDED;
+	color: rgb(17,96,183);
+	outline: none !important;
+	border: none;
+}
+.AddProductWrapper .contmodalADD{
+	float:left;
+	width:100%;
+	border-bottom:1px solid #EDEDED;
+	clear:both;
+	box-sizing:border-box;
+}
+#CGcontentADD li{
+	position: relative;
+	float: left;
+	margin-bottom: 6px;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+}
+.contmodalADD li .splADD{
+	float: left;
+	width: 36%;
+	height: 100%;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+.contmodalADD li .sprADD{
+	float: left;
+	width: 64%;
+	height: 100%;
+	line-height: 40px;
+	text-align: left;
+	padding-left: 6.2%;
+	box-sizing: border-box;
+	border: 1px solid #EDEDED;
+	color: #555555;;
+	background: #fff;
+	border-radius: 6px;
+}
+/*单独存续期限一行*/
+.contmodalADD .liTimeSlectADD{
+	width: 66.66% !important;
+}
+.liTimeSlectADD .splADD{
+	width: 18% !important;
+}
+.liTimeSlectADD .monthDotADD{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	margin-top: 4px;
+	margin-left: 2%;
+	padding: 0 8px;
+	border: 1px solid #EDEDED;
+	border-radius: 6px;
+	color: #888888;
+	cursor: pointer;
+}
+.liTimeSlectADD .montfirstADD{
+	margin-left: 0px;
+}
+/*---------------------------------详细信息FOF类产品---------------------------------------*/
+.AddProductWrapper .FOURcontmodalADD{
+	float:left;
+	width:100%;
+	border-bottom:1px solid #EDEDED;
+	clear:both;
+	box-sizing:border-box;
+}
+.FOFcontentUlContADD li{
+	position: relative;
+	float: left;
+	margin-bottom: 6px;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+}
+.FOFcontentUlContADD .splADD{
+	float: left;
+	width: 36%;
+	height: 100%;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+.FOFcontentUlContADD .sprADD{
+	float: left;
+	width: 64%;
+	height: 100%;
+	line-height: 40px;
+	text-align: left;
+	padding-left: 6.2%;
+	box-sizing: border-box;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+}
+.FOFedirtorAreaADD .lipADD{
+	position: relative;
+	float: left;
+	margin-bottom: 16px;
+	width: 100%;
+	height: 162px;
+	box-sizing: border-box;
+}
+.lipADD .splADD{
+	float: left;
+	width: 12% !important;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+/*FOF文本域模块*/
+.FOFedirtorAreaADD .sprpADD{
+	float: left;
+	width: 88%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: left;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+	resize:none;
+	outline: none;
+	overflow: auto;
+	box-sizing: border-box;
+}
+/*---------------------------------详细信息固定收益类产品---------------------------------------*/
+.GDSYcontentUlContADD li{
+	position: relative;
+	float: left;
+	margin-bottom: 6px;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+}
+.GDSYcontentUlContADD .splADD{
+	float: left;
+	width: 36%;
+	height: 100%;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+.GDSYcontentUlContADD .sprADD{
+	float: left;
+	width: 64%;
+	height: 100%;
+	line-height: 40px;
+	text-align: left;
+	padding-left: 6.2%;
+	box-sizing: border-box;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+}
+.GDSYedirtorAreaADD .lipADD{
+	position: relative;
+	float: left;
+	margin-bottom: 16px;
+	width: 100%;
+	height: 162px;
+	box-sizing: border-box;
+}
+/*固定收益类产品文本域模块*/
+.GDSYedirtorAreaADD .sprpADD{
+	float: left;
+	width: 88%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: left;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+	resize:none;
+	outline: none;
+	overflow: auto;
+	box-sizing: border-box;
+}
+/*---------------------------------详细信息PPP类产品---------------------------------------*/
+.PPPcontentUlContADD li{
+	position: relative;
+	float: left;
+	margin-bottom: 6px;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+}
+.PPPcontentUlContADD .splADD{
+	float: left;
+	width: 36%;
+	height: 100%;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+.PPPcontentUlContADD .sprADD{
+	float: left;
+	width: 64%;
+	height: 100%;
+	line-height: 40px;
+	text-align: left;
+	padding-left: 6.2%;
+	box-sizing: border-box;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+}
+.PPPedirtorAreaADD .lipADD{
+	position: relative;
+	float: left;
+	margin-bottom: 16px;
+	width: 100%;
+	height: 162px;
+	box-sizing: border-box;
+}
+/*PPP产品文本域模块*/
+.PPPedirtorAreaADD .sprpADD{
+	float: left;
+	width: 88%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: left;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+	resize:none;
+	outline: none;
+	overflow: auto;
+	box-sizing: border-box;
+}
+/*---------------------------------详细信息PE股权类产品---------------------------------------*/
+.PEcontentUlContADD li{
+	position: relative;
+	float: left;
+	margin-bottom: 6px;
+	width: 33.33%;
+	height: 40px;
+	line-height: 40px;
+}
+.PEcontentUlContADD .splADD{
+	float: left;
+	width: 36%;
+	height: 100%;
+	line-height: 40px;
+	text-align: right;
+	padding-right: 6px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #555555;
+	box-sizing: border-box;
+}
+.PEcontentUlContADD .sprADD{
+	float: left;
+	width: 64%;
+	height: 100%;
+	line-height: 40px;
+	text-align: left;
+	padding-left: 6.2%;
+	box-sizing: border-box;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+}
+.PEedirtorAreaADD .lipADD{
+	position: relative;
+	float: left;
+	margin-bottom: 16px;
+	width: 100%;
+	height: 162px;
+	box-sizing: border-box;
+}
+/*PE股权类文本域模块*/
+.PEedirtorAreaADD .sprpADD{
+	float: left;
+	width: 88%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: left;
+	border: 1px solid #EDEDED;
+	color: #555555;
+	background: #fff;
+	border-radius: 6px;
+	resize:none;
+	outline: none;
+	overflow: auto;
+	box-sizing: border-box;
+}
+/*保存按钮*/
+.AddProductWrapper .ProductSubmitADD{
+	float: left;
+	margin: 40px 0px;
+	margin-left: 50%;
+	width: 80px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 16px;
+	transform: translate(-50%);
+	background: #3C8DBC;
+	color: #FFFFFF;
+	border-radius: 6px;
+	outline: none !important;
+	border: none;
+}

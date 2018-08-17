@@ -16,9 +16,13 @@
 		<!--tableexport-->
 		<script src="../../plugins/tableExport/tableExport.min.js" type="text/javascript" charset="utf-8"></script>
 		<!--datetimepicker-->
-		<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>		
+		<!--<script src="../../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="../../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>		-->
+		<!--laydate-->
+		<script src="../../plugins/laydate/laydate.js"></script>
 		<!--page-->
+		<script src="../../utils/pagesFunctionPack.js"></script>
+		<script src="../../js/CTX_PATH.js"></script>
 		<script src="../../js/StatisticsReport/OverWorkSum.js"></script>
 	</head>
 	<body>
@@ -27,14 +31,14 @@
 			<div class="selectCont">
 				<span class="titleTiShi"><strong>加班汇总表</strong></span>
 		        <!--时间选择-->
-		        <span class="TimeSelSp"><strong>选择时间：</strong></span>
+		        <span class="TimeSelSp"><strong>时间区间：</strong></span>
 		        <input type="text" class="TimeSel form-control" value="" readonly="readonly" />
 		        <!--搜索姓名-->
 		        <span class="NameSelSp"><strong>搜索姓名：</strong></span>
 		        <input type="text" class="NameSel" value="" placeholder="姓名搜索 Enter" />
 		        <!--搜索部门-->
-		        <span class="DeptSelSp"><strong>搜索部门：</strong></span>
-		        <input type="text" class="DeptSel" value="" placeholder="部门搜索 Enter" />
+		        <!--<span class="DeptSelSp"><strong>搜索部门：</strong></span>
+		        <input type="text" class="DeptSel" value="" placeholder="部门搜索 Enter" />-->
 		        <!--导出全部-->
 		        <a class="modelExportAll" href="javascript:void(0)">导出</a>
 			</div>   
